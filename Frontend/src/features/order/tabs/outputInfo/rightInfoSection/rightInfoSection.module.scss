@@ -1,0 +1,55 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.rightInfoSection__wrapper {
+  @include display(column, 30px);
+  padding-top: 34px;
+
+  .rightInfoSection__table {
+    max-width: 600px;
+    @include display(column, 10px);
+    justify-content: space-between;
+    height: 359px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .rightInfoSection__filter {
+    @include display(row, 33px);
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    @include text(16px, 19px, 400, $text_color);
+
+    .rightInfoSection__filter_title {
+      height: 37px;
+      align-self: center;
+    }
+
+    .rightInfoSection__filter_input {
+      width: 323px;
+      .rightInfoSection__filter_label {
+        @include text(14px, 17px, 400, $table_border_color);
+      }
+    }
+  }
+
+  .rightInfoSection__filter_info {
+    @include display(column, 30px);
+    width: 100%;
+
+    .rightInfoSection__filter_info_item {
+      @include display(row, 40px);
+
+      .rightInfoSection__filter_info_item_title {
+        min-width: 225px;
+      }
+    }
+  }
+
+  .rightInfoSection__filter_buttons {
+    @include display(row, 58px);
+    justify-content: flex-end;
+
+  }
+}

@@ -1,0 +1,13 @@
+@import "src/common/styles/mixins";
+
+.tableWrapper {
+  min-width: 729px;
+
+  .table {
+    @include table-style;
+
+    .tableHeader {
+      height: 40px;
+    }
+  }
+}

@@ -1,0 +1,144 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.staff {
+    display: grid;
+    grid-template-columns: 1fr auto;    
+}
+.table {
+    @include table-style;    
+}
+.tableWrapper {
+    @include scrollableTableWrapper(59vh)
+}
+.activeRowData {
+    width: 715px;
+    padding: 0 20px;
+    color: $text_color;
+    .label {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 170px;
+        text-align: center;
+    }
+    .title {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;        
+        margin: 10px 0 5px;        
+    }    
+    .license {
+        display: flex;
+        justify-content: space-between;
+    }
+    input {
+        @include inputs;
+    }    
+}
+.categoriesContainer {
+    border: 1px solid $dark_blue;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 18px;
+    label {
+            display: flex;
+            flex-basis: 40%;
+            align-items: center;
+            justify-content: baseline;
+            gap: 5px;            
+        }        
+    .categories {        
+        display: grid;        
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 5px 10px;
+        
+        &:nth-child(1), &:nth-child(5) {
+            grid-template-columns: 1fr;            
+            label {
+                flex-basis: 60%;
+            }
+        }        
+    }    
+}
+.tractorLicense {
+    margin-top: 10px;
+    display: flex;
+    align-items: flex-end;
+    gap: 90px;
+}
+.tachograph {
+    display: flex;
+    gap: 90px;
+    margin-top: 10px;
+}
+.driver {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    .title {
+        margin: 0 0 5px;
+        font-size: 16px;
+        font-style: normal; 
+        line-height: normal;
+    }
+    align-items: stretch;
+}
+.driverInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+    label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+    }    
+}
+.driverRoles {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $dark_blue;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    gap: 10px;
+    label {
+        display: flex;
+        align-items: center;
+        gap: 15px;        
+    }    
+}
+.staffGroup {
+    margin-top: 27px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    label {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        margin-right: 10%;
+    }
+}
+.btnBlock {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 30px;
+    margin-top: 30px;
+}

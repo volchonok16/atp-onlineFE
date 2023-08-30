@@ -1,0 +1,71 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.relatedData__wrapper {
+  @include display(column, 15px);
+  position: relative;
+
+  .relatedData__mainInfo_wrapper {
+    @include display(row, 60px);
+
+    .relatedData__mainInfo_leftBlock {
+      @include display(column, 15px);
+      width: 645px;
+
+      .relatedData__mainInfo_leftBlock_code {
+        @include display(row, 81px);
+        align-items: center;
+
+        .relatedData__mainInfo_leftBlock_code_title {
+          @include text(16px, 19px, 400, $text_color);
+        }
+      }
+
+      .relatedData__mainInfo_leftBlock_buttons {
+        @include display(row, 60px);
+        align-self: flex-end;
+      }
+    }
+
+    .relatedData__mainInfo_rightBlock {
+      @include display(column, 15px);
+
+      .relatedData__mainInfo_rightBlock_buttons {
+        @include display(row, 60px);
+      }
+
+      .relatedData__mainInfo_rightBlock_photo {
+        width: 380px;
+        height: 300px;
+        border: 1px solid $dark_blue;
+        background-color: $elements_inner_background_color;
+      }
+    }
+
+
+  }
+
+  .relatedData__additionalInfo_wrapper {
+    @include display(column, 15px);
+
+    .relatedData__additionalInfo_error {
+      @include display(row, 100px);
+
+      .relatedData__additionalInfo_error_title {
+        width: 400px;
+        text-align: center;
+        @include text(16px, 19px, 400, $text_color);
+      }
+    }
+
+    .relatedData__additionalInfo_blocks {
+      @include display(row, 60px);
+    }
+  }
+
+  .relatedData__buttons_wrapper{
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -65px;
+  }
+}

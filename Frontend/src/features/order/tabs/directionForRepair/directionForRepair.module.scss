@@ -1,0 +1,19 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.directionForRepair__wrapper {
+  @include display(column, 64px);
+  margin: 0 auto;
+  align-items: center;
+
+  .directionForRepair__table {
+    height: 586px;
+    width: 1330px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .directionForRepair__buttons {
+    @include display(row, 40px);
+  }
+}

@@ -1,0 +1,14 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.button {
+  border: none;
+  background-color: transparent;
+  @include text(20px, 24px, 500, $text_color);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.button__active {
+  color: $pressed_turquoise_button;
+  border-bottom: 2px solid $pressed_turquoise_button;
+}

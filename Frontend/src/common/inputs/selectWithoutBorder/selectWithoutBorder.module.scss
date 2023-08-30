@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.selectWithoutBorder__wrapper {
+  @include display(row, 20px);
+  padding-top: 5px;
+
+
+  .selectWithoutBorder__title {
+    min-width: 110px;
+    @include text(20px, 24px, 400, $text_color);
+  }
+
+  .selectWithoutBorder__img {
+
+
+  }
+
+  .selectWithoutBorder__img_active {
+    transform: rotate(180deg);
+
+    margin-top: 2px;
+    margin-left: 6px;
+    filter: invert(25%) sepia(63%) saturate(1030%) hue-rotate(173deg) brightness(102%) contrast(97%);
+  }
+}

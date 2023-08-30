@@ -1,0 +1,17 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.additionalInfo {
+    padding-inline: 20px;
+    input, textarea {
+        @include inputs;
+    }
+    textarea {
+        resize: none;
+    }
+}
+.tabsBtnBlock {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}

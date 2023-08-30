@@ -1,0 +1,16 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.table {
+    @include table-style;
+    td {
+        &:nth-child(1), &:nth-child(3) {
+            text-align: start;
+        }
+    }    
+}
+.activeRow {
+    td {
+        background-color: beige;
+    }
+}

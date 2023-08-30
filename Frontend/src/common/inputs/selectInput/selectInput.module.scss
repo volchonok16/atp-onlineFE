@@ -1,0 +1,64 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.textInput__wrapper {
+  @include display(row, 60px);
+  align-items: center;
+  position: relative;
+
+  .textInput__title {
+    @include text(16px, 19px, 400, $text_color);
+  }
+  .textInput__input__block {
+    @include display(column, unset);
+    width: 100%;
+    .textInput__input {
+      border: 1px solid $dark_blue;
+      width: 100%;
+      @include text(16px, 19px, 400, $text_color);
+      padding: 8px;
+
+      &:focus {
+        outline: none;
+      }
+
+    }
+    .textInput__input__subtitle {
+      @include text(14px, 17px, 400, $table_border_color);
+    }
+  }
+
+  .textInput__input__img_block {
+    position: absolute;
+    height: 27.7px;
+    top: 4px;
+    right: 1px;
+    @include display(row, 25px);
+
+    .textInput__input__img {
+      position: absolute;
+      right: 15px;
+      top: 1px;
+    }
+
+    .textInput__input__img_active {
+      transform: rotate(180deg);
+      top: 10px;
+      right: 5px;
+      filter: invert(25%) sepia(63%) saturate(1030%) hue-rotate(173deg) brightness(102%) contrast(97%);
+    }
+  }
+
+  .textInput__input__img {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  .textInput__input__img_active {
+    transform: rotate(180deg);
+    top: 10px;
+    right: 5px;
+    filter: invert(25%) sepia(63%) saturate(1030%) hue-rotate(173deg) brightness(102%) contrast(97%);
+  }
+}

@@ -1,0 +1,23 @@
+@import "../../../../common/styles/variables";
+@import "../../../../common/styles/mixins";
+
+
+.additionalInfo__wrapper {
+  @include display(column, 30px);
+  position: relative;
+
+  .additionalInfo__checkBox_wrapper {
+    @include display(row, 30px);
+    align-items: center;
+  }
+
+  .additionalInfo__tables_wrapper {
+    @include display(row, 30px);
+  }
+
+  .additionalInfo__buttons_wrapper {
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -110px;
+  }
+}

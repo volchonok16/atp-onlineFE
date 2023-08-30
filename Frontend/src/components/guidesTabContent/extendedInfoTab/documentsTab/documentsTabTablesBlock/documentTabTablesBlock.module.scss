@@ -1,0 +1,26 @@
+@import "../../../../../common/styles/variables";
+@import "../../../../../common/styles/mixins";
+
+
+.documentTabTablesBlock__wrapper {
+  @include display(column, 10px);
+
+  .documentTabTablesBlock__buttons {
+    @include display(row, 10px);
+  }
+
+  .documentTabTablesBlock__tablesBlock {
+    @include display(row, 40px);
+    align-items: flex-end;
+
+    .documentTabTablesBlock__table_wrapper {
+      height: 200px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .documentTabTablesBlock__tablesBlock_buttons {
+      @include display(row, 20px);
+    }
+  }
+}

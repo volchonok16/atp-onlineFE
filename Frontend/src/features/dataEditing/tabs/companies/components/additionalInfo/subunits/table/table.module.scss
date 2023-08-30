@@ -1,0 +1,14 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableWrapper {
+    @include scrollableTableWrapper(35vh)
+}
+.table {
+    @include table-style;            
+}
+.activeRow {
+    td {
+        background-color: beige;
+    }
+}

@@ -1,0 +1,16 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.container {
+  @include display(row, 50px);
+  align-items: center;
+
+  .text {
+    @include text(16px, 18px, 600, $text_color)
+  }
+
+  .input {
+    width: 148px;
+    height: 30px;
+  }
+}

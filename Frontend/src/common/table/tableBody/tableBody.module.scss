@@ -1,0 +1,24 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableBody__wrapper {
+  background-color: $elements_inner_background_color;
+
+  .tableBody__tableRow {
+   display: table-row;
+    width: 100%;
+    align-self: flex-start;
+    border-bottom: 1px solid $table_border_color;
+
+    .tableBody__tableCell {
+      display: table-cell;
+      height: 27px;
+      border-right: 1px solid $table_border_color;
+      padding: 0px 10px;
+    }
+
+    .tableBody__tableCell:last-child{
+      border-right: none;
+    }
+  }
+}

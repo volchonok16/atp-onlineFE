@@ -1,0 +1,15 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.list {
+  @include display(row, 2rem);
+  padding: 0.5rem 2rem;
+  border-radius: 5px;
+  border: 1px solid $blue_button_color;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

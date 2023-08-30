@@ -1,0 +1,13 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.search {    
+    margin-top: 10px;
+    display: flex;
+    gap: 60px;
+    input {
+        @include inputs;
+        width: 100%;
+        max-width: 300px;
+    }
+}

@@ -1,0 +1,25 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.loadingAddresses__wrapper {
+  @include display(column, 35px);
+
+  .loadingAddresses__table_wrapper {
+    width: 530px;
+    height: 710px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .loadingAddresses__searchBlock_wrapper {
+    @include display(row, 35px);
+
+    .loadingAddresses__searchBlock {
+      width: 375px;
+    }
+  }
+
+  .loadingAddresses__buttons_wrapper {
+    @include display(row, 35px);
+  }
+}

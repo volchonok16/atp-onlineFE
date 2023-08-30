@@ -1,0 +1,36 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.extendedInfo__wrapper {
+  @include display(column, 30px);
+
+  .extendedInfo__main_wrapper {
+    @include display(row, 57px);
+
+    .extendedInfo__table {
+      width: 410px;
+      height: 720px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .extendedInfo__content_wrapper {
+      @include display(column, 15px);
+      .extendedInfo__content_tabsButtons {
+        @include display(row, 10px);
+      }
+    }
+  }
+
+  .extendedInfo__filter_block {
+    @include display(row, 130px);
+
+    .extendedInfo__filter_input {
+      width: 410px;
+    }
+
+    .extendedInfo__filter_buttons {
+      @include display(row, 60px);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+@import "../../styles/mixins";
+
+.editButtonContainer {
+  @include display(row, 40px);
+  align-items: flex-start;
+}

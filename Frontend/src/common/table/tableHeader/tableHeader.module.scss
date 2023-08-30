@@ -1,0 +1,20 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableHead__wrapper {
+
+  .tableHead__row {
+
+    .tableHead__cell {
+      border-bottom: 1px solid $dark_blue;
+      border-right: 1px solid $dark_blue;
+      @include text(14px, 17px, 400, $text_color);
+      padding: 11px 25px;
+    }
+
+    .tableHead__cell:last-child {
+      border-right: none;
+    }
+
+   }
+}

@@ -1,0 +1,65 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+
+.calendarBlock__wrapper {
+  position: relative;
+  @include display(row, 53px);
+  align-items: center;
+
+  .calendarBlock__title {
+    text-align: justify;
+    @include text(20px, 24px, 400, $text_color);
+    white-space: nowrap;
+  }
+
+  .calendarBlock__title_small {
+    text-align: justify;
+    @include text(16px, 19px, 400, $text_color);
+    white-space: nowrap;
+  }
+
+  .calendarBlock__input_wrapper {
+
+    .calendarBlock__calendar_wrapper {
+      position: absolute;
+      z-index: 10;
+      right: 0;
+    }
+
+    .calendarBlock__input {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-bottom: 10px;
+
+      .calendarBlock__input_item {
+        border: 1px solid $dark_blue;
+        border-radius: 3px;
+        padding: 6px 8px;
+        @include text(20px, 24px, 400, $text_color);
+        width: 167px;
+      }
+      .calendarBlock__input_item_small {
+        border: 1px solid $dark_blue;
+        padding: 6px 8px;
+        @include text(20px, 24px, 400, $text_color);
+        width: 223px;
+        height: 33px;
+      }
+
+      .calendarBlock__img {
+        position: absolute;
+        top: 4.5px;
+        right: 10px;
+      }
+
+      .calendarBlock__img_active {
+        transform: rotate(180deg);
+        top: 10px;
+        right: 5px;
+        filter: invert(25%) sepia(63%) saturate(1030%) hue-rotate(173deg) brightness(102%) contrast(97%);
+      }
+    }
+  }
+}

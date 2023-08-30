@@ -1,0 +1,29 @@
+@import "../../styles/mixins";
+
+.filterGroupContainer {
+  @include display(row, 45px);
+  align-items: flex-start;
+
+  .filter {
+    @include display(row, 22px);
+
+    .filterTitle {
+      @include text(16px, 16px, 400, $text_color);
+      margin-top: 9px;
+    }
+
+    .inputWrapper {
+      @include display(column, 3px);
+
+      .input {
+        width: 234px;
+        height: 37px;
+        border: 1px solid $dark_blue;
+      }
+
+      .descriptionTitle {
+        @include text(14px, 16px, 300, $table_border_color)
+      }
+    }
+  }
+}

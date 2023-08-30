@@ -1,0 +1,36 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.customTab__wrapper {
+  @include display(column, 30px);
+
+  .customTab__table {
+    height: 500px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .customTab__filters_block {
+    @include display(column, 30px);
+
+    .customTab__rating_buttons {
+      @include display(row, 60px);
+      justify-content: flex-end;
+    }
+
+    .customTab__filters {
+      @include display(row, 57px);
+      justify-content: space-between;
+      align-items: center;
+
+      .customTab__filter_title {
+        @include text(16px, 19px, 400, $text_color);
+      }
+
+      .customTab__filter {
+        width: 300px;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,25 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.standardNotes__wrapper {
+  @include display(column, 35px);
+
+  .standardNotes__table_wrapper {
+    width: 530px;
+    height: 710px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .standardNotes__searchBlock_wrapper {
+    @include display(row, 35px);
+
+    .standardNotes__searchBlock {
+      width: 375px;
+    }
+  }
+
+  .standardNotes__buttons_wrapper {
+    @include display(row, 35px);
+  }
+}

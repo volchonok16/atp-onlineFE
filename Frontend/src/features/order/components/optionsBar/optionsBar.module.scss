@@ -1,0 +1,12 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.bar {
+  @include display(row,unset,space-between,center);
+  .bar_group {
+    @include display(row,8px,flex-start,center);
+    input {
+      @include inputs;
+    }
+  }
+}

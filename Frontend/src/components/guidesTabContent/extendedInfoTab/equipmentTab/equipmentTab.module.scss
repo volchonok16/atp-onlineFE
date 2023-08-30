@@ -1,0 +1,32 @@
+@import "../../../../common/styles/variables";
+@import "../../../../common/styles/mixins";
+
+.equipmentTab__wrapper {
+  @include display(column, 37px);
+  position: relative;
+
+  .equipmentTab__table_wrapper {
+    @include display(row, 37px);
+    align-items: flex-end;
+
+    .equipmentTab__table {
+      height: 660px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .equipmentTab__buttons_wrapper {
+      @include display(column, 30px);
+
+      .equipmentTab__buttons {
+        @include display(row, 20px);
+      }
+    }
+  }
+
+  .equipmentTab__buttonsBlock_wrapper {
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -70px;
+  }
+}

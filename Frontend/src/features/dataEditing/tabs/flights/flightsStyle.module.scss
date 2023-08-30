@@ -1,0 +1,21 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.container {
+  @include display(column, 47px);
+  align-items: flex-start;
+
+  .tableWrapper {
+    min-width: 1318px;
+
+    .table {
+      @include table-style;
+    }
+  }
+
+  .logicWrapper {
+    @include display(row, 122px);
+    align-items: flex-start;
+  }
+}
+

@@ -1,0 +1,42 @@
+@import "../../../../common/styles/variables";
+@import "../../../../common/styles/mixins";
+
+.passesTab__wrapper {
+  @include display(row, 40px);
+  position: relative;
+
+  .passesTab__table_wrapper {
+    @include display(column, 20px);
+
+    .passesTab__table {
+      height: 470px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .passesTab__table_buttons {
+      @include display(row, 20px);
+    }
+  }
+
+  .passesTab__routeBlock_wrapper {
+    @include display(column, 10px);
+
+    .passesTab__routeBlock_title {
+      @include text(16px, 19px, 400, $text_color);
+    }
+
+    .passesTab__routeBlock {
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+      width: 200px;
+      height: 200px;
+    }
+  }
+
+  .passesTab__buttons_wrapper {
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -200px;
+  }
+}

@@ -1,0 +1,30 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.container {
+  @include display(row, 12px);
+  align-items: center;
+  position: relative;
+
+  .avatar {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: $auth_form_background_color;
+  }
+
+  .menuContainer {
+    @include display(column, 20px);
+    position: relative;
+
+    .nameSurname {
+      @include text(18px, 22px, 700, $blue_button_color);
+
+      &:hover {
+        @include text(18px, 22px, 700, $pressed_turquoise_button);
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

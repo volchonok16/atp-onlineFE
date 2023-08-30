@@ -1,0 +1,36 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.relatedDataBlock__wrapper {
+  @include display(column, 1px);
+
+  .relatedDataBlock__title {
+    @include text(16px, 19px, 400, $text_color);
+  }
+
+  .relatedDataBlock__content {
+    padding: 11px 18px;
+    border: 1px solid $dark_blue;
+    border-radius: 5px;
+    width: 100%;
+    @include display(column, 10px);
+
+    .relatedDataBlock__content_item {
+      @include display(row, 40px);
+      align-items: center;
+
+      .relatedDataBlock__content_checkbox_title {
+        width: 450px;
+      }
+
+      .relatedDataBlock__content_item_title {
+        width: 260px;
+      }
+
+      .checkbox {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tabs {
+    @include display(row, 30px);
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}

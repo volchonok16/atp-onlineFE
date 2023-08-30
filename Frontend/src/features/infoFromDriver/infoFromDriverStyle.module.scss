@@ -1,0 +1,62 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tab {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr)
+}
+.tableWrapper {
+    @include scrollableTableWrapper(65vh);
+    max-width: 300px;
+    margin-top: 25px;
+}
+.title {    
+    @include text(16px, normal, 600, $text_color);        
+}
+
+.calendar {
+    width: 255px;
+    .title {
+        margin-bottom: 10px;
+    }
+}
+
+.sortValues {
+    @include display(column, 12px);
+    margin-top: 40px;
+    width: 300px;
+    position: relative;    
+    border: 1px solid $table_border_color;
+    padding: 20px 30px;
+    .title {
+        position: absolute;
+        padding: 5px;
+        left: 10%;
+        top: -6%;        
+        background-color: $main_background_color;
+        z-index: 1;
+    }
+    label {
+        padding-left: 20px;
+    }
+    span {
+        position: relative;
+        &::before {
+            position: absolute;
+            left: -40px;
+            top: -5px;
+            content: '';
+            width: 25px;
+            height: 25px;
+            border: 1px solid $dark_blue;
+        }
+    }
+    input[type=checkbox] {
+        opacity: 0;
+    }    
+    input[type=checkbox]:checked ~ span::before {
+        background-image: url('../../assets//img/checkIcon.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+    }    
+}

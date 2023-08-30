@@ -1,0 +1,21 @@
+@import "src/common/styles/mixins";
+
+.tableWrapper {
+  min-width: 700px;
+
+  .table {
+    @include table-style;
+
+    .tableHeader {
+      height: 40px;
+    }
+
+    .tBody {
+      background-color: $button_text_color;
+
+      .firstColumn {
+        text-align: start;
+      }
+    }
+  }
+}

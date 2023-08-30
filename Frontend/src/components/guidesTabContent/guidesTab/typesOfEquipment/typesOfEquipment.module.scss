@@ -1,0 +1,17 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.typesOfEquipment__wrapper {
+  @include display(column, 30px);
+
+  .typesOfEquipment__table_wrapper {
+    height: 710px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .typesOfEquipment__buttons_wrapper {
+    @include display(row, 40px);
+  }
+
+}

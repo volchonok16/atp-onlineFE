@@ -1,0 +1,25 @@
+@import "../../../../../common/styles/variables";
+@import "../../../../../common/styles/mixins";
+
+
+.additionalInfoTable__wrapper {
+  @include display(column, 20px);
+
+  .additionalInfoTable__table_wrapper {
+    @include display(column,2px);
+
+    .additionalInfoTable__table_title {
+      @include text(16px, 19px, 400, $text_color);
+    }
+
+    .additionalInfoTable__table {
+      height: 470px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+  }
+
+  .additionalInfoTable__table_buttons {
+    @include display(row,20px);
+  }
+}

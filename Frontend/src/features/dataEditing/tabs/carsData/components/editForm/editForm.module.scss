@@ -1,0 +1,103 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.editForm {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    form {
+        background-color: aliceblue;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        padding: 1rem;
+        color: $text_color;        
+        
+        input, select {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 1rem;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            -ms-border-radius: 3px;
+            -o-border-radius: 3px;
+}
+        input[type=number] {
+            max-width: 3rem;
+            text-align: center;
+            margin-left: 5px;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }        
+
+        .title {
+            font-size: large;
+            margin-bottom: 10px;            
+        }
+        
+        .subTitle {
+            font-size: medium;            
+        }
+
+        .aboutCar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            .title {
+                flex-basis: 100%;        
+            }
+            label {
+                display: flex;        
+                flex-direction: column;
+                gap: 5px;                
+            }
+        }
+
+        .fuelConsumption {
+            h4 {
+                text-decoration: underline;
+                margin-bottom: 5px;
+            }
+            .subTitle {
+                margin: 10px 0;
+            }
+            label {
+                margin-right: 10px;
+            }             
+        }
+        .hour {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            .subTitle {
+                flex-basis: 100%;
+            }
+        }
+        .hundred {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 19%;           
+            .subTitle {
+                flex-basis: 100%;
+            }
+            div:nth-child(2) {
+                flex-basis: 100%;                
+            }           
+        }
+    }       
+}
+

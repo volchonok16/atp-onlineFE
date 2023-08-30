@@ -1,0 +1,16 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.orderTab__filters__arrowsGroup {
+  @include display(flex, 59px,flex-end,center);
+  margin: 30px 0;
+}
+.orderTab__filters__block {
+  @include  display(row,69px,space-between,center);
+  .orderTab__filters__inputs {
+    @include display(row,57px,space-between,center);
+    flex-wrap: wrap;
+    }
+  }
+
+

@@ -1,0 +1,10 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableWrapper {
+    @include scrollableTableWrapper(53vh);
+    thead {
+        position: sticky;
+        top: 0;
+    }
+}

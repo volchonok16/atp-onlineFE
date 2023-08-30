@@ -1,0 +1,14 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: center;
+  justify-content: center;
+
+  .text {
+    @include text(34px, 46px, 700, $text_color)
+  }
+}

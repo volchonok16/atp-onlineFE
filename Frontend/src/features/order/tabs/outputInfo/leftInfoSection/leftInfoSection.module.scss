@@ -1,0 +1,82 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+
+.leftInfoSection__wrapper {
+  @include display(column, 30px);
+  width: 480px;
+
+  .leftInfoSection__main_info_block {
+    @include display(column, 15px);
+
+    .leftInfoSection__main_info_block_title {
+      @include display(row, 156px);
+      @include text(16px, 19px, 400, $text_color);
+      padding-right: 60px;
+      justify-content: flex-end;
+    }
+
+    .leftInfoSection__main_info_block_content {
+      @include display(row, 30px);
+
+      .leftInfoSection__content_titles {
+        padding-top: 3px;
+        @include display(column, 38px);
+      }
+
+      .leftInfoSection__content_select {
+        width: 180px;
+        @include display(column, 25px);
+      }
+    }
+  }
+
+  .leftInfoSection__table_block {
+    @include display(column, 10px);
+    justify-content: space-between;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+
+    .leftInfoSection__table_block_footer {
+      @include display(row, 10px);
+      justify-content: space-between;
+      background-color: $main_background_color;
+      border-top: 1px solid $dark_blue;
+      padding: 7px 20px;
+
+      .leftInfoSection__table_block_footer_buttons {
+        @include display(row, 15px);
+      }
+    }
+  }
+
+  .leftInfoSection__buttons_block {
+    @include display(row, 17px);
+  }
+
+  .leftInfoSection__card_info {
+    @include display(row, 17px);
+
+    .leftInfoSection__card_info_title {
+      width: 169px;
+      text-align: center;
+      @include text (14px, 17px, 400, $text_color)
+    }
+
+    .leftInfoSection__card_info_buttons {
+      @include display(row, 15px);
+    }
+  }
+
+  .leftInfoSection__card_button {
+    @include display(row, 26px);
+
+
+    .leftInfoSection__card_button_descr {
+      @include text(calc(10px + 2 * ((100vw - 1024px) / 896)), unset, 400, $table_border_color);
+      width: 300px;
+    }
+  }
+
+
+}

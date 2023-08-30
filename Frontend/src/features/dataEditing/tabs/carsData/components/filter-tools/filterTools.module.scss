@@ -1,0 +1,34 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    @include text(16px, 19px, 400, $text_color);
+    & input {
+        display: inline-block;
+        min-width: 15rem;
+        margin: 0 20px;
+        border: 1px solid $dark_blue;    
+        height: 30px;
+        padding: 10px 8px;
+
+    &:focus {
+      outline: none;
+    }
+    }
+}
+.filterTools {
+    @include display(row, 30px);
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.showArchive {
+    justify-self: center;    
+    & input {
+        margin-right: 10px;
+    }
+}

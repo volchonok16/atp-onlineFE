@@ -1,0 +1,22 @@
+@import "src/common/styles/mixins";
+
+.container {
+  @include display(column, 70px);
+
+  .tablesContainer {
+    @include display(row, 50px);
+  }
+
+  .buttonsContainer {
+    @include display(row, 595px);
+
+    .editButtonContainer {
+      @include display(column, 34px);
+
+      .customerButton {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

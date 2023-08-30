@@ -1,0 +1,27 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.tableWrapper {
+  min-width: 331px;
+
+  .table {
+    @include table-style;
+
+    td {
+      &:nth-child(1), &:nth-child(3) {
+        text-align: start;
+      }
+    }
+
+    .tableHeader {
+      height: 40px;
+    }
+
+    .activeRow {
+      td {
+        background-color: beige;
+      }
+    }
+  }
+}
+

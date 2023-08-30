@@ -1,0 +1,31 @@
+@import "src/common/styles/mixins";
+
+.container {
+  @include display(column, 14px);
+  align-items: center;
+
+  .title {
+    @include text(18px, 24px, 700, $text_color);
+  }
+
+  .tableWrapper {
+    min-width: 482px;
+
+    .table {
+      @include table-style;
+
+      .tableHeader {
+        height: 40px;
+      }
+
+      .tBody {
+        background-color: $button_text_color;
+
+        .firstColumn {
+          text-align: start;
+        }
+      }
+    }
+  }
+
+}

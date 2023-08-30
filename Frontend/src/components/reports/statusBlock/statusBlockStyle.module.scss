@@ -1,0 +1,27 @@
+@import "src/common/styles/mixins";
+
+.container {
+  @include display(column, 25px);
+
+  .title {
+    @include text(18px, normal, 600, $black)
+  }
+
+  .contentBlock {
+    min-width: 400px;
+    background-color: $elements_inner_background_color;
+
+    .contentContainer {
+      @include display(column, 25px);
+      padding: 15px;
+
+      .statusBlock {
+        @include display(column, 5px);
+
+        .info {
+          @include text(14px, normal, 400, $black)
+        }
+      }
+    }
+  }
+}

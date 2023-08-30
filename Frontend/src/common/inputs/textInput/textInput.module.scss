@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.textInput__wrapper {
+  @include display(row, 60px , normal, center);
+  position: relative;
+
+  .textInput__title {
+    @include text(16px, 19px, 400, $text_color);
+    text-wrap: nowrap;
+  }
+  .textInput__input__block {
+    @include display(column, unset);
+    width: 100%;
+    .textInput__input {
+      border: 1px solid $dark_blue;
+      width: 100%;
+
+      @include text(16px, 19px, 400, $text_color);
+      padding: 8px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    input:focus::placeholder {
+      color: transparent;
+    }
+    .textInput__input__subtitle {
+      @include text(14px, 17px, 400, $table_border_color);
+    }
+  }
+
+  .textInput__input__img {
+    position: absolute;
+    right: 1px;
+    bottom: 3.4px;
+  }
+}
+

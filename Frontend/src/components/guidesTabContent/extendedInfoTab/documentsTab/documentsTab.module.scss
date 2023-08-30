@@ -1,0 +1,55 @@
+@import "../../../../common/styles/variables";
+@import "../../../../common/styles/mixins";
+
+.documentsTab__wrapper {
+  @include display(column, 30px);
+  position: relative;
+
+  .documentsTab__mainInfo_wrapper {
+    @include display(row, 73px);
+
+    .documentsTab__mainInfo_item {
+      @include display(column, 10px);
+      align-items: flex-end;
+
+      .documentsTab__mainInfo_dateBlock {
+        @include display(column, 10px);
+
+        .documentsTab__mainInfo_inputItem_titleBlock {
+          @include display(row, 73px);
+          justify-content: flex-end;
+          align-items: flex-end;
+
+          .documentsTab__mainInfo_inputItem_title {
+            @include text(16px, 19px, 400, $text_color);
+          }
+        }
+
+        .documentsTab__mainInfo_dateBlock_input {
+          @include display(row, 23px);
+          align-items: flex-end;
+
+          .documentsTab__mainInfo_dateBlock_input_text {
+            width: 85px;
+          }
+        }
+      }
+
+      .documentsTab__mainInfo_inputItem {
+        @include display(row, 20px);
+        align-items: center;
+
+        .documentsTab__mainInfo_inputItem_title {
+          width: 210px;
+          @include text(16px, 19px, 400, $text_color);
+        }
+      }
+    }
+  }
+
+  .documentsTab__buttons_wrapper {
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -65px;
+  }
+}

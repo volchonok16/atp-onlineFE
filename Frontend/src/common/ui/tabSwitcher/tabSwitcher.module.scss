@@ -1,0 +1,12 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.switcher {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    a {
+        @include navButton($turquoise_button_color, $pressed_turquoise_button);
+    }
+}

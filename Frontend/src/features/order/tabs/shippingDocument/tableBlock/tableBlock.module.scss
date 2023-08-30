@@ -1,0 +1,29 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableBlock__wrapper {
+  @include display(column, 10px);
+
+  .tableBlock__table_wrapper {
+    @include display(row, 20px);
+    align-items: flex-end;
+
+    .table__wrapper {
+      height: 115px;
+      width: 1035px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .button__wrapper {
+      width: 300px;
+    }
+  }
+
+  .tableBlock__buttons_wrapper {
+    @include display(row, 44px);
+  }
+}
+
+
+

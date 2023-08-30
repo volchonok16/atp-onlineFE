@@ -1,0 +1,29 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.additionalDataBlock__wrapper {
+  @include display(column, 30px);
+
+  .additionalDataBlock__tabTables_wrapper {
+    @include display(column, 5px);
+
+    .additionalDataBlock__tabButtons_wrapper {
+      @include display(row, 10px);
+    }
+
+    .additionalDataBlock__tabTables_wrapper {
+      height: 220px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+  }
+
+  .additionalDataBlock__buttons_wrapper {
+    @include display(row, 10px);
+    justify-content: space-between;
+
+    .buttons__block_wrapper {
+      @include display(row, 44px);
+    }
+  }
+}

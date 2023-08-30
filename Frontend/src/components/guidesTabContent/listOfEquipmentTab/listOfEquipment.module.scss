@@ -1,0 +1,56 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.listOfEquipments__wrapper {
+  @include display(column, 8px);
+
+  .listOfEquipments__buttons_wrapper {
+    @include display(row, 100px);
+    border: 1px solid $dark_blue;
+    border-radius: 5px;
+    padding: 13px 60px;
+    width: 627px;
+  }
+
+  .listOfEquipments__content_wrapper {
+    @include display(column, 30px);
+
+    .listOfEquipments__table_wrapper {
+      height: 575px;
+      border: 1px solid $dark_blue;
+      background-color: $elements_inner_background_color;
+    }
+
+    .listOfEquipments__search_wrapper {
+      @include display(row, 100px);
+      align-items: center;
+
+      .input_wrapper {
+        width: 390px;
+      }
+
+      .count_info {
+        @include text(20px, 24px, 400, $text_color)
+      }
+    }
+
+    .listOfEquipments__table_buttonsBlock_wrapper {
+      @include display(row, 248px);
+      align-items: center;
+
+      .listOfEquipments__table_buttons_wrapper {
+        @include display(row, 20px);
+      }
+
+      .listOfEquipments__table_buttonsBlock_checkbox {
+        @include display(row, 25px);
+        align-items: center;
+
+        .listOfEquipments__table_buttonsBlock_checkbox_title {
+          @include text(20px, 24px, 400, $text_color);
+        }
+
+      }
+    }
+  }
+}

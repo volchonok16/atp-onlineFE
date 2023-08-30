@@ -1,0 +1,17 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.generalInfo__wrapper {
+  @include display(row, 60px);
+
+  .generalInfoButtons__wrapper {
+    @include display(row, 100px);
+    border: 1px solid $dark_blue;
+    border-radius: 5px;
+    padding: 13px 60px;
+  }
+
+  .dateBlock__wrapper {
+    @include display(row, 43px);
+  }
+}

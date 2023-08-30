@@ -1,0 +1,28 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+.orderPrepTab__filters_block {
+  @include display(row, 100px, normal,flex-end );
+  margin-top: 30px;
+  flex-wrap: wrap;
+
+  .orderPrepTab__filters_input {
+    @include display(column, 30px, normal, flex-end);
+
+    .orderTab__filter_input_width {
+      width: clamp(24.375rem, 24.375rem + 0vw, 24.375rem);
+    }
+    .orderTab__filter_input_width_s {
+      width: clamp(6.8125rem, 6.8125rem + 0vw, 6.8125rem);;
+    }
+  }
+  .orderTab__filter_input_width {
+    width: clamp(24.375rem, 24.375rem + 0vw, 24.375rem);
+  }
+  .orderPrepTab__filters_input_data {
+    @include display(column, 30px, normal, flex-start);
+  }
+}
+
+
+
+

@@ -1,0 +1,5 @@
+@import "src/common/styles/mixins";
+
+.container {
+  @include display(row, 34px);
+}

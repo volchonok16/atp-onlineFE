@@ -1,0 +1,10 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.tableTools {
+    @include display(row, 30px);
+    margin-top: 30px;
+    /*button {
+        @include function-button
+    }*/
+}

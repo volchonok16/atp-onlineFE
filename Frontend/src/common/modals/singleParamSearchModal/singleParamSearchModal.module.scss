@@ -1,0 +1,46 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+
+.singleParamSearchModal__wrapper {
+  @include display(column, 0px);
+  border: 1px solid $dark_blue;
+
+  .singleParamSearchModal__title {
+    @include display(row, 10px);
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid $dark_blue;
+    @include text(16px, 19px, 400, $text_color);
+    background-color: $main_background_color;
+
+    .singleParamSearchModal__title__img {
+      filter: invert(25%) sepia(63%) saturate(1030%) hue-rotate(173deg) brightness(102%) contrast(97%);
+    }
+
+  }
+
+  .singleParamSearchModal__content {
+    @include display(column, 10px);
+    justify-content: space-between;
+    background-color: $elements_inner_background_color;
+    height: 342px;
+
+    .singleParamSearchModal__items {
+      @include display(column, 0px);
+
+      .singleParamSearchModal__item {
+        border-bottom: 1px solid $table_border_color;
+        padding: 10px 15px;
+      }
+    }
+
+    .singleParamSearchModal__search_block {
+      padding: 5px 15px;
+      @include display(row, 0px);
+      justify-content: space-between;
+      width: 360px;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+
+.table__wrapper {
+  border-collapse: collapse;
+  width: 100%;
+  display: table;
+}

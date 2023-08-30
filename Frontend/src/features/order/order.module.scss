@@ -1,0 +1,6 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.orderLayout__wrapper {
+  @include display(column, 10px)
+}

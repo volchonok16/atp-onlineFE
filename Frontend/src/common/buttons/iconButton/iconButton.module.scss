@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.button {
+  border: none;
+  background-color: $blue_button_color;
+  border-radius: 3px;
+  @include display(row, 0px);
+  align-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 8px;
+
+  &:hover {
+    transition: .3s ease-in-out all;
+    background-color: $pressed_blue_button;
+  }
+
+  &:active {
+    background-color: $pressed_blue_button;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}

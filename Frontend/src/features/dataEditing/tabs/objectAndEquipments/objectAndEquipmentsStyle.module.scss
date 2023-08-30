@@ -1,0 +1,20 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+
+.mainContainer {
+  @include display(row, 22px);
+
+
+  .descriptionAndDocumentsContainer {
+    margin-top: 50px;
+    @include display(column, 40px);
+
+    .descriptionContainer {
+      @include display(column, 47px);
+    }
+
+    .documentsContainer {
+      @include display(column, 64px);
+    }
+  }
+}

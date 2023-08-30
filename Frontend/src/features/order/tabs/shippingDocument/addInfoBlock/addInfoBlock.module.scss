@@ -1,0 +1,15 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.addInfoBlock__wrapper {
+  @include display(row, 115px);
+
+  .addInfoBlock__item {
+    @include display(column, 16px);
+  }
+
+  .addInfoBlock__item_last {
+    @include display(column, 30px);
+    width: 480px;
+  }
+}

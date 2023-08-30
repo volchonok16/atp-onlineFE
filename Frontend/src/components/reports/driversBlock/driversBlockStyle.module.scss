@@ -1,0 +1,21 @@
+@import "src/common/styles/mixins";
+
+.container {
+  @include display(column, 25px);
+
+  .title {
+    @include text(18px, normal, 600, $black)
+  }
+
+  .tableWrapper {
+    min-width: 400px;
+
+    .table {
+      @include table-style;
+
+      .cell {
+        text-align: start;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.typesOfTransportation__wrapper {
+  @include display(column, 35px);
+
+  .typesOfTransportation__table_wrapper {
+    width: 530px;
+    height: 710px;
+    border: 1px solid $dark_blue;
+    background-color: $elements_inner_background_color;
+  }
+
+  .typesOfTransportation__searchBlock_wrapper {
+    @include display(row, 35px);
+
+    .typesOfTransportation__searchBlock {
+      width: 375px;
+    }
+  }
+
+  .typesOfTransportation__buttons_wrapper {
+    @include display(row, 35px);
+  }
+}

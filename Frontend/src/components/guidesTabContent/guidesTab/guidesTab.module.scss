@@ -1,0 +1,12 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.guidesTab__wrapper {
+  @include display(row, 30px);
+
+  .guidesTab__content_tabsButtons {
+
+    @include display(column, 10px);
+  }
+}
+

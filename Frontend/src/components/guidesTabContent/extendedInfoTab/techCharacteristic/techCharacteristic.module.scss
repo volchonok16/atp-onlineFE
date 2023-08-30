@@ -1,0 +1,51 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+
+.techCharacteristic__form_wrapper {
+  @include display(column, 75px);
+  position: relative;
+
+  .techCharacteristic__wrapper {
+    @include display(row, 75px);
+
+    .techCharacteristic__block {
+      @include display(column, 10px);
+
+      .techCharacteristic__block_inputItem {
+        @include display(row, 20px);
+
+        .techCharacteristic__block_inputItem_title {
+          width: 210px;
+        }
+
+        .textInput__input {
+          border: 1px solid $dark_blue;
+          display: block;
+          width: 225px;
+          height: 30px;
+          @include text(16px, 19px, 400, $text_color);
+          padding: 9px;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        input:focus::placeholder {
+          color: transparent;
+        }
+
+        .techCharacteristic__block_inputItem_select {
+          width: 49.5%;
+        }
+      }
+    }
+  }
+
+  .techCharacteristic__buttons_wrapper {
+    @include display(row, 60px);
+    position: absolute;
+    bottom: -195px;
+  }
+}

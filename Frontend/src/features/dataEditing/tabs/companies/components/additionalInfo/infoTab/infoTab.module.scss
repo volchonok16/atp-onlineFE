@@ -1,0 +1,34 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.infoTab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    .field {
+        flex-basis: 48%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        label {
+            flex: 0 0 auto;
+        }
+        input, textarea {
+            width: 100%
+        };
+        input[type=checkbox] {
+            width: auto;
+        }
+        &:has(textarea) {
+            flex-basis: 100%;
+        }
+    }
+    .btns {
+        margin-top: 15px;
+        flex-basis: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }        
+}
