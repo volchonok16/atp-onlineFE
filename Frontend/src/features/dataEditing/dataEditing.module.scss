@@ -2,7 +2,7 @@
 @import "src/common/styles/mixins";
 
 .tabs {
-    @include display(row, 30px);
+    @include display(row, 8px);
     flex-wrap: wrap;
     margin-bottom: 1rem;
 }

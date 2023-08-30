@@ -22,7 +22,7 @@ export const EquipmentsListTable = () => {
 
   return (
     <div className={css.tableWrapper}>
-      <ScrollableTableWrapper height={'825px'}>
+      <ScrollableTableWrapper height={'920px'}>
         <table className={css.table}>
           <thead className={css.tableHeader}>
             <tr>
