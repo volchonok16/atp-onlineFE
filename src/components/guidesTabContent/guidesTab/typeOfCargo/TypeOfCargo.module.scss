@@ -1,7 +1,7 @@
 @import "src/common/styles/variables";
 @import "src/common/styles/mixins";
 
-.typeOfCargo__wrapper{
+.typeOfCargo__wrapper {
   @include display(row, 100px);
 
   .typeOfCargo__block_wrapper {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { GoodsTypeTable } from './goodsTypeTable/GoodsTypeTable'
-import css from './typeOfCargo.module.scss'
+import css from './TypeOfCargo.module.scss'
 
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import { IconButton } from '../../../../common/buttons/iconButton/MyIconButton'
@@ -94,7 +94,7 @@ export const TypeOfCargo = () => {
           <Table columns={columns2} data={data2} />
         </div>
 
-        <div className={css.typeOfCargo__emptyBlock_wrapper}></div>
+        <div className={css.typeOfCargo__emptyBlock_wrapper} />
 
         <div className={css.typeOfCargo__buttons_wrapper}>
           <IconButton typeOfIcon="Добавить" />
