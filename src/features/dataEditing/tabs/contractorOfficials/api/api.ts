@@ -1,7 +1,5 @@
 import { instance } from '../../../../../app/api/instance'
 
-import type { ArchiveType } from '../../carsData/api/api'
-
 import type { CompanyListItemType } from '../../companies/api/api'
 
 export const contractorOfficialsApi = {
@@ -30,7 +28,7 @@ export type ContractorSubunitType = {
   PODR: string
   NORMA: null | number
   NORMA_VIH: null | number
-  ARHIV: ArchiveType
+  ARHIV: boolean
   KEY_ID: null | number
   SETUP_ID: number
   CODE: string | null
