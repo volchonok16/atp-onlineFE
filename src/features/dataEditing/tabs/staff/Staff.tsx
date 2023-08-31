@@ -82,7 +82,11 @@ export const Staff = () => {
         <div className={css.license}>
           <label className={css.label}>
             Класс
-            <input type="text" defaultValue={activeStaff.KLASS} readOnly />
+            <input
+              type="text"
+              defaultValue={activeStaff.KLASS || ''}
+              readOnly
+            />
           </label>
           <label className={css.label}>
             № удостоверения

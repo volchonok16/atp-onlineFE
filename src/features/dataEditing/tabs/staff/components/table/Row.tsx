@@ -2,7 +2,6 @@ import { FC } from 'react'
 
 import css from './table.module.scss'
 
-import { parseBooleanValue } from '../../../../../../utils/parseBooleanValues'
 import { StaffType } from '../../api/api'
 
 type PropsType = {
@@ -17,36 +16,16 @@ export const Row: FC<PropsType> = ({ data, isActiveHandler, isActive }) => {
   return (
     <tr className={isActive ? css.activeRow : ''} onClick={rowOnClickHandler}>
       <td>{data.FIO}</td>
+      <td>NO DATA</td>
       <td>
         <label>
-          <input
-            type="checkbox"
-            checked={parseBooleanValue(data.USE_OF_TABEL)}
-            disabled
-          />
-        </label>
-      </td>
-      <td>
-        <label>
-          <input
-            type="checkbox"
-            checked={parseBooleanValue(data.USE_OF_RAZN)}
-            disabled
-          />
+          <input type="checkbox" checked={data.USE_OF_RAZN} disabled />
         </label>
       </td>
       <td>{data.FULL_FIO}</td>
       <td>{data.STAGIROVKA_PERIOD}</td>
       <td>{data.FROM_1C_ID}</td>
-      <td>
-        <label>
-          <input
-            type="checkbox"
-            checked={parseBooleanValue(data.DEL)}
-            disabled
-          />
-        </label>
-      </td>
+      <td>NO DATA</td>
     </tr>
   )
 }

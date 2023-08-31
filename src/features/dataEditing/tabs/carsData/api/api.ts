@@ -1,7 +1,7 @@
 import { instance } from '../../../../../app/api/instance'
 
 export const carsApi = {
-  fetchCarsData(archive: ArchiveType = 'F', number?: number, brand?: string) {
+  fetchCarsData(archive: boolean = false, number?: number, brand?: string) {
     return instance.get<CarType[]>('data-editing/cars-info', {
       params: { archive, number, brand },
     })
@@ -10,7 +10,6 @@ export const carsApi = {
 
 //======Types======
 
-export type ArchiveType = 'F' | 'T'
 export type FuelType = 'Дизель' | 'АИ-80' | 'АИ-92' | 'АИ-95' | 'АИ-98' | 'СУГ'
 export type CarType = {
   // Марка автомобиля
@@ -54,7 +53,7 @@ export type CarType = {
   // ID услуги из 1C
   FROM_1C_ID: string
   // Архив
-  ARHIV: ArchiveType
+  ARHIV: boolean
 
   // Тип топлива механизма
   TOPL_MEH: FuelType

@@ -43,11 +43,7 @@ export const Row: FC<PropsType> = ({
       <td>{data.FROM_1C_ID}</td>
       {!hideArchive && (
         <td>
-          <input
-            type="checkbox"
-            checked={data.ARHIV === 'F' ? false : true}
-            disabled
-          />
+          <input type="checkbox" checked={data.ARHIV} disabled />
         </td>
       )}
     </tr>
