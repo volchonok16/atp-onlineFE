@@ -71,16 +71,16 @@ export const directoriesApi = {
     )
   },
   getGoodsType() {
-    return instance.get<GoodsType[]>('catalogs/directories/goods-type')
+    return instance.get<GoodsType[]>('catalogs/directories/goods-types')
   },
   getTransportationsType() {
     return instance.get<TransportationsType[]>(
-      'catalogs/directories/transportation-type',
+      'catalogs/directories/transportation-types',
     )
   },
   getCommunicationsType() {
     return instance.get<CommunicationsType[]>(
-      'catalogs/directories/communication-type',
+      'catalogs/directories/communication-types',
     )
   },
 }

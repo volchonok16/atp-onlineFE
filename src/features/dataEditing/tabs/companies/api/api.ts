@@ -1,11 +1,13 @@
 import { instance } from '../../../../../app/api/instance'
-import { ArchiveType } from '../../carsData/api/api'
 
 export const companiesApi = {
-  fetchCompaniesData(archive: ArchiveType = 'F') {
-    return instance.get<CompanyListItemType[]>('data-editing/organizations', {
-      params: { archive },
-    })
+  fetchCompaniesData(shortName?: string) {
+    return instance.get<CompanyListItemType[]>(
+      'data-editing/organizations-list',
+      {
+        params: { shortName },
+      },
+    )
   },
   fetchCompanyData(id: number) {
     return instance.get<CompanyType>(`data-editing/organizations/${id}`)
@@ -15,9 +17,9 @@ export const companiesApi = {
 //======Types======
 
 export type CompanyListItemType = {
+  LNAME: string
   DATA_KEY: number
   ZAK_: string
-  LNAME: string
   KAT: number
   N_KAT: number
   METOD: number

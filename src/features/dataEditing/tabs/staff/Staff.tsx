@@ -26,6 +26,16 @@ export const Staff = () => {
   const [hideArchive, setHideArchive] = useState<boolean>(true)
   const hideArchiveHandler = () => setHideArchive(!hideArchive)
 
+  const filteredStaffList = () => {
+    const result = filterValue
+      ? staffList.filter(({ FIO }) =>
+          FIO.toUpperCase().includes(filterValue.toUpperCase()),
+        )
+      : staffList
+
+    return result
+  }
+
   useEffect(() => {
     dispatch(fetchStaffListThunk())
   }, [])
@@ -50,7 +60,7 @@ export const Staff = () => {
               </tr>
             </thead>
             <tbody>
-              {staffList.map((staff) => (
+              {filteredStaffList().map((staff) => (
                 <Row
                   key={staff.FIO_KEY}
                   data={staff}
@@ -82,7 +92,11 @@ export const Staff = () => {
         <div className={css.license}>
           <label className={css.label}>
             Класс
-            <input type="text" defaultValue={activeStaff.KLASS} readOnly />
+            <input
+              type="text"
+              defaultValue={activeStaff.KLASS || ''}
+              readOnly
+            />
           </label>
           <label className={css.label}>
             № удостоверения
