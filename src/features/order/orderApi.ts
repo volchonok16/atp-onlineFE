@@ -15,7 +15,7 @@ export const orderApi = {
     motorcadeName: MotorcadeNameType = 'all',
     filter?: OrderPurchasesType,
   ) {
-    return instance.get<OrderByOrderType[]>('', {
+    return instance.get<OrderByOrderType[]>('order/order', {
       params: { date, motorcadeName, filter },
     })
   },
