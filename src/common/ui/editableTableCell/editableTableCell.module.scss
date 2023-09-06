@@ -1,0 +1,17 @@
+@import '../../styles/mixins.scss';
+@import '../../styles/variables.scss';
+
+.cell {
+    label {
+        width: fit-content;
+    }
+    input {
+        @include inputs;
+        width: fit-content;
+        border: none;
+        background-color: inherit;
+        &:focus {
+            outline: 1px solid grey;
+        }
+    }
+}
