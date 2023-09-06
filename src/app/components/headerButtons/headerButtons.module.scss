@@ -6,9 +6,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: calc(25px + 5 * (100vw - 1024px) / 896);
-
+  
   .headerButtons__wrapper {
-    @include display(row, 8px)
+    @include display(row, 8px);    
   }
 }
