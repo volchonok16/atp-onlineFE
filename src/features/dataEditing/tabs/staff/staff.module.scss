@@ -6,7 +6,7 @@
     grid-template-columns: 1fr auto;    
 }
 .table {
-    @include table-style;    
+    @include table-style;        
 }
 .tableWrapper {
     @include scrollableTableWrapper(59vh)
