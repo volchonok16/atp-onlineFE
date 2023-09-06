@@ -20,6 +20,7 @@ export const Table: FC<PropsType> = ({ data, activeRow, hideArchive }) => {
   const activeCarHandler = (car: CarType) => {
     dispatch(setActiveCarAC(car))
   }
+
   return (
     <ScrollableTableWrapper>
       <table className={css.table}>
@@ -63,15 +64,17 @@ export const Table: FC<PropsType> = ({ data, activeRow, hideArchive }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((car) => (
-            <Row
-              key={car.OD_KEY}
-              data={car}
-              isActive={activeRow.OD_KEY === car.OD_KEY}
-              isActiveHandler={activeCarHandler}
-              hideArchive={hideArchive}
-            />
-          ))}
+          {data.map((car, index) => {
+            return (
+              <Row
+                key={`${car.OD_KEY}-${index}`}
+                data={car}
+                isActive={activeRow.OD_KEY === car.OD_KEY}
+                isActiveHandler={activeCarHandler}
+                hideArchive={hideArchive}
+              />
+            )
+          })}
         </tbody>
       </table>
     </ScrollableTableWrapper>

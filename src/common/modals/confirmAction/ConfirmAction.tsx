@@ -3,6 +3,7 @@ import { FC } from 'react'
 import css from './confirmAction.module.scss'
 
 import questionIcon from '../../../assets/img/confirmActionIcon.svg'
+import { CarType } from '../../../features/dataEditing/tabs/carsData/api/api'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
 // Модальное окно для подтверждения действия
@@ -17,7 +18,7 @@ export type ActionTitleType =
 type PropsType = {
   actionTitle: ActionTitleType
   onClose: () => void
-  onAction: () => void
+  onAction: (car?: CarType) => void
 }
 
 export const ConfirmAction: FC<PropsType> = ({

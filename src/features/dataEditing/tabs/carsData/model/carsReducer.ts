@@ -29,13 +29,14 @@ export const carsReducer = (
         ...state,
         cars: action.payload.cars,
       }
-    case 'cars/CHANGE-CAR':
+    case 'cars/CHANGE-CAR': {
       return {
         ...state,
         cars: state.cars.map((car) =>
-          car.FROM_1C_ID === action.payload.carId ? action.payload.car : car,
+          car.OD_KEY === action.payload.carId ? action.payload.car : car,
         ),
       }
+    }
     case 'cars/ADD-CAR':
       return {
         ...state,
@@ -75,7 +76,7 @@ export const setCarsAC = (cars: CarType[]) =>
     payload: { cars },
   }) as const
 
-export const changeCarAC = (carId: string, car: CarType) =>
+export const changeCarAC = (carId: number, car: CarType) =>
   ({
     type: 'cars/CHANGE-CAR',
     payload: { carId, car },

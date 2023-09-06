@@ -5,7 +5,13 @@ import { CarType } from './api/api'
 import { EditForm } from './components/editForm/EditForm'
 import { FilterTools } from './components/filter-tools/FilterTools'
 import { Table } from './components/table/Table'
-import { deleteCarAC, fetchCarsData, setActiveCarAC } from './model/carsReducer'
+import {
+  addCarAC,
+  changeCarAC,
+  deleteCarAC,
+  fetchCarsData,
+  setActiveCarAC,
+} from './model/carsReducer'
 
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import {
@@ -22,7 +28,6 @@ export const CarsData = () => {
   // Данные из Redux
   const cars = useAppSelector((state) => state.cars.cars)
   const activeCar = useAppSelector((state) => state.cars.activeCar)
-
   // Управление колонкой с архивом
   const [hideArchive, setHideArchive] = useState<boolean>(true)
   const hideArchiveHandler = () => setHideArchive(!hideArchive)
@@ -66,6 +71,12 @@ export const CarsData = () => {
     dispatch(setActiveCarAC({} as CarType))
   }
 
+  const changeCar = (carId: number, car: CarType) => {
+    dispatch(changeCarAC(carId, car))
+  }
+  const addCar = (car: CarType) => {
+    dispatch(addCarAC(car))
+  }
   // Для кнопки добавления
   const addButtonAction = () => {
     actionTitleHandler('добавить')
@@ -74,21 +85,23 @@ export const CarsData = () => {
 
   // Для кнопки редактирования
   const changeButtonAction = () => {
+    console.log('1')
     actionTitleHandler('редактировать')
     openForm()
   }
 
   // Выбирает какую операцию сделать
-  const activateAction = () => {
+  const activateAction = (car?: CarType) => {
     if (actionTitle === 'удалить') {
       deleteCar(activeCar.OD_KEY)
     }
     if (actionTitle === 'редактировать') {
-      alert('Данные изменены')
+      car && changeCar(car.OD_KEY, car)
       closeForm()
+      console.log('the request has flown', car)
     }
     if (actionTitle === 'добавить') {
-      alert('строка добавлена')
+      car && addCar(car)
       closeForm()
     }
   }
@@ -120,12 +133,12 @@ export const CarsData = () => {
       />
       <TableTools>
         <FuncButton
-          disabled={!activeCar.OD_KEY}
+          /*disabled={!activeCar.OD_KEY}*/
           title={'Редактировать запись'}
           onClickHandler={changeButtonAction}
         />
         <FuncButton
-          disabled={!activeCar.OD_KEY}
+          /*disabled={!activeCar.OD_KEY}*/
           title={'Добавить запись'}
           onClickHandler={addButtonAction}
         />
@@ -146,8 +159,11 @@ export const CarsData = () => {
         <EditForm
           close={closeForm}
           submit={submit}
+          onAction={activateAction}
           activeCar={
-            actionTitle === 'редактировать' ? activeCar : ({} as CarType)
+            actionTitle === 'редактировать' || actionTitle === 'добавить'
+              ? activeCar
+              : ({} as CarType)
           }
         />
       )}

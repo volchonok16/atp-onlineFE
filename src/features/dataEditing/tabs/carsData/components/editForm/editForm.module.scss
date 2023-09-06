@@ -21,8 +21,8 @@
         -ms-border-radius: 5px;
         -o-border-radius: 5px;
         padding: 1rem;
-        color: $text_color;        
-        
+        color: $text_color;
+
         input, select {
             padding: 5px 10px;
             border-radius: 3px;
@@ -41,15 +41,15 @@
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
-        }        
+        }
 
         .title {
             font-size: large;
-            margin-bottom: 10px;            
+            margin-bottom: 10px;
         }
-        
+
         .subTitle {
-            font-size: medium;            
+            font-size: medium;
         }
 
         .aboutCar {
@@ -58,12 +58,12 @@
             justify-content: space-between;
             margin-bottom: 10px;
             .title {
-                flex-basis: 100%;        
+                flex-basis: 100%;
             }
             label {
-                display: flex;        
+                display: flex;
                 flex-direction: column;
-                gap: 5px;                
+                gap: 5px;
             }
         }
 
@@ -77,7 +77,7 @@
             }
             label {
                 margin-right: 10px;
-            }             
+            }
         }
         .hour {
             display: flex;
@@ -90,14 +90,17 @@
         .hundred {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px 19%;           
+            gap: 10px 19%;
             .subTitle {
                 flex-basis: 100%;
             }
             div:nth-child(2) {
-                flex-basis: 100%;                
-            }           
+                flex-basis: 100%;
+            }
         }
-    }       
+      .warningText {
+        color: green;
+      }
+    }
 }
 
