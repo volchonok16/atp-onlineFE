@@ -58,8 +58,8 @@ export const StandardNotes: React.FC = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onClose={closeModal}
-          onAction={showAction}
+          onAbort={closeModal}
+          onConfirm={showAction}
         />
       )}
     </section>

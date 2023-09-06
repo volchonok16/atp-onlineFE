@@ -69,8 +69,8 @@ export const PassesTab = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onClose={closeModal}
-          onAction={showAction}
+          onAbort={closeModal}
+          onConfirm={showAction}
         />
       )}
     </section>
