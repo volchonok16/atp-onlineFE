@@ -16,6 +16,8 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 import { TableTools } from '../../components/table-tools/TableTools'
 
+import { Modal } from 'src/common/modals/Modal'
+
 export const CarsData = () => {
   const dispatch = useAppDispatch()
 
@@ -82,6 +84,7 @@ export const CarsData = () => {
   const activateAction = () => {
     if (actionTitle === 'удалить') {
       deleteCar(activeCar.OD_KEY)
+      closeModal()
     }
     if (actionTitle === 'редактировать') {
       alert('Данные изменены')
@@ -136,11 +139,13 @@ export const CarsData = () => {
         />
       </TableTools>
       {!hideModal && (
-        <ConfirmAction
-          onClose={closeModal}
-          actionTitle={actionTitle}
-          onAction={activateAction}
-        />
+        <Modal>
+          <ConfirmAction
+            onAbort={closeModal}
+            actionTitle={actionTitle}
+            onConfirm={activateAction}
+          />
+        </Modal>
       )}
       {formIsOpen && (
         <EditForm

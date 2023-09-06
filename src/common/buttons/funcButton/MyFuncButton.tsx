@@ -1,28 +1,27 @@
-import { FC } from 'react'
+import { FC, ComponentProps } from 'react'
 
 import css from './funcButton.module.scss'
 
-type ButtonPropsType = {
+type DefaultProps = ComponentProps<'button'>
+
+type ButtonPropsType = DefaultProps & {
   title: string
   onClickHandler?: () => void
   classNameInput?: string
-  type?: 'button' | 'submit' | 'reset' | undefined
-  disabled?: boolean
 }
 
 export const FuncButton: FC<ButtonPropsType> = ({
   title,
   onClickHandler,
   classNameInput,
-  type,
-  disabled,
+  onClick,
+  ...props
 }) => {
   return (
     <button
-      type={type}
+      {...props}
       className={`${css.button}  ${classNameInput} `}
-      onClick={onClickHandler}
-      disabled={disabled}
+      onClick={onClickHandler || onClick}
     >
       {title}
     </button>

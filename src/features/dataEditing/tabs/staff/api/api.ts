@@ -119,3 +119,5 @@ export type StaffAdditionalInformationType = {
   KEY_ID: number
   SETUP_ID: number
 }
+
+export type StaffKeys = keyof StaffType
