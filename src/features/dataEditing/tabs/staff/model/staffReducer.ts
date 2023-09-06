@@ -7,6 +7,8 @@ import {
   type StaffType,
 } from '../api/api'
 
+import { TableCellData } from 'src/common/ui/editableTableCell/EditableTableCell'
+
 const initialState: InitialState = {
   isLoading: false,
   errorMessage: '',
@@ -29,11 +31,17 @@ export const staffReducer = (
     case 'staff/CHANGE-STAFF':
       return {
         ...state,
-        staffList: state.staffList.map((staff) =>
-          staff.FIO_ID === action.payload.staffId
-            ? action.payload.staff
-            : staff,
-        ),
+        staffList: state.staffList.map((staff) => {
+          if (staff.FIO_ID === action.payload.itemId) {
+            return {
+              ...staff,
+              [action.payload.name]:
+                action.payload.value || action.payload.checked,
+            }
+          } else {
+            return staff
+          }
+        }),
       }
     case 'staff/DELETE-STAFF':
       return {
@@ -96,10 +104,10 @@ export const setStaffListAC = (staffList: StaffType[]) =>
     payload: { staffList },
   }) as const
 
-export const changeStaffAC = (staffId: number, staff: StaffType) =>
+export const changeStaffAC = (data: TableCellData) =>
   ({
     type: 'staff/CHANGE-STAFF',
-    payload: { staffId, staff },
+    payload: data,
   }) as const
 
 export const addStaffAC = (staff: StaffType) =>
