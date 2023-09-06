@@ -16,21 +16,18 @@ export type ActionTitleType =
 
 type PropsType = {
   actionTitle: ActionTitleType
-  onClose: () => void
-  onAction: () => void
+  onConfirm: () => void
+  onAbort: () => void
 }
 
 export const ConfirmAction: FC<PropsType> = ({
-  onClose,
-  onAction,
+  onAbort,
+  onConfirm,
   actionTitle,
 }) => {
   const capitalizeActionTitle =
     actionTitle[0]?.toUpperCase() + actionTitle.slice(1)
-  const confirmAction = () => {
-    onAction()
-    onClose()
-  }
+
   const chooseMessage = () => {
     if (
       actionTitle === 'добавить' ||
@@ -51,9 +48,10 @@ export const ConfirmAction: FC<PropsType> = ({
         <div className={css.btnBlock}>
           <FuncButton
             title={capitalizeActionTitle}
-            onClickHandler={confirmAction}
+            onClickHandler={onConfirm}
+            autoFocus={true}
           />
-          <FuncButton title="Отменить" onClickHandler={onClose} />
+          <FuncButton title="Отменить" onClickHandler={onAbort} />
         </div>
       </div>
     </div>
