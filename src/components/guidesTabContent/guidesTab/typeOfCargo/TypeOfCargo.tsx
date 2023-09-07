@@ -6,11 +6,9 @@ import css from './TypeOfCargo.module.scss'
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import { IconButton } from '../../../../common/buttons/iconButton/MyIconButton'
 import { TextInput } from '../../../../common/inputs/textInput/MyTextInput'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from '../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
 import { Table } from '../../../../common/table/MyTable'
+import { Actions } from '../../../../features/dataEditing/tabs/carsData/CarsData'
 import {
   dataRowType,
   headerColumnsType,
@@ -40,9 +38,9 @@ export const TypeOfCargo = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const closeModal = () => setIsOpen(false)
   const openModal = () => setIsOpen(true)
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('сохранить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => alert('Action confirm')
-  const actionTitleHandler = (actionTitle: ActionTitleType | undefined) => {
+  const actionTitleHandler = (actionTitle: Actions | undefined) => {
     console.log(actionTitle)
     if (actionTitle) {
       setActionTitle(actionTitle)
@@ -73,7 +71,7 @@ export const TypeOfCargo = () => {
           <IconButton typeOfIcon="Добавить" />
           <IconButton
             typeOfIcon="Удалить"
-            actionTitle="удалить"
+            actionTitle={Actions.delete}
             onClickHandler={actionTitleHandler}
           />
           <IconButton typeOfIcon="Сохранить" />
@@ -100,7 +98,7 @@ export const TypeOfCargo = () => {
           <IconButton typeOfIcon="Добавить" />
           <IconButton
             typeOfIcon="Удалить"
-            actionTitle="удалить"
+            actionTitle={Actions.delete}
             onClickHandler={actionTitleHandler}
           />
           <IconButton typeOfIcon="Сохранить" />

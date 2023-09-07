@@ -12,12 +12,12 @@ import saveIcon from '../../../assets/img/saveIcon.svg'
 import searchIcon from '../../../assets/img/searchIcon.svg'
 import toTheFirstLineIcon from '../../../assets/img/toTheFirstLineIcon.svg'
 import toTheLastLineIcon from '../../../assets/img/toTheLastLineIcon.svg'
-import { ActionTitleType } from '../../modals/confirmAction/ConfirmAction'
+import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 
 type ButtonPropsType = {
   typeOfIcon: string
-  actionTitle?: ActionTitleType
-  onClickHandler?: (actionTitle: ActionTitleType | undefined) => void
+  actionTitle?: Actions
+  onClickHandler?: (actionTitle: Actions | undefined) => void
 }
 
 export const IconButton: React.FC<ButtonPropsType> = ({

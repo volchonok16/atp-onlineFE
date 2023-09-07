@@ -14,10 +14,7 @@ import {
 } from './model/carsReducer'
 
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
-import {
-  ConfirmAction,
-  /* type ActionTitleType,*/
-} from '../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
 import { Modal } from '../../../../common/modals/Modal'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
@@ -26,11 +23,11 @@ import { TableTools } from '../../components/table-tools/TableTools'
 
 // Модальное окно для подтверждения действия
 export enum Actions {
-  delete = 'удалить',
-  update = 'редактировать',
-  add = 'добавить',
-  save = 'сохранить',
-  cancel = 'отменить',
+  delete = 'Удалить',
+  update = 'Редактировать',
+  add = 'Добавить',
+  save = 'Сохранить',
+  cancel = 'Отменить',
 }
 
 export const CarsData = () => {
