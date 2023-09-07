@@ -4,19 +4,11 @@ import css from './confirmAction.module.scss'
 
 import questionIcon from '../../../assets/img/confirmActionIcon.svg'
 import { CarType } from '../../../features/dataEditing/tabs/carsData/api/api'
+import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
-// Модальное окно для подтверждения действия
-
-export type ActionTitleType =
-  | 'удалить'
-  | 'редактировать'
-  | 'добавить'
-  | 'сохранить'
-  | 'отменить'
-
 type PropsType = {
-  actionTitle: ActionTitleType
+  actionTitle: Actions
   onClose: () => void
   onAction: (car?: CarType) => void
 }
@@ -29,14 +21,14 @@ export const ConfirmAction: FC<PropsType> = ({
   const capitalizeActionTitle =
     actionTitle[0]?.toUpperCase() + actionTitle.slice(1)
   const confirmAction = () => {
-    onAction()
     onClose()
+    onAction()
   }
   const chooseMessage = () => {
     if (
-      actionTitle === 'добавить' ||
-      actionTitle === 'редактировать' ||
-      actionTitle === 'удалить'
+      actionTitle === Actions.add ||
+      actionTitle === Actions.update ||
+      actionTitle === Actions.delete
     ) {
       return `Вы действительно хотите ${actionTitle} строку?`
     } else {
@@ -54,7 +46,7 @@ export const ConfirmAction: FC<PropsType> = ({
             title={capitalizeActionTitle}
             onClickHandler={confirmAction}
           />
-          <FuncButton title="Отменить" onClickHandler={onClose} />
+          <FuncButton onClickHandler={onClose} title="Отменить" />
         </div>
       </div>
     </div>

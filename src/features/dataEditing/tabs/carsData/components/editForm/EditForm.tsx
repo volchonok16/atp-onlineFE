@@ -10,17 +10,11 @@ import { CarType, FuelType } from '../../api/api'
 
 type PropsType = {
   activeCar?: CarType
-  submit: (formData: CarType) => void
   close: () => void
   onAction: (car?: CarType) => void
 }
 
-export const EditForm: FC<PropsType> = ({
-  activeCar,
-  close,
-  submit,
-  onAction,
-}) => {
+export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
   const {
     register,
     handleSubmit,
@@ -31,8 +25,6 @@ export const EditForm: FC<PropsType> = ({
     defaultValues: activeCar,
   })
   const onSubmit = (values: CarType) => {
-    console.log(values)
-    submit(values)
     onAction(values)
   }
   const onHandlerSubmit = () => {
@@ -83,7 +75,7 @@ export const EditForm: FC<PropsType> = ({
               })}
             />
             {errors?.M_AM && (
-              <p className={`${css.warningText}`}>Введи корректные данные</p>
+              <p className={`${css.warningText}`}>Введите корректные данные</p>
             )}
           </label>
           <label>
@@ -98,13 +90,13 @@ export const EditForm: FC<PropsType> = ({
               })}
             />
             {errors?.LM_AM && (
-              <p className={`${css.warningText}`}>Введи корректные данные</p>
+              <p className={`${css.warningText}`}>Введите корректные данные</p>
             )}
           </label>
           <label>
             Гос. номер
             <input
-              type="number"
+              type="NAVTO"
               {...register('NAVTO', {
                 pattern: /[0-9]/g,
                 maxLength: 7,
@@ -112,7 +104,7 @@ export const EditForm: FC<PropsType> = ({
             />
             {errors?.NAVTO && (
               <p className={`${css.warningText}`}>
-                Введи корректные данные, только цифры
+                Введите корректные данные, только цифры
               </p>
             )}
           </label>
@@ -144,22 +136,24 @@ export const EditForm: FC<PropsType> = ({
             <label>
               На слив
               <input
+                step={0.1}
                 type="number"
                 min="1"
                 {...register('NRT_SLIV', {
-                  pattern: /[0-9]/g,
+                  pattern: /^-?(0|[1-9]+)(?:[.,]\d{1,2}|)$/,
                   onChange: () => {
                     getValues('NRT_SLIV')
                   },
                 })}
               />
               {errors?.NRT_SLIV && (
-                <p> Введи корректные данные, только цифры, минимум 1</p>
+                <p> Введите корректные данные, только цифры, минимум 1</p>
               )}
             </label>
             <label>
               На подъем кузова
               <input
+                step={0.1}
                 type="number"
                 min="1"
                 {...register('NRT_PODJOM', {
@@ -170,7 +164,7 @@ export const EditForm: FC<PropsType> = ({
                 })}
               />
               {errors?.NRT_PODJOM && (
-                <p>Введи корректные данные, только цифры, минимум 1</p>
+                <p>Введите корректные данные, только цифры, минимум 1</p>
               )}
             </label>
           </div>
@@ -181,6 +175,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_CH_OSN_DVIG_L', {
                     pattern: /[0-9]/g,
@@ -190,12 +185,13 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_CH_OSN_DVIG_L && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_CH_OSN_DVIG_Z', {
                     pattern: /[0-9]/g,
@@ -205,7 +201,7 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_CH_OSN_DVIG_Z && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
             </div>
@@ -214,6 +210,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('RCH', {
                     pattern: /[0-9]/g,
@@ -222,11 +219,12 @@ export const EditForm: FC<PropsType> = ({
                     },
                   })}
                 />
-                {errors?.RCH && <p>Введи корректные данные, только цифры</p>}
+                {errors?.RCH && <p>Введите корректные данные, только цифры</p>}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('RCH_Z', {
                     pattern: /[0-9]/g,
@@ -235,7 +233,9 @@ export const EditForm: FC<PropsType> = ({
                     },
                   })}
                 />
-                {errors?.RCH_Z && <p>Введи корректные данные, только цифры</p>}
+                {errors?.RCH_Z && (
+                  <p>Введите корректные данные, только цифры</p>
+                )}
               </label>
             </div>
             <div>
@@ -243,6 +243,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('RPROG_L', {
                     pattern: /[0-9]/g,
@@ -252,12 +253,13 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.RPROG_L && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('RPROG_Z', {
                     pattern: /[0-9]/g,
@@ -267,7 +269,7 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.RPROG_Z && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
             </div>
@@ -279,6 +281,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_L', {
                     pattern: /[0-9]/g,
@@ -287,11 +290,14 @@ export const EditForm: FC<PropsType> = ({
                     },
                   })}
                 />
-                {errors?.NRT_L && <p>Введи корректные данные, только цифры</p>}
+                {errors?.NRT_L && (
+                  <p>Введите корректные данные, только цифры</p>
+                )}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_Z', {
                     pattern: /[0-9]/g,
@@ -300,7 +306,9 @@ export const EditForm: FC<PropsType> = ({
                     },
                   })}
                 />
-                {errors?.NRT_Z && <p>Введи корректные данные, только цифры</p>}
+                {errors?.NRT_Z && (
+                  <p>Введите корректные данные, только цифры</p>
+                )}
               </label>
             </div>
 
@@ -309,6 +317,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_GRUZ_L', {
                     pattern: /[0-9]/g,
@@ -318,12 +327,13 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_GRUZ_L && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_GRUZ_Z', {
                     pattern: /[0-9]/g,
@@ -333,7 +343,7 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_GRUZ_Z && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
             </div>
@@ -342,6 +352,7 @@ export const EditForm: FC<PropsType> = ({
               <label>
                 Лето
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_L_MG', {
                     pattern: /[0-9]/g,
@@ -351,12 +362,13 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_L_MG && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
               <label>
                 Зима
                 <input
+                  step={0.1}
                   type="number"
                   {...register('NRT_Z_MG', {
                     pattern: /[0-9]/g,
@@ -366,7 +378,7 @@ export const EditForm: FC<PropsType> = ({
                   })}
                 />
                 {errors?.NRT_Z_MG && (
-                  <p>Введи корректные данные, только цифры</p>
+                  <p>Введите корректные данные, только цифры</p>
                 )}
               </label>
             </div>

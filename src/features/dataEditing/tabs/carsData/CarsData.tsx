@@ -16,11 +16,22 @@ import {
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import {
   ConfirmAction,
-  type ActionTitleType,
+  /* type ActionTitleType,*/
 } from '../../../../common/modals/confirmAction/ConfirmAction'
+import { Modal } from '../../../../common/modals/Modal'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
+import { ModalOfAction } from '../../components/modal/ModalOfAction'
 import { TableTools } from '../../components/table-tools/TableTools'
+
+// Модальное окно для подтверждения действия
+export enum Actions {
+  delete = 'удалить',
+  update = 'редактировать',
+  add = 'добавить',
+  save = 'сохранить',
+  cancel = 'отменить',
+}
 
 export const CarsData = () => {
   const dispatch = useAppDispatch()
@@ -48,24 +59,30 @@ export const CarsData = () => {
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false)
   const openForm = () => setFormIsOpen(true)
   const closeForm = () => setFormIsOpen(false)
-  const submit = () => {
-    openModal()
-  }
 
   // Управление модальным окном
   const [hideModal, setHideModal] = useState<boolean>(true)
+  const [hideModalOfEmptyString, setHideModalOfEmptyString] =
+    useState<boolean>(true)
+  const open = () => setHideModalOfEmptyString(false)
+  const close = () => setHideModalOfEmptyString(true)
   const openModal = () => setHideModal(false)
   const closeModal = () => setHideModal(true)
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
-  const actionTitleHandler = (title: ActionTitleType) => setActionTitle(title)
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.delete)
+  const actionTitleHandler = (title: Actions) => setActionTitle(title)
 
   // Для кнопки удаления
   const delButtonAction = () => {
-    actionTitleHandler('удалить')
-    openModal()
+    if (!activeCar.OD_KEY) {
+      open()
+    } else {
+      actionTitleHandler(Actions.delete)
+      openModal()
+    }
   }
+
   const deleteCar = (carId: number) => {
     dispatch(deleteCarAC(carId))
     dispatch(setActiveCarAC({} as CarType))
@@ -73,36 +90,42 @@ export const CarsData = () => {
 
   const changeCar = (carId: number, car: CarType) => {
     dispatch(changeCarAC(carId, car))
+    closeForm()
   }
   const addCar = (car: CarType) => {
     dispatch(addCarAC(car))
+    closeForm()
   }
   // Для кнопки добавления
   const addButtonAction = () => {
-    actionTitleHandler('добавить')
-    openForm()
+    actionTitleHandler(Actions.add)
+    openModal()
   }
 
   // Для кнопки редактирования
   const changeButtonAction = () => {
-    console.log('1')
-    actionTitleHandler('редактировать')
-    openForm()
+    if (!activeCar.OD_KEY) {
+      open()
+    } else {
+      actionTitleHandler(Actions.update)
+      openModal()
+    }
   }
 
   // Выбирает какую операцию сделать
   const activateAction = (car?: CarType) => {
-    if (actionTitle === 'удалить') {
+    if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
     }
-    if (actionTitle === 'редактировать') {
+    if (actionTitle === Actions.update) {
+      openForm()
       car && changeCar(car.OD_KEY, car)
-      closeForm()
       console.log('the request has flown', car)
     }
-    if (actionTitle === 'добавить') {
+    if (actionTitle === Actions.add) {
+      openForm()
       car && addCar(car)
-      closeForm()
+      console.log('the request has flown', car)
     }
   }
 
@@ -133,21 +156,18 @@ export const CarsData = () => {
       />
       <TableTools>
         <FuncButton
-          /*disabled={!activeCar.OD_KEY}*/
           title={'Редактировать запись'}
           onClickHandler={changeButtonAction}
         />
         <FuncButton
-          /*disabled={!activeCar.OD_KEY}*/
           title={'Добавить запись'}
           onClickHandler={addButtonAction}
         />
-        <FuncButton
-          disabled={!activeCar.OD_KEY}
-          title={'Удалить'}
-          onClickHandler={delButtonAction}
-        />
+        <FuncButton title={'Удалить'} onClickHandler={delButtonAction} />
       </TableTools>
+      {!hideModalOfEmptyString && (
+        <Modal>{<ModalOfAction onClose={close} />}</Modal>
+      )}
       {!hideModal && (
         <ConfirmAction
           onClose={closeModal}
@@ -158,10 +178,9 @@ export const CarsData = () => {
       {formIsOpen && (
         <EditForm
           close={closeForm}
-          submit={submit}
           onAction={activateAction}
           activeCar={
-            actionTitle === 'редактировать' || actionTitle === 'добавить'
+            actionTitle === Actions.update || actionTitle === Actions.add
               ? activeCar
               : ({} as CarType)
           }
