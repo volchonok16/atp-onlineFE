@@ -35,13 +35,7 @@ export const Staff = () => {
   }
 
   // Управление модальным окном
-  const [isOpen, toggleOpen] = useToggle(false)
-  function openModal(): void {
-    toggleOpen(true)
-  }
-  function closeModal(): void {
-    toggleOpen(false)
-  }
+  const [isOpen, openModal, closeModal] = useToggle(false)
 
   // Для удаления строки
   function deleteStaff(): void {

@@ -49,24 +49,24 @@ export const EditableTableCell = memo(function ({
 
   const onPressEnter = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      toggleOpen(true)
+      openModal()
     }
   }
 
   const onBlur = () => {
     if (inputValue != value) {
-      toggleOpen(true)
+      openModal()
     }
   }
 
-  const [isOpen, toggleOpen] = useToggle(false)
+  const [isOpen, openModal, closeModal] = useToggle(false)
   const confirmChanges = () => {
     onChangeValue()
-    toggleOpen(false)
+    closeModal()
   }
 
   const resetChanges = () => {
-    toggleOpen(false)
+    closeModal()
     setInputValue(value!)
     setInputChecked(checked)
   }
