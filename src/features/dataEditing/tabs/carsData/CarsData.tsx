@@ -23,11 +23,11 @@ import { TableTools } from '../../components/table-tools/TableTools'
 
 // Модальное окно для подтверждения действия
 export enum Actions {
-  delete = 'Удалить',
-  update = 'Редактировать',
-  add = 'Добавить',
-  save = 'Сохранить',
-  cancel = 'Отменить',
+  delete = 'удалить',
+  update = 'редактировать',
+  add = 'добавить',
+  save = 'сохранить',
+  cancel = 'отменить',
 }
 
 export const CarsData = () => {
@@ -61,8 +61,8 @@ export const CarsData = () => {
   const [hideModal, setHideModal] = useState<boolean>(true)
   const [hideModalOfEmptyString, setHideModalOfEmptyString] =
     useState<boolean>(true)
-  const open = () => setHideModalOfEmptyString(false)
   const close = () => setHideModalOfEmptyString(true)
+  const open = () => setHideModalOfEmptyString(false)
   const openModal = () => setHideModal(false)
   const closeModal = () => setHideModal(true)
 
@@ -87,16 +87,15 @@ export const CarsData = () => {
 
   const changeCar = (carId: number, car: CarType) => {
     dispatch(changeCarAC(carId, car))
-    closeForm()
   }
   const addCar = (car: CarType) => {
     dispatch(addCarAC(car))
-    closeForm()
   }
   // Для кнопки добавления
   const addButtonAction = () => {
+    console.log('1')
     actionTitleHandler(Actions.add)
-    openModal()
+    openForm()
   }
 
   // Для кнопки редактирования
@@ -105,24 +104,24 @@ export const CarsData = () => {
       open()
     } else {
       actionTitleHandler(Actions.update)
-      openModal()
+      openForm()
     }
   }
 
   // Выбирает какую операцию сделать
-  const activateAction = (car?: CarType) => {
+  const activateAction = (car?: CarType | null | undefined) => {
     if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
     }
     if (actionTitle === Actions.update) {
-      openForm()
       car && changeCar(car.OD_KEY, car)
       console.log('the request has flown', car)
+      closeForm()
     }
     if (actionTitle === Actions.add) {
-      openForm()
       car && addCar(car)
       console.log('the request has flown', car)
+      closeForm()
     }
   }
 
@@ -174,7 +173,8 @@ export const CarsData = () => {
       )}
       {formIsOpen && (
         <EditForm
-          close={closeForm}
+          actionTitle={actionTitle}
+          closeForm={closeForm}
           onAction={activateAction}
           activeCar={
             actionTitle === Actions.update || actionTitle === Actions.add

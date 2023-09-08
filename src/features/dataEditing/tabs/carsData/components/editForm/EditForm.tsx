@@ -1,51 +1,57 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 
 import css from './editForm.module.scss'
 
 import { FuncButton } from '../../../../../../common/buttons/funcButton/MyFuncButton'
+import { ConfirmAction } from '../../../../../../common/modals/confirmAction/ConfirmAction'
 import { TableTools } from '../../../../components/table-tools/TableTools'
 import { CarType, FuelType } from '../../api/api'
+import { Actions } from '../../CarsData'
 
 type PropsType = {
   activeCar?: CarType
-  close: () => void
-  onAction: (car?: CarType) => void
+  closeForm: () => void
+  onAction: (car?: CarType | null) => void
+  actionTitle: Actions
 }
 
-export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
+export const EditForm: FC<PropsType> = ({
+  activeCar,
+  closeForm,
+  onAction,
+  actionTitle,
+}) => {
   const {
     register,
     handleSubmit,
-    getValues,
-    setValue,
     formState: { errors },
   } = useForm<CarType>({
     defaultValues: activeCar,
   })
+
+  const [data, setData] = useState<null | CarType>(null)
+  const [hideModal, setHideModal] = useState<boolean>(true)
+  const openModal = (values: CarType) => {
+    console.log('openModal3', values)
+    setData(values)
+    setHideModal(false)
+  }
+  const closeModal = () => {
+    setHideModal(true)
+  }
+
   const onSubmit = (values: CarType) => {
-    onAction(values)
+    openModal(values)
   }
   const onHandlerSubmit = () => {
-    setValue('M_AM', getValues('M_AM'))
-    setValue('LM_AM', getValues('LM_AM'))
-    setValue('NAVTO', getValues('NAVTO'))
-    setValue('ARHIV', getValues('ARHIV'))
-    setValue('NRT_SLIV', getValues('NRT_SLIV'))
-    setValue('NRT_PODJOM', getValues('NRT_PODJOM'))
-    setValue('NRT_CH_OSN_DVIG_L', getValues('NRT_CH_OSN_DVIG_L'))
-    setValue('NRT_CH_OSN_DVIG_Z', getValues('NRT_CH_OSN_DVIG_Z'))
-    setValue('RCH', getValues('RCH'))
-    setValue('RCH_Z', getValues('RCH_Z'))
-    setValue('RPROG_L', getValues('RPROG_L'))
-    setValue('RPROG_Z', getValues('RPROG_Z'))
-    setValue('NRT_L', getValues('NRT_L'))
-    setValue('NRT_Z', getValues('NRT_Z'))
-    setValue('NRT_GRUZ_L', getValues('NRT_GRUZ_L'))
-    setValue('NRT_GRUZ_Z', getValues('NRT_GRUZ_Z'))
-    setValue('NRT_L_MG', getValues('NRT_L_MG'))
-    setValue('NRT_Z_MG', getValues('NRT_Z_MG'))
+    console.log('onHandlerSubmit1', data)
+    data && openModal(data)
+  }
+
+  const onActionHandler = () => {
+    onAction(data)
   }
 
   const fuelTypes: FuelType[] = [
@@ -59,6 +65,22 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
 
   return (
     <div className={css.editForm}>
+      {!hideModal && (
+        <ConfirmAction
+          onClose={() => {
+            closeModal()
+            closeForm()
+          }}
+          actionTitle={actionTitle}
+          onAction={onActionHandler}
+          /* actionButton={
+            <button type={'submit'} form="my-form">
+              add
+            </button>
+          }*/
+        />
+      )}
+      {/*<form onSubmit={handleSubmit(onSubmit)} id="my-form">*/}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={css.aboutCar}>
           <h2 className={css.title}>О машине:</h2>
@@ -69,9 +91,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
               {...register('M_AM', {
                 required: true,
                 pattern: /^[A-Zа-яё0-9._,()-/\s]+$/i,
-                onChange: () => {
-                  getValues('M_AM')
-                },
               })}
             />
             {errors?.M_AM && (
@@ -84,9 +103,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
               type="text"
               {...register('LM_AM', {
                 pattern: /^[A-Zа-яё0-9._,()-/\s]+$/i,
-                onChange: () => {
-                  getValues('LM_AM')
-                },
               })}
             />
             {errors?.LM_AM && (
@@ -120,14 +136,7 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
           </label>
           <label>
             В архиве
-            <input
-              type="checkbox"
-              {...register('ARHIV', {
-                onChange: () => {
-                  getValues('ARHIV')
-                },
-              })}
-            />
+            <input type="checkbox" {...register('ARHIV', {})} />
           </label>
         </div>
         <div className={css.fuelConsumption}>
@@ -141,9 +150,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                 min="1"
                 {...register('NRT_SLIV', {
                   pattern: /^-?(0|[1-9]+)(?:[.,]\d{1,2}|)$/,
-                  onChange: () => {
-                    getValues('NRT_SLIV')
-                  },
                 })}
               />
               {errors?.NRT_SLIV && (
@@ -158,9 +164,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                 min="1"
                 {...register('NRT_PODJOM', {
                   pattern: /[0-9]/g,
-                  onChange: () => {
-                    getValues('NRT_PODJOM')
-                  },
                 })}
               />
               {errors?.NRT_PODJOM && (
@@ -179,9 +182,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_CH_OSN_DVIG_L', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_CH_OSN_DVIG_L')
-                    },
                   })}
                 />
                 {errors?.NRT_CH_OSN_DVIG_L && (
@@ -195,9 +195,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_CH_OSN_DVIG_Z', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_CH_OSN_DVIG_Z')
-                    },
                   })}
                 />
                 {errors?.NRT_CH_OSN_DVIG_Z && (
@@ -214,9 +211,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('RCH', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('RCH')
-                    },
                   })}
                 />
                 {errors?.RCH && <p>Введите корректные данные, только цифры</p>}
@@ -228,9 +222,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('RCH_Z', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('RCH_Z')
-                    },
                   })}
                 />
                 {errors?.RCH_Z && (
@@ -247,9 +238,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('RPROG_L', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('RPROG_L')
-                    },
                   })}
                 />
                 {errors?.RPROG_L && (
@@ -263,9 +251,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('RPROG_Z', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('RPROG_Z')
-                    },
                   })}
                 />
                 {errors?.RPROG_Z && (
@@ -285,9 +270,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_L', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_L')
-                    },
                   })}
                 />
                 {errors?.NRT_L && (
@@ -301,9 +283,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_Z', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_Z')
-                    },
                   })}
                 />
                 {errors?.NRT_Z && (
@@ -321,9 +300,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_GRUZ_L', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_GRUZ_L')
-                    },
                   })}
                 />
                 {errors?.NRT_GRUZ_L && (
@@ -337,9 +313,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_GRUZ_Z', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_GRUZ_Z')
-                    },
                   })}
                 />
                 {errors?.NRT_GRUZ_Z && (
@@ -356,9 +329,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_L_MG', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_L_MG')
-                    },
                   })}
                 />
                 {errors?.NRT_L_MG && (
@@ -372,9 +342,6 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
                   type="number"
                   {...register('NRT_Z_MG', {
                     pattern: /[0-9]/g,
-                    onChange: () => {
-                      getValues('NRT_Z_MG')
-                    },
                   })}
                 />
                 {errors?.NRT_Z_MG && (
@@ -386,11 +353,11 @@ export const EditForm: FC<PropsType> = ({ activeCar, close, onAction }) => {
         </div>
         <TableTools>
           <FuncButton
-            type={'submit'}
+            //type={'submit'}
             title={'Сохранить'}
             onClickHandler={onHandlerSubmit}
           />
-          <FuncButton onClickHandler={close} title={'Отменить'} />
+          <FuncButton onClickHandler={closeModal} title={'Отменить'} />
         </TableTools>
       </form>
     </div>

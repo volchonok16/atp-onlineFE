@@ -95,7 +95,7 @@
             }
         }
       .warningText {
-        color: red;
+        @include text(14px, unset, unset, red);
       }
     }
 }
