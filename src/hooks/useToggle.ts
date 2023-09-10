@@ -2,9 +2,15 @@ import { useState } from 'react'
 
 export const useToggle = (
   initValue: boolean,
-): [boolean, (value: boolean) => void] => {
+): [boolean, () => void, () => void] => {
   const [value, setValue] = useState(initValue)
-  const onToggle = (value: boolean) => setValue(value)
+  function turnOn() {
+    setValue(true)
+  }
 
-  return [value, onToggle]
+  function turnOff() {
+    setValue(false)
+  }
+
+  return [value, turnOn, turnOff]
 }
