@@ -116,7 +116,6 @@ export const CarsData = () => {
 
   // Выбирает какую операцию сделать
   const activateAction = (car?: CarType | null | undefined) => {
-    console.log('activateAction')
     if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
     }

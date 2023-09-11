@@ -3,17 +3,16 @@ import { FC } from 'react'
 import css from './confirmAction.module.scss'
 
 import questionIcon from '../../../assets/img/confirmActionIcon.svg'
-//import { CarType } from '../../../features/dataEditing/tabs/carsData/api/api'
+
 import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
 type PropsType = {
   actionTitle: Actions
-  onClose: () => void
-  onAction: () => void
+  onClose: VoidFunction
+  onAction: VoidFunction
   positiveLabel?: string
   negativeLabel?: string
-  //actionButton: ReactNode
 }
 
 export const ConfirmAction: FC<PropsType> = ({

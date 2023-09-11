@@ -48,8 +48,8 @@ export const TypesOfEquipment = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>

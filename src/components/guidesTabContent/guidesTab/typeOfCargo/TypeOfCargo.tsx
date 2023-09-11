@@ -81,8 +81,8 @@ export const TypeOfCargo = () => {
         {isOpen && (
           <ConfirmAction
             actionTitle={actionTitle}
-            onAbort={closeModal}
-            onConfirm={showAction}
+            onClose={closeModal}
+            onAction={showAction}
           />
         )}
       </div>
@@ -108,8 +108,8 @@ export const TypeOfCargo = () => {
         {isOpen && (
           <ConfirmAction
             actionTitle={actionTitle}
-            onAbort={closeModal}
-            onConfirm={showAction}
+            onClose={closeModal}
+            onAction={showAction}
           />
         )}
       </div>
