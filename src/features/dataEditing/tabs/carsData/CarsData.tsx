@@ -5,18 +5,30 @@ import { CarType } from './api/api'
 import { EditForm } from './components/editForm/EditForm'
 import { FilterTools } from './components/filter-tools/FilterTools'
 import { Table } from './components/table/Table'
-import { deleteCarAC, fetchCarsData, setActiveCarAC } from './model/carsReducer'
+import {
+  addCarAC,
+  changeCarAC,
+  deleteCarAC,
+  fetchCarsData,
+  setActiveCarAC,
+} from './model/carsReducer'
 
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
-import {
-  ConfirmAction,
-  type ActionTitleType,
-} from '../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
+import { Modal } from '../../../../common/modals/Modal'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
+import { ModalOfAction } from '../../components/modal/ModalOfAction'
 import { TableTools } from '../../components/table-tools/TableTools'
 
-import { Modal } from 'src/common/modals/Modal'
+// Модальное окно для подтверждения действия
+export enum Actions {
+  delete = 'удалить',
+  update = 'редактировать',
+  add = 'добавить',
+  save = 'сохранить',
+  cancel = 'отменить',
+}
 
 export const CarsData = () => {
   const dispatch = useAppDispatch()
@@ -24,13 +36,13 @@ export const CarsData = () => {
   // Данные из Redux
   const cars = useAppSelector((state) => state.cars.cars)
   const activeCar = useAppSelector((state) => state.cars.activeCar)
-
   // Управление колонкой с архивом
   const [hideArchive, setHideArchive] = useState<boolean>(true)
   const hideArchiveHandler = () => setHideArchive(!hideArchive)
 
   // Управление фильтром
   const [filterValue, setFilterValue] = useState<string>('')
+
   const filterValueHandler = (value: string) => setFilterValue(value)
   const filterData = () => {
     if (!filterValue) return cars
@@ -45,53 +57,76 @@ export const CarsData = () => {
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false)
   const openForm = () => setFormIsOpen(true)
   const closeForm = () => setFormIsOpen(false)
-  const submit = () => {
-    openModal()
-  }
 
   // Управление модальным окном
   const [hideModal, setHideModal] = useState<boolean>(true)
+  const [hideModalOfEmptyString, setHideModalOfEmptyString] =
+    useState<boolean>(true)
+  const [modalType, setModalType] = useState<Actions.add | Actions.update>(
+    Actions.add,
+  )
+  const close = () => setHideModalOfEmptyString(true)
+  const open = () => setHideModalOfEmptyString(false)
   const openModal = () => setHideModal(false)
   const closeModal = () => setHideModal(true)
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
-  const actionTitleHandler = (title: ActionTitleType) => setActionTitle(title)
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.delete)
+  const actionTitleHandler = (title: Actions) => setActionTitle(title)
 
   // Для кнопки удаления
   const delButtonAction = () => {
-    actionTitleHandler('удалить')
-    openModal()
+    if (!activeCar.OD_KEY) {
+      open()
+    } else {
+      actionTitleHandler(Actions.delete)
+      openModal()
+    }
   }
+
   const deleteCar = (carId: number) => {
     dispatch(deleteCarAC(carId))
     dispatch(setActiveCarAC({} as CarType))
   }
 
+  const changeCar = (carId: number, car: CarType) => {
+    dispatch(changeCarAC(carId, car))
+  }
+  const addCar = (car: CarType) => {
+    dispatch(addCarAC(car))
+  }
   // Для кнопки добавления
   const addButtonAction = () => {
-    actionTitleHandler('добавить')
+    actionTitleHandler(Actions.add)
+    setModalType(Actions.add)
     openForm()
+    dispatch(setActiveCarAC({} as CarType))
   }
 
   // Для кнопки редактирования
   const changeButtonAction = () => {
-    actionTitleHandler('редактировать')
-    openForm()
+    if (!activeCar.OD_KEY) {
+      open()
+    } else {
+      actionTitleHandler(Actions.update)
+      setModalType(Actions.update)
+      openForm()
+    }
   }
 
   // Выбирает какую операцию сделать
-  const activateAction = () => {
-    if (actionTitle === 'удалить') {
+  const activateAction = (car?: CarType | null | undefined) => {
+    if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
-      closeModal()
     }
-    if (actionTitle === 'редактировать') {
-      alert('Данные изменены')
+    if (actionTitle === Actions.update) {
+      car && changeCar(car.OD_KEY, car)
+      console.log('the request has flown', car)
       closeForm()
     }
-    if (actionTitle === 'добавить') {
-      alert('строка добавлена')
+    if (actionTitle === Actions.add) {
+      car && addCar(car)
+      console.log('the request has flown', car)
       closeForm()
     }
   }
@@ -123,36 +158,36 @@ export const CarsData = () => {
       />
       <TableTools>
         <FuncButton
-          disabled={!activeCar.OD_KEY}
           title={'Редактировать запись'}
           onClickHandler={changeButtonAction}
         />
         <FuncButton
-          disabled={!activeCar.OD_KEY}
           title={'Добавить запись'}
           onClickHandler={addButtonAction}
         />
-        <FuncButton
-          disabled={!activeCar.OD_KEY}
-          title={'Удалить'}
-          onClickHandler={delButtonAction}
-        />
+        <FuncButton title={'Удалить'} onClickHandler={delButtonAction} />
       </TableTools>
+      {!hideModalOfEmptyString && (
+        <Modal>{<ModalOfAction onClose={close} />}</Modal>
+      )}
       {!hideModal && (
-        <Modal>
-          <ConfirmAction
-            onAbort={closeModal}
-            actionTitle={actionTitle}
-            onConfirm={activateAction}
-          />
-        </Modal>
+        <ConfirmAction
+          onClose={closeModal}
+          actionTitle={actionTitle}
+          onAction={activateAction}
+        />
       )}
       {formIsOpen && (
         <EditForm
-          close={closeForm}
-          submit={submit}
+          modalType={modalType}
+          actionTitle={actionTitle}
+          setActionTitle={setActionTitle}
+          closeForm={closeForm}
+          onAction={activateAction}
           activeCar={
-            actionTitle === 'редактировать' ? activeCar : ({} as CarType)
+            actionTitle === Actions.update || actionTitle === Actions.add
+              ? activeCar
+              : ({} as CarType)
           }
         />
       )}

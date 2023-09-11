@@ -16,12 +16,10 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 import { convertDate } from '../../../../utils/convertDate'
 import { TableTools } from '../../components/table-tools/TableTools'
+import { Actions } from '../carsData/CarsData'
 import { FilterTools } from '../carsData/components/filter-tools/FilterTools'
 
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from 'src/common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
 import { useToggle } from 'src/hooks/useToggle'
 
@@ -46,13 +44,13 @@ export const Staff = () => {
 
   function delBtnHandler(): void {
     openModal()
-    actionTitleHandler('удалить')
+    actionTitleHandler(Actions.delete)
   }
 
   // Для добавления строки
   function addBtnHandler() {
     openModal()
-    actionTitleHandler('добавить')
+    actionTitleHandler(Actions.add)
   }
   function addStaff() {
     console.log('Add staff')
@@ -60,10 +58,10 @@ export const Staff = () => {
   }
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.delete)
   const action = actionTitle === 'удалить' ? deleteStaff : addStaff
 
-  function actionTitleHandler(title: ActionTitleType): void {
+  function actionTitleHandler(title: Actions): void {
     setActionTitle(title)
   }
 
@@ -98,8 +96,8 @@ export const Staff = () => {
         <Modal>
           <ConfirmAction
             actionTitle={actionTitle}
-            onConfirm={action}
-            onAbort={closeModal}
+            onAction={action}
+            onClose={closeModal}
           />
         </Modal>
       )}

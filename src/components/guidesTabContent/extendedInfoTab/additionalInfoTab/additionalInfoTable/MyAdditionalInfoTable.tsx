@@ -6,10 +6,8 @@ import { InfoTable } from './InfoTable/InfoTable'
 
 import { IconButton } from '../../../../../common/buttons/iconButton/MyIconButton'
 
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from '../../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../../common/modals/confirmAction/ConfirmAction'
+import { Actions } from '../../../../../features/dataEditing/tabs/carsData/CarsData'
 
 type AdditionalInfoTabPropsType = {
   title: string
@@ -29,9 +27,9 @@ export const AdditionalInfoTable: FC<AdditionalInfoTabPropsType> = ({
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const closeModal = () => setIsOpen(false)
   const openModal = () => setIsOpen(true)
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('сохранить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => alert('Action confirm')
-  const actionTitleHandler = (actionTitle: ActionTitleType | undefined) => {
+  const actionTitleHandler = (actionTitle: Actions | undefined) => {
     if (actionTitle) {
       setActionTitle(actionTitle)
       openModal()
@@ -50,7 +48,7 @@ export const AdditionalInfoTable: FC<AdditionalInfoTabPropsType> = ({
         <IconButton typeOfIcon="Добавить" />
         <IconButton
           typeOfIcon="Удалить"
-          actionTitle="удалить"
+          actionTitle={Actions.delete}
           onClickHandler={actionTitleHandler}
         />
         <IconButton typeOfIcon="Сохранить" />
@@ -61,8 +59,8 @@ export const AdditionalInfoTable: FC<AdditionalInfoTabPropsType> = ({
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>
