@@ -63,8 +63,8 @@ export const EquipmentTab = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>

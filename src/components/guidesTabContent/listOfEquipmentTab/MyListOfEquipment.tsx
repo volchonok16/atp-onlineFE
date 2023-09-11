@@ -27,7 +27,6 @@ export const ListOfEquipment = () => {
   const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => alert('Action confirm')
   const actionTitleHandler = (actionTitle: Actions | undefined) => {
-    console.log(actionTitle)
     if (actionTitle) {
       setActionTitle(actionTitle)
       openModal()
@@ -94,8 +93,8 @@ export const ListOfEquipment = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>

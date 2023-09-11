@@ -4,7 +4,7 @@ import css from './ModalOfAction.module.scss'
 
 import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 export type PropsType = {
-  onClose: () => void
+  onClose: VoidFunction
 }
 export const ModalOfAction: FC<PropsType> = ({ onClose }) => {
   return (

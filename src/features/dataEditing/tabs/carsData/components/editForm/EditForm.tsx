@@ -12,7 +12,7 @@ import { Actions } from '../../CarsData'
 
 type PropsType = {
   activeCar?: CarType
-  closeForm: () => void
+  closeForm: VoidFunction
   setActionTitle?: (value: Actions) => void
   onAction: (car?: CarType | null) => void
   actionTitle: Actions

@@ -59,8 +59,8 @@ export const AdditionalInfoTable: FC<AdditionalInfoTabPropsType> = ({
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>
