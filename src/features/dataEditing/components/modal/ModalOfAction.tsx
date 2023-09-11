@@ -10,7 +10,7 @@ export const ModalOfAction: FC<PropsType> = ({ onClose }) => {
   return (
     <div className={css.popup}>
       <p className={css.text}>Выберете, пожалуйста, строку</p>
-      <FuncButton title={'ok'} onClickHandler={onClose} />
+      <FuncButton title={'Ок'} onClickHandler={onClose} />
     </div>
   )
 }

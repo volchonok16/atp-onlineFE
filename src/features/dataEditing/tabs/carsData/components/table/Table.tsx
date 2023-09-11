@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 
 import { Row } from './Row'
 
@@ -20,7 +20,9 @@ export const Table: FC<PropsType> = ({ data, activeRow, hideArchive }) => {
   const activeCarHandler = (car: CarType) => {
     dispatch(setActiveCarAC(car))
   }
-
+  useEffect(() => {
+    dispatch(setActiveCarAC({} as CarType))
+  }, [])
   return (
     <ScrollableTableWrapper>
       <table className={css.table}>

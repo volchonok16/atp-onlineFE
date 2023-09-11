@@ -42,6 +42,7 @@ export const CarsData = () => {
 
   // Управление фильтром
   const [filterValue, setFilterValue] = useState<string>('')
+
   const filterValueHandler = (value: string) => setFilterValue(value)
   const filterData = () => {
     if (!filterValue) return cars
@@ -61,6 +62,9 @@ export const CarsData = () => {
   const [hideModal, setHideModal] = useState<boolean>(true)
   const [hideModalOfEmptyString, setHideModalOfEmptyString] =
     useState<boolean>(true)
+  const [modalType, setModalType] = useState<Actions.add | Actions.update>(
+    Actions.add,
+  )
   const close = () => setHideModalOfEmptyString(true)
   const open = () => setHideModalOfEmptyString(false)
   const openModal = () => setHideModal(false)
@@ -93,9 +97,10 @@ export const CarsData = () => {
   }
   // Для кнопки добавления
   const addButtonAction = () => {
-    console.log('1')
     actionTitleHandler(Actions.add)
+    setModalType(Actions.add)
     openForm()
+    dispatch(setActiveCarAC({} as CarType))
   }
 
   // Для кнопки редактирования
@@ -104,12 +109,14 @@ export const CarsData = () => {
       open()
     } else {
       actionTitleHandler(Actions.update)
+      setModalType(Actions.update)
       openForm()
     }
   }
 
   // Выбирает какую операцию сделать
   const activateAction = (car?: CarType | null | undefined) => {
+    console.log('activateAction')
     if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
     }
@@ -173,7 +180,9 @@ export const CarsData = () => {
       )}
       {formIsOpen && (
         <EditForm
+          modalType={modalType}
           actionTitle={actionTitle}
+          setActionTitle={setActionTitle}
           closeForm={closeForm}
           onAction={activateAction}
           activeCar={

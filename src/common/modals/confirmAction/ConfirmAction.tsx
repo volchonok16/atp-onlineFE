@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
 import css from './confirmAction.module.scss'
 
@@ -11,6 +11,8 @@ type PropsType = {
   actionTitle: Actions
   onClose: () => void
   onAction: () => void
+  positiveLabel?: string
+  negativeLabel?: string
   //actionButton: ReactNode
 }
 
@@ -18,17 +20,17 @@ export const ConfirmAction: FC<PropsType> = ({
   onClose,
   onAction,
   actionTitle,
-  //actionButton,
+  positiveLabel,
+  negativeLabel,
 }) => {
   const capitalizeActionTitle =
     actionTitle[0]?.toUpperCase() + actionTitle.slice(1)
   const confirmAction = () => {
-    console.log('confirmAction')
     onClose()
     onAction()
   }
+
   const chooseMessage = () => {
-    console.log('chooseMessage')
     if (
       actionTitle === Actions.add ||
       actionTitle === Actions.update ||
@@ -46,12 +48,14 @@ export const ConfirmAction: FC<PropsType> = ({
         <img src={questionIcon} alt="question" />
         <p>{chooseMessage()}</p>
         <div className={css.btnBlock}>
-          {/*{actionButton}*/}
           <FuncButton
-            title={capitalizeActionTitle}
+            title={positiveLabel || capitalizeActionTitle}
             onClickHandler={confirmAction}
           />
-          <FuncButton onClickHandler={onClose} title="Отменить" />
+          <FuncButton
+            onClickHandler={onClose}
+            title={negativeLabel || 'Отменить'}
+          />
         </div>
       </div>
     </div>

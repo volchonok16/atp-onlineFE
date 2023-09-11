@@ -13,8 +13,10 @@ import { Actions } from '../../CarsData'
 type PropsType = {
   activeCar?: CarType
   closeForm: () => void
+  setActionTitle?: (value: Actions) => void
   onAction: (car?: CarType | null) => void
   actionTitle: Actions
+  modalType: Actions.update | Actions.add
 }
 
 export const EditForm: FC<PropsType> = ({
@@ -22,6 +24,8 @@ export const EditForm: FC<PropsType> = ({
   closeForm,
   onAction,
   actionTitle,
+  setActionTitle,
+  modalType,
 }) => {
   const {
     register,
@@ -33,12 +37,13 @@ export const EditForm: FC<PropsType> = ({
 
   const [data, setData] = useState<null | CarType>(null)
   const [hideModal, setHideModal] = useState<boolean>(true)
+
   const openModal = (values: CarType) => {
-    console.log('openModal3', values)
     setData(values)
     setHideModal(false)
   }
   const closeModal = () => {
+    setActionTitle?.(Actions.cancel)
     setHideModal(true)
   }
 
@@ -46,7 +51,7 @@ export const EditForm: FC<PropsType> = ({
     openModal(values)
   }
   const onHandlerSubmit = () => {
-    console.log('onHandlerSubmit1', data)
+    setActionTitle?.(modalType)
     data && openModal(data)
   }
 
@@ -63,24 +68,34 @@ export const EditForm: FC<PropsType> = ({
     'СУГ',
   ]
 
+  const onNegativeHandler = () => {
+    closeModal()
+  }
+
+  const onPositiveHandler = () => {
+    closeForm()
+  }
+
   return (
     <div className={css.editForm}>
       {!hideModal && (
         <ConfirmAction
-          onClose={() => {
-            closeModal()
-            closeForm()
-          }}
+          positiveLabel={Actions.cancel === actionTitle ? 'Да' : ''}
+          negativeLabel={Actions.cancel === actionTitle ? 'Нет' : ''}
+          onClose={
+            Actions.cancel === actionTitle
+              ? onNegativeHandler
+              : () => {
+                  closeModal()
+                  closeForm()
+                }
+          }
           actionTitle={actionTitle}
-          onAction={onActionHandler}
-          /* actionButton={
-            <button type={'submit'} form="my-form">
-              add
-            </button>
-          }*/
+          onAction={
+            Actions.cancel === actionTitle ? onPositiveHandler : onActionHandler
+          }
         />
       )}
-      {/*<form onSubmit={handleSubmit(onSubmit)} id="my-form">*/}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={css.aboutCar}>
           <h2 className={css.title}>О машине:</h2>
