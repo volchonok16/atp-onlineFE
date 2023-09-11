@@ -1,32 +1,14 @@
 @import "src/common/styles/variables";
 @import "src/common/styles/mixins";
 
-.modal {
-    width: 100vw;
-    height: 100vh;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
 .popup {
     display: flex;
     align-items: center;
     justify-content: center;    
     flex-wrap: wrap;
-    padding-top: 50px;
-    padding-bottom: 16px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     width: 425px;
-    background: linear-gradient(to bottom, $main_background_color 37px, $elements_inner_background_color 37px);
-    border: 2px solid $dark_blue;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
     img {        
         width: 60px;
         height: 50px;

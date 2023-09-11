@@ -11,6 +11,7 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
+    "plugin:react/jsx-runtime",
     "prettier"
   ],
   "overrides": [],
@@ -27,7 +28,7 @@
   },
   "ignorePatterns": ["react-app-env.d.ts"],
   "rules": {
-    "react/react-in-jsx-scope": "off",    
+    "react/display-name": "off",    
     "prettier/prettier": 2,
     "import/order": [
       2,

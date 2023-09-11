@@ -120,9 +120,9 @@ export const CompanyList = () => {
       </div>
       {!hideModal && (
         <ConfirmAction
-          onClose={closeModal}
+          onAbort={closeModal}
           actionTitle={actionTitle}
-          onAction={activateAction}
+          onConfirm={activateAction}
         />
       )}
       {formIsOpen && <div> Форма редактирования данных</div>}
