@@ -4,11 +4,9 @@ import { TransportationTypeTable } from './transportationTypeTable/Transportatio
 import css from './typesOfTransportation.module.scss'
 
 import { IconButton } from '../../../../common/buttons/iconButton/MyIconButton'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from '../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
 
+import { Actions } from '../../../../features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { getTransportationsTypeTC } from '../../../../redux/catalogs/directoriesReducer'
 
@@ -16,9 +14,9 @@ export const TypesOfTransportation = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const closeModal = () => setIsOpen(false)
   const openModal = () => setIsOpen(true)
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('сохранить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => alert('Action confirm')
-  const actionTitleHandler = (actionTitle: ActionTitleType | undefined) => {
+  const actionTitleHandler = (actionTitle: Actions | undefined) => {
     console.log(actionTitle)
     if (actionTitle) {
       setActionTitle(actionTitle)
@@ -40,7 +38,7 @@ export const TypesOfTransportation = () => {
         <IconButton typeOfIcon="Добавить" />
         <IconButton
           typeOfIcon="Удалить"
-          actionTitle="удалить"
+          actionTitle={Actions.delete}
           onClickHandler={actionTitleHandler}
         />
         <IconButton typeOfIcon="Сохранить" />

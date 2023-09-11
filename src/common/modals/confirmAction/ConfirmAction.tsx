@@ -3,36 +3,38 @@ import { FC } from 'react'
 import css from './confirmAction.module.scss'
 
 import questionIcon from '../../../assets/img/confirmActionIcon.svg'
+//import { CarType } from '../../../features/dataEditing/tabs/carsData/api/api'
+import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
-// Модальное окно для подтверждения действия
-
-export type ActionTitleType =
-  | 'удалить'
-  | 'редактировать'
-  | 'добавить'
-  | 'сохранить'
-  | 'отменить'
-
 type PropsType = {
-  actionTitle: ActionTitleType
-  onConfirm: () => void
-  onAbort: () => void
+  actionTitle: Actions
+  onClose: () => void
+  onAction: () => void
+  positiveLabel?: string
+  negativeLabel?: string
+  //actionButton: ReactNode
 }
 
 export const ConfirmAction: FC<PropsType> = ({
-  onAbort,
-  onConfirm,
+  onClose,
+  onAction,
   actionTitle,
+  positiveLabel,
+  negativeLabel,
 }) => {
   const capitalizeActionTitle =
     actionTitle[0]?.toUpperCase() + actionTitle.slice(1)
+  const confirmAction = () => {
+    onClose()
+    onAction()
+  }
 
   const chooseMessage = () => {
     if (
-      actionTitle === 'добавить' ||
-      actionTitle === 'редактировать' ||
-      actionTitle === 'удалить'
+      actionTitle === Actions.add ||
+      actionTitle === Actions.update ||
+      actionTitle === Actions.delete
     ) {
       return `Вы действительно хотите ${actionTitle} строку?`
     } else {
@@ -47,11 +49,13 @@ export const ConfirmAction: FC<PropsType> = ({
         <p>{chooseMessage()}</p>
         <div className={css.btnBlock}>
           <FuncButton
-            title={capitalizeActionTitle}
-            onClickHandler={onConfirm}
-            autoFocus={true}
+            title={positiveLabel || capitalizeActionTitle}
+            onClickHandler={confirmAction}
           />
-          <FuncButton title="Отменить" onClickHandler={onAbort} />
+          <FuncButton
+            onClickHandler={onClose}
+            title={negativeLabel || 'Отменить'}
+          />
         </div>
       </div>
     </div>
