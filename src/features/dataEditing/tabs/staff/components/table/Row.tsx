@@ -8,7 +8,7 @@ import {
   EditableTableCell,
   TableCellData,
 } from 'src/common/ui/editableTableCell/EditableTableCell'
-import { changeStaffAC } from 'src/features/dataEditing/tabs/staff/model/staffReducer'
+import { changeStaffDataThunk } from 'src/features/dataEditing/tabs/staff/model/staffReducer'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 
 type PropsType = {
@@ -23,7 +23,7 @@ export const Row: FC<PropsType> = ({ data, isActiveHandler, isActive }) => {
   const rowOnClickHandler = () => isActiveHandler(data)
 
   const changeStaffData = (changes: TableCellData) => {
-    dispatch(changeStaffAC(changes!))
+    dispatch(changeStaffDataThunk(changes))
   }
 
   return (

@@ -31,17 +31,15 @@ export const staffReducer = (
     case 'staff/CHANGE-STAFF':
       return {
         ...state,
-        staffList: state.staffList.map((staff) => {
-          if (staff.FIO_ID === action.payload.itemId) {
-            return {
-              ...staff,
-              [action.payload.name]:
-                action.payload.value || action.payload.checked,
-            }
-          } else {
-            return staff
-          }
-        }),
+        staffList: state.staffList.map((staff) =>
+          staff.FIO_ID === action.payload.itemId
+            ? {
+                ...staff,
+                [action.payload.name]:
+                  action.payload.value || action.payload.checked,
+              }
+            : staff,
+        ),
       }
     case 'staff/DELETE-STAFF':
       return {
@@ -155,6 +153,19 @@ export const fetchStaffListThunk = (): AppThunkType => async (dispatch) => {
     dispatch(toggleIsLoadingAC(false))
   }
 }
+
+export const changeStaffDataThunk =
+  (data: TableCellData): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      dispatch(changeStaffAC(data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
 
 //====== TYPES ======
 type InitialState = {
