@@ -21,6 +21,7 @@ import {
   ActionTitleType,
   ConfirmAction,
 } from 'src/common/modals/confirmAction/ConfirmAction'
+
 import { Modal } from 'src/common/modals/Modal'
 import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
 import { TableTools } from 'src/common/ui/tableTools/TableTools'
@@ -46,13 +47,13 @@ export const Staff = () => {
 
   const delBtnHandler = (): void => {
     openModal()
-    actionTitleHandler('удалить')
+    actionTitleHandler(Actions.delete)
   }
 
   // Для добавления строки
   const addBtnHandler = () => {
     openModal()
-    actionTitleHandler('добавить')
+    actionTitleHandler(Actions.add)
   }
   const addStaff = (data: StaffFormData) => {
     dispatch(CreateStaffThunk(data))
@@ -60,12 +61,11 @@ export const Staff = () => {
   }
 
   // Управление видом действия
+
   const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
   const action = actionTitle === 'удалить' ? deleteStaff : () => {}
 
   const actionTitleHandler = (title: ActionTitleType): void => {
-    setActionTitle(title)
-  }
 
   // Содержимое модального окна
   const modalChild =
@@ -103,7 +103,9 @@ export const Staff = () => {
 
   return (
     <>
+
       {isOpen && <Modal>{modalChild}</Modal>}
+
       <div className={css.staff}>
         <div>
           <div className={css.tableWrapper}>
