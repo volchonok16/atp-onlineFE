@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import css from './editForm.module.scss'
 
 import { FuncButton } from '../../../../../../common/buttons/funcButton/MyFuncButton'
-import { TableTools } from '../../../../components/table-tools/TableTools'
+import { TableTools } from '../../../../../../common/ui/tableTools/TableTools'
 import { CarType, FuelType } from '../../api/api'
 
 type PropsType = {

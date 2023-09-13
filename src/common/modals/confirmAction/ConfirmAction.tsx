@@ -49,7 +49,6 @@ export const ConfirmAction: FC<PropsType> = ({
           <FuncButton
             title={capitalizeActionTitle}
             onClickHandler={onConfirm}
-            autoFocus={true}
           />
           <FuncButton title="Отменить" onClickHandler={onAbort} />
         </div>
