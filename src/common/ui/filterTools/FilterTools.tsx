@@ -2,7 +2,7 @@ import { ChangeEvent, FC } from 'react'
 
 import css from './filterTools.module.scss'
 
-import { FuncButton } from '../../../../../../common/buttons/funcButton/MyFuncButton'
+import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
 type PropsType = {
   label: string

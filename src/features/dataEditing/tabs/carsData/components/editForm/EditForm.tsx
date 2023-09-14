@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form'
 
 import css from './editForm.module.scss'
 
-import { FuncButton } from '../../../../../../common/buttons/funcButton/MyFuncButton'
-import { ConfirmAction } from '../../../../../../common/modals/confirmAction/ConfirmAction'
-import { TableTools } from '../../../../components/table-tools/TableTools'
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+
+import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
+
 import { CarType, FuelType } from '../../api/api'
 import { Actions } from '../../CarsData'
 

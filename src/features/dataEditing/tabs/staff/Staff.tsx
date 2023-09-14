@@ -1,90 +1,101 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { StaffType } from './api/api'
 
-import { Row } from './components/table/Row'
 import {
+  CreateStaffForm,
+  StaffFormData,
+} from './components/CreateStaffForm/CreateStaffForm'
+import { Table } from './components/table/Table'
+import {
+  CreateStaffThunk,
   deleteStaffAC,
   fetchStaffListThunk,
   setActiveStaffAC,
 } from './model/staffReducer'
 import css from './staff.module.scss'
 
-import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
-import { IconButton } from '../../../../common/buttons/iconButton/MyIconButton'
-import { useAppDispatch } from '../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../hooks/useAppSelector'
-import { convertDate } from '../../../../utils/convertDate'
-import { TableTools } from '../../components/table-tools/TableTools'
-import { Actions } from '../carsData/CarsData'
-import { FilterTools } from '../carsData/components/filter-tools/FilterTools'
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import { IconButton } from 'src/common/buttons/iconButton/MyIconButton'
+import {
+  ActionTitleType,
+  ConfirmAction,
+} from 'src/common/modals/confirmAction/ConfirmAction'
 
-import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
+import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
+import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
 import { useToggle } from 'src/hooks/useToggle'
+import { convertDate } from 'src/utils/convertDate'
 
 export const Staff = () => {
   const dispatch = useAppDispatch()
   const staffList = useAppSelector((state) => state.staff.staffList)
-
   const activeStaff = useAppSelector((state) => state.staff.activeStaff)
-  function activeStaffHandler(staff: StaffType): void {
-    dispatch(setActiveStaffAC(staff))
-  }
 
   // Управление модальным окном
   const [isOpen, openModal, closeModal] = useToggle(false)
 
   // Для удаления строки
-  function deleteStaff(): void {
+  const deleteStaff = (): void => {
     dispatch(deleteStaffAC(activeStaff.FIO_ID))
     dispatch(setActiveStaffAC({} as StaffType))
     closeModal()
   }
 
-  function delBtnHandler(): void {
+  const delBtnHandler = (): void => {
     openModal()
     actionTitleHandler(Actions.delete)
   }
 
   // Для добавления строки
-  function addBtnHandler() {
+  const addBtnHandler = () => {
     openModal()
     actionTitleHandler(Actions.add)
   }
-  function addStaff() {
-    console.log('Add staff')
+  const addStaff = (data: StaffFormData) => {
+    dispatch(CreateStaffThunk(data))
     closeModal()
   }
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<Actions>(Actions.delete)
-  const action = actionTitle === 'удалить' ? deleteStaff : addStaff
 
-  function actionTitleHandler(title: Actions): void {
-    setActionTitle(title)
-  }
+  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
+  const action = actionTitle === 'удалить' ? deleteStaff : () => {}
 
+  const actionTitleHandler = (title: ActionTitleType): void => {
+
+  // Содержимое модального окна
+  const modalChild =
+    actionTitle === 'добавить' ? (
+      <CreateStaffForm onSubmit={addStaff} onClose={closeModal} />
+    ) : (
+      <ConfirmAction
+        actionTitle={actionTitle}
+        onConfirm={action}
+        onAbort={closeModal}
+      />
+    )
   // Управление списком
   const [filterValue, setFilterValue] = useState<string>('')
-  function filterValueHandler(value: string): void {
+  const filterValueHandler = (value: string): void => {
     setFilterValue(value)
   }
 
   const [hideArchive, setHideArchive] = useState<boolean>(true)
-  function hideArchiveHandler() {
+  const hideArchiveHandler = () => {
     setHideArchive(!hideArchive)
   }
 
-  function filteredStaffList() {
-    const result = filterValue
+  const filteredStaffList = useMemo(() => {
+    return filterValue
       ? staffList.filter(({ FIO }) =>
           FIO.toUpperCase().includes(filterValue.toUpperCase()),
         )
       : staffList
-
-    return result
-  }
+  }, [filterValue, staffList])
 
   useEffect(() => {
     dispatch(fetchStaffListThunk())
@@ -92,44 +103,13 @@ export const Staff = () => {
 
   return (
     <>
-      {isOpen && (
-        <Modal>
-          <ConfirmAction
-            actionTitle={actionTitle}
-            onAction={action}
-            onClose={closeModal}
-          />
-        </Modal>
-      )}
+
+      {isOpen && <Modal>{modalChild}</Modal>}
+
       <div className={css.staff}>
         <div>
           <div className={css.tableWrapper}>
-            <table className={css.table}>
-              <thead>
-                <tr>
-                  <th rowSpan={2}>Фамилия И.О.</th>
-                  <th colSpan={2}>Не использовать в</th>
-                  <th rowSpan={2}>Расшифровка ФИО</th>
-                  <th rowSpan={2}>Период стажировки</th>
-                  <th rowSpan={2}>ID из 1С</th>
-                  <th rowSpan={2}>Удалить</th>
-                </tr>
-                <tr>
-                  <th>Путевках</th>
-                  <th>Разнарядке</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredStaffList().map((staff) => (
-                  <Row
-                    key={staff.FIO_KEY}
-                    data={staff}
-                    isActive={staff.FIO_KEY === activeStaff.FIO_KEY}
-                    isActiveHandler={activeStaffHandler}
-                  />
-                ))}
-              </tbody>
-            </table>
+            <Table list={filteredStaffList} />
           </div>
           <FilterTools
             label="Поиск"
@@ -447,7 +427,11 @@ export const Staff = () => {
               </label>
               <label>
                 Табельный номер
-                <input type="text" defaultValue={activeStaff.TAB_NO} readOnly />
+                <input
+                  type="text"
+                  defaultValue={activeStaff.TAB_NO!}
+                  readOnly
+                />
               </label>
             </div>
             <div>
