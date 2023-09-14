@@ -1,8 +1,8 @@
 import { Table } from './table/Table'
 
-import { FuncButton } from '../../../../../../../common/buttons/funcButton/MyFuncButton'
-import { TableTools } from '../../../../../components/table-tools/TableTools'
-import { FilterTools } from '../../../../carsData/components/filter-tools/FilterTools'
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
+import { TableTools } from 'src/common/ui/tableTools/TableTools'
 
 export const Subunits = () => {
   return (

@@ -31,8 +31,8 @@ export type StaffType = {
   ARHIV: boolean
   USE_OF_RAZN: boolean
   FULL_FIO: string
-  EKIPAG: null
-  N_IN_EGIPAG: null
+  EKIPAG: boolean
+  N_IN_EGIPAG: number | null
   FROM_1C_ID: null | string
   UDOST: string
   DATE_UDOST: string
@@ -48,22 +48,22 @@ export type StaffType = {
   K_VOD_DATE: null | string
   INFO: string
   STAGIROVKA_PERIOD: null | string
-  KEY_ID: null | string
+  KEY_ID: null | number
   SETUP_ID: number
   SCAN_CODE: null | string
   PRIM: null | string
-  KARTA_TAHO: null
-  DATE_KARTA_TAHO: null
-  TIP_VODIT: number
-  TIP_DISPET: null
-  TIP_VRACH: null
-  TIP_REMONT: null
-  TIP_CONTROL: null
-  TIP_KONDUKTOR: null
-  TIP_NACH_A_K: null
+  KARTA_TAHO: null | string
+  DATE_KARTA_TAHO: null | string
+  TIP_VODIT: number | boolean
+  TIP_DISPET: number | boolean
+  TIP_VRACH: number | boolean
+  TIP_REMONT: number | boolean
+  TIP_CONTROL: number | boolean
+  TIP_KONDUKTOR: number | boolean
+  TIP_NACH_A_K: number | boolean
   N_CARD_TAHOGRAF: string
   DATE_CARD_TAHOGRAF: string
-  ZP_FROM_1C_GROUP_ID: null | string
+  ZP_FROM_1C_GROUP_ID: null | number
   KAT_S_AI: boolean
   KAT_S_AII: boolean
   KAT_S_AIII: boolean
@@ -92,7 +92,7 @@ export type StaffType = {
   KAT_TB: boolean
   FIO_EXT_KEY: number
   FIO_ID: number
-  TAB_NO: number
+  TAB_NO: number | null
 }
 
 export type RefuelCardType = {

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { CarType } from './api/api'
 
 import { EditForm } from './components/editForm/EditForm'
-import { FilterTools } from './components/filter-tools/FilterTools'
+
 import { Table } from './components/table/Table'
 import {
   addCarAC,
@@ -13,13 +13,17 @@ import {
   setActiveCarAC,
 } from './model/carsReducer'
 
-import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
-import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
-import { Modal } from '../../../../common/modals/Modal'
-import { useAppDispatch } from '../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../hooks/useAppSelector'
-import { ModalOfAction } from '../../components/modal/ModalOfAction'
-import { TableTools } from '../../components/table-tools/TableTools'
+
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import {
+  ConfirmAction,
+  type ActionTitleType,
+} from 'src/common/modals/confirmAction/ConfirmAction'
+import { Modal } from 'src/common/modals/Modal'
+import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
+import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
 
 // Модальное окно для подтверждения действия
 export enum Actions {

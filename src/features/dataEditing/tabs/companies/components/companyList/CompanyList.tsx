@@ -2,18 +2,21 @@ import { useEffect, useState } from 'react'
 
 import { Table } from './table/Table'
 
-import { FuncButton } from '../../../../../../common/buttons/funcButton/MyFuncButton'
-import { ConfirmAction } from '../../../../../../common/modals/confirmAction/ConfirmAction'
-import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { TableTools } from '../../../../components/table-tools/TableTools'
-import { Actions } from '../../../carsData/CarsData'
-import { FilterTools } from '../../../carsData/components/filter-tools/FilterTools'
 import {
   deleteCompanyAC,
   fetchCompanyListThunk,
   setActiveCompanyIdAC,
 } from '../../model/companiesReducer'
+
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import {
+  ActionTitleType,
+  ConfirmAction,
+} from 'src/common/modals/confirmAction/ConfirmAction'
+import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
+import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
 
 export const CompanyList = () => {
   const dispatch = useAppDispatch()
