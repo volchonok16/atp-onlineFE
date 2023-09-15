@@ -9,12 +9,10 @@ import {
 } from '../../model/companiesReducer'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from 'src/common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
 import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { Actions } from 'src/features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useAppSelector } from 'src/hooks/useAppSelector'
 
