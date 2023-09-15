@@ -38,9 +38,9 @@ export const Table: FC<Props> = ({ list }) => {
       <tbody>
         {list.map((staff) => (
           <Row
-            key={staff.FIO_KEY}
+            key={staff.FIO_ID}
             data={staff}
-            isActive={staff.FIO_KEY === activeStaff.FIO_KEY}
+            isActive={staff.FIO_ID === activeStaff.FIO_ID}
             isActiveHandler={activeStaffHandler}
           />
         ))}

@@ -13,15 +13,12 @@ import {
   setActiveCarAC,
 } from './model/carsReducer'
 
-
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
-import {
-  ConfirmAction,
-  type ActionTitleType,
-} from 'src/common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
 import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
 import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { ModalOfAction } from 'src/features/dataEditing/components/modal/ModalOfAction'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useAppSelector } from 'src/hooks/useAppSelector'
 
