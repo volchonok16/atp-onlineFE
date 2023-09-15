@@ -8,10 +8,8 @@ import { GeneralInfoButton } from '../../../common/buttons/generalInfoButton/MyG
 import { IconButton } from '../../../common/buttons/iconButton/MyIconButton'
 import { CheckBox } from '../../../common/inputs/checkBox/MyCheckBox'
 import { TextInput } from '../../../common/inputs/textInput/MyTextInput'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from '../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../common/modals/confirmAction/ConfirmAction'
+import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../hooks/useAppSelector'
 import {
@@ -26,10 +24,9 @@ export const ListOfEquipment = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const closeModal = () => setIsOpen(false)
   const openModal = () => setIsOpen(true)
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('сохранить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => alert('Action confirm')
-  const actionTitleHandler = (actionTitle: ActionTitleType | undefined) => {
-    console.log(actionTitle)
+  const actionTitleHandler = (actionTitle: Actions | undefined) => {
     if (actionTitle) {
       setActionTitle(actionTitle)
       openModal()
@@ -72,7 +69,7 @@ export const ListOfEquipment = () => {
             <IconButton typeOfIcon="Добавить" />
             <IconButton
               typeOfIcon="Удалить"
-              actionTitle="удалить"
+              actionTitle={Actions.delete}
               onClickHandler={actionTitleHandler}
             />
             <IconButton typeOfIcon="Сохранить" />
@@ -96,8 +93,8 @@ export const ListOfEquipment = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>

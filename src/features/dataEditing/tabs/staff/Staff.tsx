@@ -8,7 +8,7 @@ import {
 } from './components/CreateStaffForm/CreateStaffForm'
 import { Table } from './components/table/Table'
 import {
-  CreateStaffThunk,
+  createStaffThunk,
   deleteStaffAC,
   fetchStaffListThunk,
   setActiveStaffAC,
@@ -17,13 +17,12 @@ import css from './staff.module.scss'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
 import { IconButton } from 'src/common/buttons/iconButton/MyIconButton'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from 'src/common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
+
 import { Modal } from 'src/common/modals/Modal'
 import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
 import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { Actions } from 'src/features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useAppSelector } from 'src/hooks/useAppSelector'
 import { useToggle } from 'src/hooks/useToggle'
@@ -46,24 +45,23 @@ export const Staff = () => {
 
   const delBtnHandler = (): void => {
     openModal()
-    actionTitleHandler('удалить')
+    actionTitleHandler(Actions.delete)
   }
 
   // Для добавления строки
   const addBtnHandler = () => {
     openModal()
-    actionTitleHandler('добавить')
+    actionTitleHandler(Actions.add)
   }
-  const addStaff = (data: StaffFormData) => {
-    dispatch(CreateStaffThunk(data))
+  const addStaff = (data: StaffFormData): void => {
+    dispatch(createStaffThunk(data))
     closeModal()
   }
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
-  const action = actionTitle === 'удалить' ? deleteStaff : () => {}
 
-  const actionTitleHandler = (title: ActionTitleType): void => {
+  const [actionTitle, setActionTitle] = useState(Actions.delete)
+  const actionTitleHandler = (title: Actions): void => {
     setActionTitle(title)
   }
 
@@ -74,8 +72,8 @@ export const Staff = () => {
     ) : (
       <ConfirmAction
         actionTitle={actionTitle}
-        onConfirm={action}
-        onAbort={closeModal}
+        onAction={deleteStaff}
+        onClose={closeModal}
       />
     )
   // Управление списком
@@ -104,6 +102,7 @@ export const Staff = () => {
   return (
     <>
       {isOpen && <Modal>{modalChild}</Modal>}
+
       <div className={css.staff}>
         <div>
           <div className={css.tableWrapper}>

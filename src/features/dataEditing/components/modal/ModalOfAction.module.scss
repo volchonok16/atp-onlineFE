@@ -1,0 +1,15 @@
+@import "src/common/styles/variables";
+@import "src/common/styles/mixins";
+
+.popup {
+  @include display(column, 20px, center, center);
+  padding: 20px;
+  text-align: center;
+  width: 425px;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  .text {
+    @include text(16px, 22px, 500, unset)
+  }
+}

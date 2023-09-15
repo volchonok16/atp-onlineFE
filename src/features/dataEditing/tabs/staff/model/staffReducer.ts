@@ -34,13 +34,13 @@ export const staffReducer = (
       return {
         ...state,
         staffList: state.staffList.map((staff) =>
-          staff.FIO_ID === action.payload.itemId
-            ? {
+          staff.FIO_ID !== action.payload.itemId
+            ? staff
+            : {
                 ...staff,
                 [action.payload.name]:
                   action.payload.value || action.payload.checked,
-              }
-            : staff,
+              },
         ),
       }
     case 'staff/DELETE-STAFF':
@@ -170,7 +170,7 @@ export const changeStaffDataThunk =
     }
   }
 
-export const CreateStaffThunk =
+export const createStaffThunk =
   (data: StaffFormData): AppThunkType =>
   async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))

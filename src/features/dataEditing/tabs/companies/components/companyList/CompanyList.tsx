@@ -9,12 +9,10 @@ import {
 } from '../../model/companiesReducer'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from 'src/common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
 import { TableTools } from 'src/common/ui/tableTools/TableTools'
+import { Actions } from 'src/features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useAppSelector } from 'src/hooks/useAppSelector'
 
@@ -48,12 +46,12 @@ export const CompanyList = () => {
   const closeModal = () => setHideModal(true)
 
   // Управление видом действия
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('удалить')
-  const actionTitleHandler = (title: ActionTitleType) => setActionTitle(title)
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.delete)
+  const actionTitleHandler = (title: Actions) => setActionTitle(title)
 
   // Для кнопки удаления
   const delButtonAction = () => {
-    actionTitleHandler('удалить')
+    actionTitleHandler(Actions.delete)
     openModal()
   }
   const deleteCompany = (id: number) => {
@@ -63,26 +61,26 @@ export const CompanyList = () => {
 
   // Для кнопки добавления
   const addButtonAction = () => {
-    actionTitleHandler('добавить')
+    actionTitleHandler(Actions.add)
     openForm()
   }
 
   // Для кнопки редактирования
   const changeButtonAction = () => {
-    actionTitleHandler('редактировать')
+    actionTitleHandler(Actions.update)
     openForm()
   }
 
   // Выбирает какую операцию сделать
   const activateAction = () => {
-    if (actionTitle === 'удалить') {
+    if (actionTitle === Actions.delete) {
       activeCompanyId && deleteCompany(activeCompanyId)
     }
-    if (actionTitle === 'редактировать') {
+    if (actionTitle === Actions.update) {
       alert('Данные изменены')
       closeForm()
     }
-    if (actionTitle === 'добавить') {
+    if (actionTitle === Actions.add) {
       alert('строка добавлена')
       closeForm()
     }
@@ -123,9 +121,9 @@ export const CompanyList = () => {
       </div>
       {!hideModal && (
         <ConfirmAction
-          onAbort={closeModal}
+          onClose={closeModal}
           actionTitle={actionTitle}
-          onConfirm={activateAction}
+          onAction={activateAction}
         />
       )}
       {formIsOpen && <div> Форма редактирования данных</div>}

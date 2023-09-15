@@ -8,10 +8,8 @@ import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import { SelectInput } from '../../../../common/inputs/selectInput/MySelectInput'
 import { TextInput } from '../../../../common/inputs/textInput/MyTextInput'
 
-import {
-  ActionTitleType,
-  ConfirmAction,
-} from '../../../../common/modals/confirmAction/ConfirmAction'
+import { ConfirmAction } from '../../../../common/modals/confirmAction/ConfirmAction'
+import { Actions } from '../../../../features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 import {
@@ -56,7 +54,7 @@ export const TechCharacteristic = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [actionTitle, setActionTitle] = useState<ActionTitleType>('сохранить')
+  const [actionTitle, setActionTitle] = useState<Actions>(Actions.save)
   const showAction = () => {
     alert('Action confirm')
     setIsOpen(false)
@@ -409,8 +407,8 @@ export const TechCharacteristic = () => {
       {isOpen && (
         <ConfirmAction
           actionTitle={actionTitle}
-          onAbort={closeModal}
-          onConfirm={showAction}
+          onClose={closeModal}
+          onAction={showAction}
         />
       )}
     </section>

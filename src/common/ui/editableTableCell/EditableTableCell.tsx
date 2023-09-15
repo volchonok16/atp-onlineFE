@@ -1,6 +1,8 @@
-import { ChangeEvent, useState, KeyboardEvent, memo } from 'react'
+import { ChangeEvent, KeyboardEvent, memo, useState } from 'react'
 
 import css from './editableTableCell.module.scss'
+
+import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 
 import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
@@ -76,9 +78,9 @@ export const EditableTableCell = memo(function ({
       {isOpen && (
         <Modal>
           <ConfirmAction
-            onConfirm={confirmChanges}
-            onAbort={resetChanges}
-            actionTitle={'сохранить'}
+            onClose={confirmChanges}
+            onAction={resetChanges}
+            actionTitle={Actions.save}
           />
         </Modal>
       )}
