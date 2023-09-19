@@ -5,17 +5,18 @@ export type LoginDataType = {
   password: string
 }
 
+export type LoginResponseDataType = {
+  accessToken: string
+}
+
 export const authApi = {
   async login(formData: LoginDataType) {
-    const res = await instance.post('auth/login', formData)
-    return res
+    return await instance.post<LoginResponseDataType>('auth/login', formData)
   },
   async logout() {
-    const res = await instance.post('auth/logout')
-    return res
+    return await instance.post('auth/logout')
   },
   async changePassword(newPassword: string) {
-    const res = await instance.post('auth/new-password', { newPassword })
-    return res
+    return await instance.post('auth/new-password', { newPassword })
   },
 }

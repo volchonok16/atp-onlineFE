@@ -1,7 +1,7 @@
 import { redirect } from 'react-router-dom'
 
-import { AppThunkType } from '../../../app/model/store'
-import { type LoginDataType, authApi } from '../api/api'
+import { AppRootStateType, AppThunkType } from '../../../app/model/store'
+import { LoginDataType, authApi } from '../api/api'
 
 const initialState: InitialAuthStateType = {
   isLoggedIn: false,
@@ -48,6 +48,7 @@ export const signInThunk =
       const res = await authApi.login(formData)
       if (res.status === 200) {
         dispatch(isLoggedInAC(true))
+        sessionStorage.setItem('token', res.data.accessToken)
         redirect('/order')
       } else {
         dispatch(isLoggedInAC(false))
@@ -56,6 +57,10 @@ export const signInThunk =
       dispatch(isAuthErrorAC(true))
     }
   }
+
+//=====SELECTORS======
+
+export const isLogged = (state: AppRootStateType) => state.auth.isLoggedIn
 
 //=====TYPES======
 export type AuthActionsType =

@@ -4,14 +4,13 @@ import css from './app.module.scss'
 
 import { Header } from './components/header/Header'
 
-import { useAppSelector } from '../hooks/useAppSelector'
-
 import { AUTH } from '../routes/paths'
+import { getToken } from '../utils/getToken'
 
 export const App = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  const isToken = getToken()
 
-  if (!isLoggedIn) {
+  if (!isToken) {
     return <Navigate to={AUTH} />
   }
 
