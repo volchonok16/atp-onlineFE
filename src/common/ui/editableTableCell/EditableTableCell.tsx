@@ -33,12 +33,16 @@ export const EditableTableCell = memo(function ({
   type = 'text',
   checked,
 }: Props) {
-  const [inputValue, setInputValue] = useState(value || '')
+  const initialValue = value ? value : ''
+  const [inputValue, setInputValue] = useState(initialValue)
   const [inputChecked, setInputChecked] = useState<boolean | undefined>(checked)
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value)
     setInputChecked(e.currentTarget.checked)
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [isOpen, openModal, closeModal] = useToggle(false)
 
   const onChangeValue = () => {
     onChangeData({
@@ -61,16 +65,15 @@ export const EditableTableCell = memo(function ({
     }
   }
 
-  const [isOpen, openModal, closeModal] = useToggle(false)
   const confirmChanges = () => {
     onChangeValue()
     closeModal()
   }
 
   const resetChanges = () => {
-    closeModal()
     setInputValue(value!)
     setInputChecked(checked)
+    closeModal()
   }
 
   return (
@@ -78,8 +81,8 @@ export const EditableTableCell = memo(function ({
       {isOpen && (
         <Modal>
           <ConfirmAction
-            onClose={confirmChanges}
-            onAction={resetChanges}
+            onClose={resetChanges}
+            onAction={confirmChanges}
             actionTitle={Actions.save}
           />
         </Modal>

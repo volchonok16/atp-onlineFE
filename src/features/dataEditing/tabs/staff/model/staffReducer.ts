@@ -1,13 +1,13 @@
 import { StaffFormData } from './../components/CreateStaffForm/CreateStaffForm'
 
-import { AppThunkType } from '../../../../../app/model/store'
-
 import {
   staffApi,
   type RefuelCardType,
   type StaffAdditionalInformationType,
   type StaffType,
 } from '../api/api'
+
+import { AppThunkType, AppRootStateType } from 'src/app/model/store'
 
 import { TableCellData } from 'src/common/ui/editableTableCell/EditableTableCell'
 
@@ -34,13 +34,7 @@ export const staffReducer = (
       return {
         ...state,
         staffList: state.staffList.map((staff) =>
-          staff.FIO_ID !== action.payload.itemId
-            ? staff
-            : {
-                ...staff,
-                [action.payload.name]:
-                  action.payload.value || action.payload.checked,
-              },
+          staff.FIO_ID === action.payload.FIO_ID ? action.payload : staff,
         ),
       }
     case 'staff/DELETE-STAFF':
@@ -104,7 +98,7 @@ export const setStaffListAC = (staffList: StaffType[]) =>
     payload: { staffList },
   }) as const
 
-export const changeStaffAC = (data: TableCellData) =>
+export const changeStaffAC = (data: StaffType) =>
   ({
     type: 'staff/CHANGE-STAFF',
     payload: data,
@@ -158,11 +152,17 @@ export const fetchStaffListThunk = (): AppThunkType => async (dispatch) => {
 
 export const changeStaffDataThunk =
   (data: TableCellData): AppThunkType =>
-  async (dispatch) => {
+  async (dispatch, getState: () => AppRootStateType) => {
     dispatch(toggleIsLoadingAC(true))
     try {
       // Заменить на запрос к серверу
-      dispatch(changeStaffAC(data))
+      const staff = getState().staff.staffList.find(
+        (item) => item.FIO_ID === data.itemId,
+      )
+      if (staff) {
+        const newStaff = { ...staff, [data.name]: data.value }
+        dispatch(changeStaffAC(newStaff))
+      }
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
     } finally {
