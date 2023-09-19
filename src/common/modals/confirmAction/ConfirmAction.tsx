@@ -24,10 +24,6 @@ export const ConfirmAction: FC<PropsType> = ({
 }) => {
   const capitalizeActionTitle =
     actionTitle[0]?.toUpperCase() + actionTitle.slice(1)
-  const confirmAction = () => {
-    onClose()
-    onAction()
-  }
 
   const chooseMessage = () => {
     if (
@@ -49,7 +45,7 @@ export const ConfirmAction: FC<PropsType> = ({
         <div className={css.btnBlock}>
           <FuncButton
             title={positiveLabel || capitalizeActionTitle}
-            onClickHandler={confirmAction}
+            onClickHandler={onAction}
           />
           <FuncButton
             onClickHandler={onClose}

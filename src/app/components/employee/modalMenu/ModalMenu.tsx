@@ -8,7 +8,7 @@ import css from './modalMenuStyle.module.scss'
 
 import { isLoggedInAC } from '../../../../features/auth/model/authReducer'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
-import { PERSONAL_ACCOUNT } from '../../../../routes/paths'
+import { AUTH, PERSONAL_ACCOUNT } from '../../../../routes/paths'
 
 type ModalMenuPropsType = {
   closeModal: VoidFunction
@@ -21,7 +21,8 @@ export const ModalMenu = ({ closeModal }: ModalMenuPropsType): ReactElement => {
 
   const logoutHandler = () => {
     dispatch(isLoggedInAC(false))
-    navigate('auth')
+    sessionStorage.removeItem('token')
+    navigate(AUTH)
   }
   const goToPersonalAccount = () => navigate(PERSONAL_ACCOUNT)
 
