@@ -1,24 +1,26 @@
 import css from './contractorsTableStyle.module.scss'
 
-import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { ContractorType } from '../../api/api'
 import {
-  getContractors,
+  selectedContractors,
   getContractorsSubunitData,
   getSubunitOfficialData,
-  setActiveContractorAC,
+  setActiveContractorIdAC,
+  selectedActiveContractorId,
 } from '../../model/contractorOfficialReducer'
+
+import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
 
 export const ContractorsTable = () => {
   const dispatch = useAppDispatch()
-  const contractors = useAppSelector(getContractors)
+  const contractors = useAppSelector(selectedContractors)
+  const activeContractorId = useAppSelector(selectedActiveContractorId)
 
-  const chooseActiveRowHandler = (contractor: ContractorType) => {
-    dispatch(setActiveContractorAC(contractor))
-    dispatch(getContractorsSubunitData(contractor.DATA_KEY))
-    dispatch(getSubunitOfficialData(contractor.DATA_KEY))
+  const chooseActiveRowHandler = (id: number) => {
+    dispatch(setActiveContractorIdAC(id))
+    dispatch(getContractorsSubunitData(id))
+    dispatch(getSubunitOfficialData(id))
   }
 
   return (
@@ -35,7 +37,12 @@ export const ContractorsTable = () => {
               return (
                 <tr
                   key={contractor.DATA_KEY}
-                  onClick={() => chooseActiveRowHandler(contractor)}
+                  className={
+                    contractor.DATA_KEY === activeContractorId
+                      ? css.activeRow
+                      : ''
+                  }
+                  onClick={() => chooseActiveRowHandler(contractor.DATA_KEY)}
                 >
                   <td className={css.firstColumn}>{contractor.LNAME}</td>
                 </tr>

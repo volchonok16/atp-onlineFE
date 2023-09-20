@@ -2,10 +2,10 @@ import css from './subunitTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { getContractorSubunits } from '../../model/contractorOfficialReducer'
+import { selectedSubunits } from '../../model/contractorOfficialReducer'
 
 export const SubunitsTable = () => {
-  const subunits = useAppSelector(getContractorSubunits)
+  const subunits = useAppSelector(selectedSubunits)
 
   const isSubunits = !!subunits.length
 

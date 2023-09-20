@@ -1,4 +1,5 @@
-@import "src/common/styles/mixins";
+@import "src/common/styles/mixins.scss";
+@import "src/common/styles/variables.scss";
 
 .tableWrapper {
   min-width: 450px;
@@ -17,5 +18,8 @@
         text-align: start;
       }
     }
+  }
+  .activeRow {
+    @include tableActiveRow($table_active_row_bg_color);
   }
 }
