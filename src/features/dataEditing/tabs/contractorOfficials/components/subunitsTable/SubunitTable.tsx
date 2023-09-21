@@ -1,12 +1,22 @@
 import css from './subunitTableStyle.module.scss'
 
-import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { selectedSubunits } from '../../model/contractorOfficialReducer'
+import {
+  selectedSubunits,
+  selectedActiveSubunitId,
+  setActiveSubunitIdAC,
+} from '../../model/contractorOfficialReducer'
+
+import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
 
 export const SubunitsTable = () => {
+  const dispatch = useAppDispatch()
   const subunits = useAppSelector(selectedSubunits)
-
+  const activeSubunitId = useAppSelector(selectedActiveSubunitId)
+  const activeRowHandler = (id: number) => {
+    dispatch(setActiveSubunitIdAC(id))
+  }
   const isSubunits = !!subunits.length
 
   return (
@@ -22,7 +32,15 @@ export const SubunitsTable = () => {
             {isSubunits ? (
               subunits.map((subunit) => {
                 return (
-                  <tr key={subunit.DATA_PODR_KEY}>
+                  <tr
+                    key={subunit.DATA_PODR_KEY}
+                    className={
+                      subunit.DATA_PODR_KEY === activeSubunitId
+                        ? css.activeRow
+                        : ''
+                    }
+                    onClick={() => activeRowHandler(subunit.DATA_PODR_KEY)}
+                  >
                     <td className={css.firstColumn}>{subunit.PODR}</td>
                   </tr>
                 )

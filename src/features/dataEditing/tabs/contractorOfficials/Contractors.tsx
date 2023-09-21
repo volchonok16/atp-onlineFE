@@ -8,9 +8,6 @@ import css from './contractorsStyle.module.scss'
 
 import { getContractorsData } from './model/contractorOfficialReducer'
 
-import { EditButtonGroup } from '../../../../common/buttons/editButtonGroup/EditButtonGroup'
-import { FilterGroup } from '../../../../common/buttons/filterGroup/FilterGroup'
-import { FuncButton } from '../../../../common/buttons/funcButton/MyFuncButton'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 
 export const Contractors = () => {
@@ -21,21 +18,20 @@ export const Contractors = () => {
   }, [])
 
   return (
-    <div className={css.container}>
-      <div className={css.tablesContainer}>
-        <ContractorsTable />
-        <SubunitsTable />
-        <SubunitOfficialTable />
-      </div>
-      <div className={css.buttonsContainer}>
-        <FilterGroup title={'по краткому названию'} />
+    <div className={css.tablesContainer}>
+      <ContractorsTable />
+      <SubunitsTable />
+      <SubunitOfficialTable />
+
+      {/* <div className={css.buttonsContainer}>
+        
         <div className={css.editButtonContainer}>
           <EditButtonGroup />
           <div className={css.customerButton}>
             <FuncButton title={'Подразделение заказчика'} />
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

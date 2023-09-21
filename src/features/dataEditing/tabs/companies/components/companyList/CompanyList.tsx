@@ -99,8 +99,7 @@ export const CompanyList = () => {
           helperText="по короткому названию"
           value={filterValue}
           onChange={filterValueHandler}
-          hideArchive={false}
-          hideArchiveHandler={() => {}}
+          withArchive={false}
         />
         <TableTools>
           <FuncButton
