@@ -3,7 +3,7 @@ import { instance } from '../../app/api/instance'
 export const orderApi = {
   fetchPreparingData(
     date: string,
-    motorcadeName: MotorcadeNameType = 'all',
+    motorcadeName: number = 0,
     filter?: OrderPreparingDataType,
   ) {
     return instance.get('order/prepare-a-table-for', {
@@ -12,26 +12,25 @@ export const orderApi = {
   },
   fetchOrderByOrder(
     date: string,
-    motorcadeName: MotorcadeNameType = 'all',
+    motorcadeName: number = 0,
     filter?: OrderPurchasesType,
   ) {
-    return instance.get<OrderByOrderType[]>('order/order', {
+    return instance.get<OrderBookingType[]>('order/booking', {
       params: { date, motorcadeName, filter },
     })
   },
 
   fetchOrderData(
     date: string,
-    motorcadeName: MotorcadeNameType = 'all',
+    motorcadeName: number = 0,
     filter?: OrderPurchasesType,
   ) {
-    return instance.get<OrderPurchasesType[]>('', {
+    return instance.get<OrderPurchasesType[]>('order/order', {
       params: { date, motorcadeName, filter },
     })
   },
 }
 //======Types======
-export type MotorcadeNameType = 'all' | 'first' | 'upp'
 
 export type OrderPurchasesType = {
   MAM: string
@@ -61,5 +60,27 @@ export type OrderPreparingDataType = {
   ROUTE: string
   COMMENTAR: string
 }
-// в стадии разработки
-export type OrderByOrderType = ''
+
+export type OrderBookingType = {
+  RAZNAR2_KEY: number
+  RAZOV: boolean
+  PRIVL_TRANSPORT: object
+  VR_V: string
+  VR_Z: string
+  VR_I: string
+  SUMM_VREM: string
+  CENA: string
+  SUMM: string
+  CENA_PODR: string
+  VREM_I_PODR: string
+  SUMM_PODR: string
+  PROFIT_PODR: string
+  COMMENTAR: string
+  DATA_ID: number
+  ORG_ID: number
+  FIO_ID: number
+  FIO2_ID: number
+  ROUTE_ID: number
+  RAZN_T_T_ID: number
+  RAZN_OD_ID: number
+}
