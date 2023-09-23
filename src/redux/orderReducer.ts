@@ -1,7 +1,7 @@
 import { AppRootStateType, AppThunkType } from '../app/model/store'
 import {
   orderApi,
-  OrderByOrderType,
+  OrderBookingType,
   OrderPreparingDataType,
   OrderPurchasesType,
 } from '../features/order/orderApi'
@@ -11,7 +11,7 @@ const initialState: InitialStateType = {
   errorMessage: '',
   orderInfo: [],
   orderPreparingData: [],
-  orderByOrder: [],
+  orderBooking: [],
 }
 
 export const orderReducer = (
@@ -39,10 +39,10 @@ export const orderReducer = (
         ...state,
         orderPreparingData: action.payload.orderPreparingData,
       }
-    case 'order/GET-ORDER-BY-ORDER':
+    case 'order/GET-ORDER-BOOKING':
       return {
         ...state,
-        orderByOrder: action.payload.orderByOrder,
+        orderBooking: action.payload.orderBooking,
       }
     default:
       return state
@@ -64,7 +64,7 @@ export const fetchOrderByOrder = (): AppThunkType => async (dispatch) => {
   dispatch(toggleIsLoadingAC(true))
   try {
     const res = await orderApi.fetchOrderByOrder('2022-08-10')
-    dispatch(getOrderByOrderAC(res.data))
+    dispatch(getOrderBookingAC(res.data))
   } catch (e) {
     dispatch(setErrorMessageAC((e as Error).message))
   } finally {
@@ -94,10 +94,10 @@ export const setErrorMessageAC = (errorMessage: string) =>
     type: 'order/SET-ERROR-MESSAGE',
     payload: { errorMessage },
   }) as const
-export const getOrderByOrderAC = (orderByOrder: OrderByOrderType[]) =>
+export const getOrderBookingAC = (orderBooking: OrderBookingType[]) =>
   ({
-    type: 'order/GET-ORDER-BY-ORDER',
-    payload: { orderByOrder },
+    type: 'order/GET-ORDER-BOOKING',
+    payload: { orderBooking },
   }) as const
 export const getOrderAC = (order: OrderPurchasesType[]) =>
   ({
@@ -117,15 +117,15 @@ export const getPreparingDataAC = (
 export const orderInfo = (state: AppRootStateType) => state.order.orderInfo
 export const orderPreparingData = (state: AppRootStateType) =>
   state.order.orderPreparingData
-export const orderByOrder = (state: AppRootStateType) =>
-  state.order.orderByOrder
+export const orderBooking = (state: AppRootStateType) =>
+  state.order.orderBooking
 //======TYPES======
 type InitialStateType = {
   isLoading: boolean
   errorMessage: string
   orderInfo: OrderPurchasesType[]
   orderPreparingData: OrderPreparingDataType[]
-  orderByOrder: OrderByOrderType[]
+  orderBooking: OrderBookingType[]
 }
 
 export type OrderActionsType =
@@ -133,4 +133,4 @@ export type OrderActionsType =
   | ReturnType<typeof setErrorMessageAC>
   | ReturnType<typeof getOrderAC>
   | ReturnType<typeof getPreparingDataAC>
-  | ReturnType<typeof getOrderByOrderAC>
+  | ReturnType<typeof getOrderBookingAC>

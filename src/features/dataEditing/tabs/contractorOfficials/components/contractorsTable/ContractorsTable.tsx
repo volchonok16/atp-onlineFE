@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import css from './contractorsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
@@ -5,22 +7,26 @@ import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ContractorType } from '../../api/api'
 import {
-  getContractors,
+  activeContractor,
+  //getContractors,
   getContractorsSubunitData,
   getSubunitOfficialData,
   setActiveContractorAC,
 } from '../../model/contractorOfficialReducer'
-
-export const ContractorsTable = () => {
+type PropsType = {
+  data: ContractorType[]
+}
+export const ContractorsTable: FC<PropsType> = ({ data }) => {
   const dispatch = useAppDispatch()
-  const contractors = useAppSelector(getContractors)
+  //const contractors = useAppSelector(getContractors)
+  const activeContractorId = useAppSelector(activeContractor)
 
   const chooseActiveRowHandler = (contractor: ContractorType) => {
     dispatch(setActiveContractorAC(contractor))
     dispatch(getContractorsSubunitData(contractor.DATA_KEY))
     dispatch(getSubunitOfficialData(contractor.DATA_KEY))
   }
-
+  console.log('data', data)
   return (
     <div className={css.tableWrapper}>
       <ScrollableTableWrapper>
@@ -31,13 +37,21 @@ export const ContractorsTable = () => {
             </tr>
           </thead>
           <tbody className={css.tBody}>
-            {contractors.map((contractor) => {
+            {data.map((contractor) => {
               return (
                 <tr
                   key={contractor.DATA_KEY}
                   onClick={() => chooseActiveRowHandler(contractor)}
                 >
-                  <td className={css.firstColumn}>{contractor.LNAME}</td>
+                  <td
+                    className={
+                      activeContractorId === contractor
+                        ? `${css.firstColumn} ${css.activeRow}`
+                        : `${css.firstColumn} `
+                    }
+                  >
+                    {contractor.LNAME}
+                  </td>
                 </tr>
               )
             })}

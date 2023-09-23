@@ -12,9 +12,11 @@
 
     .tBody {
       background-color: $button_text_color;
-
       .firstColumn {
         text-align: start;
+      }
+      .activeRow {
+        background-color: beige;
       }
     }
   }
