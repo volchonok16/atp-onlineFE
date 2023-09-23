@@ -34,7 +34,7 @@ export const Contractors = () => {
     )
     return setDataContractors(data)
   }
-  console.log(dataContractors)
+
   return (
     <div className={css.container}>
       <div className={css.tablesContainer}>
