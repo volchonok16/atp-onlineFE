@@ -3,9 +3,9 @@ import { FC } from 'react'
 import css from './Table.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { OrderByOrderType } from '../../../orderApi'
+import { OrderBookingType } from '../../../orderApi'
 type PropsType = {
-  data: OrderByOrderType[]
+  data: OrderBookingType[]
 }
 export const Table: FC<PropsType> = ({ data }) => {
   return (

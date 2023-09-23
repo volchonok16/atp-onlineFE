@@ -3,11 +3,11 @@ import { ChangeEvent, FC, useState } from 'react'
 import css from './FilteredTools.module.scss'
 
 import { TextInput } from '../../../../../common/inputs/textInput/MyTextInput'
-import { OrderByOrderType } from '../../../orderApi'
+import { OrderBookingType } from '../../../orderApi'
 type PropsType = {
   helperText: string
-  name?: keyof OrderByOrderType
-  onFilter: (value: string, name?: keyof OrderByOrderType) => void
+  name?: keyof OrderBookingType
+  onFilter: (value: string, name?: keyof OrderBookingType) => void
 }
 export const FilteredTools: FC<PropsType> = ({
   helperText,
