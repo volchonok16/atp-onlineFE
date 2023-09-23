@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ContractorType } from '../../api/api'
 import {
+  activeContractor,
   getContractors,
   getContractorsSubunitData,
   getSubunitOfficialData,
@@ -14,6 +15,7 @@ import {
 export const ContractorsTable = () => {
   const dispatch = useAppDispatch()
   const contractors = useAppSelector(getContractors)
+  const activeContractorId = useAppSelector(activeContractor)
 
   const chooseActiveRowHandler = (contractor: ContractorType) => {
     dispatch(setActiveContractorAC(contractor))
@@ -37,7 +39,15 @@ export const ContractorsTable = () => {
                   key={contractor.DATA_KEY}
                   onClick={() => chooseActiveRowHandler(contractor)}
                 >
-                  <td className={css.firstColumn}>{contractor.LNAME}</td>
+                  <td
+                    className={
+                      activeContractorId === contractor
+                        ? `${css.firstColumn} ${css.activeRow}`
+                        : `${css.firstColumn} `
+                    }
+                  >
+                    {contractor.LNAME}
+                  </td>
                 </tr>
               )
             })}

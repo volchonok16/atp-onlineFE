@@ -149,7 +149,8 @@ export const getContractorSubunits = (state: AppRootStateType) =>
 
 export const getSubunitOfficial = (state: AppRootStateType) =>
   state.contractors.subunitOfficial
-
+export const activeContractor = (state: AppRootStateType) =>
+  state.contractors.activeContractor
 //======TYPES======
 
 type InitialStateType = {
