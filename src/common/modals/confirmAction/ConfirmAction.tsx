@@ -6,6 +6,7 @@ import questionIcon from '../../../assets/img/confirmActionIcon.svg'
 
 import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
+import { Modal } from '../Modal'
 
 type PropsType = {
   actionTitle: Actions
@@ -38,7 +39,7 @@ export const ConfirmAction: FC<PropsType> = ({
   }
 
   return (
-    <div className={css.modal}>
+    <Modal>
       <div className={css.popup}>
         <img src={questionIcon} alt="question" />
         <p>{chooseMessage()}</p>
@@ -53,6 +54,6 @@ export const ConfirmAction: FC<PropsType> = ({
           />
         </div>
       </div>
-    </div>
+    </Modal>
   )
 }

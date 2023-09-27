@@ -57,6 +57,7 @@ export const CompanyList = () => {
   const deleteCompany = (id: number) => {
     dispatch(deleteCompanyAC(id))
     dispatch(setActiveCompanyIdAC(null))
+    closeModal()
   }
 
   // Для кнопки добавления

@@ -37,7 +37,7 @@ export const ContractorsTable = () => {
     dispatch(setActiveSubunitIdAC(null))
     dispatch(setOfficialsAC([]))
   }
-
+  
   return (
     <div className={css.tableWrapper}>
       <ScrollableTableWrapper>
@@ -47,6 +47,7 @@ export const ContractorsTable = () => {
               <th>Краткое название заказчика</th>
             </tr>
           </thead>
+
           <tbody>
             {filteredContractorList.map((contractor) => {
               return (
@@ -59,7 +60,15 @@ export const ContractorsTable = () => {
                   }
                   onClick={() => chooseActiveRowHandler(contractor.DATA_KEY)}
                 >
-                  <td className={css.firstColumn}>{contractor.LNAME}</td>
+                  <td
+                    className={
+                      activeContractorId === contractor
+                        ? `${css.firstColumn} ${css.activeRow}`
+                        : `${css.firstColumn} `
+                    }
+                  >
+                    {contractor.LNAME}
+                  </td>
                 </tr>
               )
             })}

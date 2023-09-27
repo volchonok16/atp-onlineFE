@@ -11,25 +11,25 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 import {
   fetchOrderByOrder,
-  getOrderByOrderAC,
-  orderByOrder,
+  getOrderBookingAC,
+  orderBooking,
   orderInfo,
 } from '../../../../redux/orderReducer'
-import { OrderByOrderType } from '../../orderApi'
+import { OrderBookingType } from '../../orderApi'
 
 export const DataForShippingDocs = () => {
-  const order = useAppSelector(orderByOrder)
+  const order = useAppSelector(orderBooking)
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(fetchOrderByOrder())
   }, [])
   useEffect(() => {
     if (order.length) {
-      getOrderByOrderAC(order)
+      getOrderBookingAC(order)
     }
   }, [order])
 
-  const [data, setData] = useState<OrderByOrderType[]>(order)
+  const [data, setData] = useState<OrderBookingType[]>(order)
   /*  const filterValueHandler = (value: string, name?: keyof OrderByOrderType) => {
     const newData = order.filter((el) => {
       if (name) {
