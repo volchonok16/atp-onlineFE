@@ -27,10 +27,14 @@ import { useToggle } from 'src/hooks/useToggle'
 export const OfficialsTable = () => {
   const dispatch = useAppDispatch()
 
-  const subunitOfficials = useAppSelector(selectedOfficials)
+  const officialList = useAppSelector(selectedOfficials)
   const activeOfficialId = useAppSelector(selectedActiveOfficialId)
   const activeSubunitId = useAppSelector(selectedActiveSubunitId)
-  const isOfficial = !!subunitOfficials.length
+  const activeRowHandler = (id: number) => {
+    dispatch(setActiveOfficialIdAC(id))
+  }
+
+  const isOfficial = !!officialList.length
 
   const [formIsOpen, openForm, closeForm] = useToggle(false)
 
@@ -41,6 +45,9 @@ export const OfficialsTable = () => {
   useEffect(() => {
     if (activeSubunitId) {
       dispatch(getOfficialLitsThunk(activeSubunitId))
+      dispatch(setActiveOfficialIdAC(null))
+    }
+    if (!activeSubunitId) {
       dispatch(setActiveOfficialIdAC(null))
     }
   }, [activeSubunitId])
@@ -56,9 +63,17 @@ export const OfficialsTable = () => {
           </thead>
           <tbody>
             {isOfficial ? (
-              subunitOfficials.map((official) => {
+              officialList.map((official) => {
                 return (
-                  <tr key={official.DATA_FIO_KEY}>
+                  <tr
+                    key={official.DATA_FIO_KEY}
+                    className={
+                      official.DATA_FIO_KEY === activeOfficialId
+                        ? css.activeRow
+                        : ''
+                    }
+                    onClick={() => activeRowHandler(official.DATA_FIO_KEY)}
+                  >
                     <td className={css.firstColumn}>{official.FIO}</td>
                     <td>{official.DOLGN}</td>
                   </tr>
