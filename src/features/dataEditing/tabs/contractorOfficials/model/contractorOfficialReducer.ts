@@ -123,7 +123,7 @@ export const getOfficialLitsThunk =
     }
   }
 
-export const changeOfficialData =
+export const changeActiveOfficialDataThunk =
   (data: ChangeOfficialDataForm): AppThunkType =>
   async (dispatch, getState: () => AppRootStateType) => {
     dispatch(toggleIsLoadingAC(true))
@@ -136,6 +136,27 @@ export const changeOfficialData =
       if (activeOfficial) {
         const item = { ...activeOfficial, [data.key]: data.value }
         dispatch(changeActiveOfficialDataAC(item))
+      }
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const deleteActiveOfficialThunk =
+  (): AppThunkType => async (dispatch, getState: () => AppRootStateType) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      // Заменить на запрос
+      const activeOfficialId = getState().contractors.activeOfficialId
+      const officialList = getState().contractors.officials
+      if (activeOfficialId) {
+        const result = officialList.filter(
+          (item) => item.DATA_FIO_KEY !== activeOfficialId,
+        )
+        dispatch(setOfficialsAC(result))
+        dispatch(setActiveOfficialIdAC(null))
       }
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))

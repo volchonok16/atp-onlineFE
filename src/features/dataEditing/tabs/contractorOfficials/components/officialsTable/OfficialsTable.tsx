@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import css from './officialsTable.module.scss'
 
@@ -9,6 +9,7 @@ import {
   postNewOfficialThunk,
   getOfficialLitsThunk,
   setActiveOfficialIdAC,
+  deleteActiveOfficialThunk,
 } from '../../model/contractorOfficialReducer'
 
 import {
@@ -17,9 +18,11 @@ import {
 } from '../createOfficialForm/CreateOfficialForm'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
 import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
 
+import { Actions } from 'src/features/dataEditing/tabs/carsData/CarsData'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 import { useAppSelector } from 'src/hooks/useAppSelector'
 import { useToggle } from 'src/hooks/useToggle'
@@ -36,12 +39,49 @@ export const OfficialsTable = () => {
 
   const isOfficial = !!officialList.length
 
-  const [formIsOpen, openForm, closeForm] = useToggle(false)
+  // Управление модальным окном
+  const [isOpen, openModal, closeModal] = useToggle(false)
+
+  // Управление видом действия
+  const [actionTitle, setActionTitle] = useState(Actions.delete)
+  const actionTitleHandler = (title: Actions): void => {
+    setActionTitle(title)
+  }
+
+  // Для добавления строки
+  const addBtnHandler = () => {
+    openModal()
+    actionTitleHandler(Actions.add)
+  }
 
   const createOfficial = (data: CreateOfficialFormData) => {
     dispatch(postNewOfficialThunk(data))
-    closeForm()
+    closeModal()
   }
+
+  // Для удаления строки
+  const deleteOfficial = (): void => {
+    dispatch(deleteActiveOfficialThunk())
+    closeModal()
+  }
+
+  const delBtnHandler = (): void => {
+    openModal()
+    actionTitleHandler(Actions.delete)
+  }
+
+  // Содержимое модального окна
+  const modalChild =
+    actionTitle === 'добавить' ? (
+      <CreateOfficialForm onSubmit={createOfficial} onClose={closeModal} />
+    ) : (
+      <ConfirmAction
+        actionTitle={actionTitle}
+        onAction={deleteOfficial}
+        onClose={closeModal}
+      />
+    )
+
   useEffect(() => {
     if (activeSubunitId) {
       dispatch(getOfficialLitsThunk(activeSubunitId))
@@ -51,8 +91,10 @@ export const OfficialsTable = () => {
       dispatch(setActiveOfficialIdAC(null))
     }
   }, [activeSubunitId])
+
   return (
     <section>
+      {isOpen && <Modal>{modalChild}</Modal>}
       <ScrollableTableWrapper>
         <table className={css.table}>
           <thead className={css.tableHeader}>
@@ -91,15 +133,14 @@ export const OfficialsTable = () => {
         <FuncButton
           title="Добавить"
           disabled={!activeSubunitId}
-          onClick={openForm}
+          onClick={addBtnHandler}
         />
-        <FuncButton title="Удалить" disabled={!activeOfficialId} />
+        <FuncButton
+          title="Удалить"
+          disabled={!activeOfficialId}
+          onClick={delBtnHandler}
+        />
       </div>
-      {formIsOpen && (
-        <Modal>
-          <CreateOfficialForm onClose={closeForm} onSubmit={createOfficial} />
-        </Modal>
-      )}
     </section>
   )
 }
