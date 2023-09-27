@@ -20,7 +20,6 @@
   transform: translate(-50%, -50%);
   background-color: $button_text_color;
   color: $black;
-  border: 1px solid $dark_blue;
   border-radius: 5px;
 
   @include display(column, 0);
