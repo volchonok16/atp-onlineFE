@@ -1,4 +1,4 @@
-import { instance } from '../../../../../app/api/instance'
+import { instance } from 'src/app/api/instance'
 
 import type { CompanyListItemType } from '../../companies/api/api'
 
@@ -19,7 +19,6 @@ export const contractorOfficialsApi = {
 }
 
 //=======TYPES========
-
 export type ContractorType = Pick<CompanyListItemType, 'LNAME' | 'DATA_KEY'>
 
 export type ContractorSubunitType = {
@@ -41,3 +40,5 @@ export type SubunitOfficialsType = {
   FIO: string
   DOLGN: string
 }
+
+export type OfficialKeys = keyof SubunitOfficialsType

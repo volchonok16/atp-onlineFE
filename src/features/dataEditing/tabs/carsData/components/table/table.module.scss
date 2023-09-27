@@ -10,7 +10,5 @@
     }    
 }
 .activeRow {
-    td {
-        background-color: beige;
-    }
+    @include tableActiveRow($table_active_row_bg_color);
 }

@@ -2,28 +2,23 @@
 @import "src/common/styles/mixins";
 
 .filter {
-    position: relative;
-    display: flex;
+    @include display(row, 1rem);
+    position: relative;    
     align-items: center;
     @include text(16px, 19px, 400, $text_color);
-    & input {
-        display: inline-block;
-        min-width: 15rem;
-        margin: 0 20px;
-        border: 1px solid $dark_blue;    
-        height: 30px;
-        padding: 10px 8px;
-
-    &:focus {
-      outline: none;
-    }
-    }
+    label {
+        @include display(row, 1rem);
+        align-items: center;
+        input {        
+            @include inputs;
+        }
+    }    
+    
 }
 .filterTools {
     @include display(row, 30px);
-    justify-content: space-between;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 1rem;
 }
 
 .showArchive {

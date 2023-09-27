@@ -5,11 +5,12 @@ import css from './filterTools.module.scss'
 import { FuncButton } from '../../buttons/funcButton/MyFuncButton'
 
 type PropsType = {
-  label: string
-  helperText: string
-  hideArchive: boolean
-  hideArchiveHandler: () => void
+  label?: string
+  helperText?: string
+  hideArchive?: boolean
   value: string
+  withArchive: boolean
+  hideArchiveHandler?: () => void
   onChange: (value: string) => void
 }
 
@@ -20,6 +21,7 @@ export const FilterTools: FC<PropsType> = ({
   hideArchiveHandler,
   onChange,
   value,
+  withArchive,
 }) => {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value.trim()
@@ -34,7 +36,7 @@ export const FilterTools: FC<PropsType> = ({
     <div className={css.filterTools}>
       <div className={css.filter}>
         <label>
-          {label}
+          {label && <span>{label}</span>}
           <input
             type="text"
             placeholder={helperText}
@@ -44,14 +46,16 @@ export const FilterTools: FC<PropsType> = ({
         </label>
         <FuncButton title="Сброс" onClickHandler={resetFilterValue} />
       </div>
-      <label className={css.showArchive}>
-        <input
-          type="checkbox"
-          checked={hideArchive}
-          onChange={hideArchiveHandler}
-        />
-        Скрыть архивы
-      </label>
+      {withArchive && (
+        <label className={css.showArchive}>
+          <input
+            type="checkbox"
+            checked={hideArchive}
+            onChange={hideArchiveHandler}
+          />
+          Скрыть архивы
+        </label>
+      )}
     </div>
   )
 }

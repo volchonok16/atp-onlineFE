@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import { CarType } from './api/api'
 
@@ -45,7 +45,7 @@ export const CarsData = () => {
   const [filterValue, setFilterValue] = useState<string>('')
 
   const filterValueHandler = (value: string) => setFilterValue(value)
-  const filterData = () => {
+  const filter = () => {
     if (!filterValue) return cars
     return cars.filter(
       ({ NAVTO, M_AM }) =>
@@ -53,6 +53,7 @@ export const CarsData = () => {
         M_AM.toUpperCase().includes(filterValue.toUpperCase()),
     )
   }
+  const filteredCarList = useMemo(filter, [cars, filterValue])
 
   // Управление формой
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false)
@@ -141,7 +142,7 @@ export const CarsData = () => {
     <div>
       {cars.length ? (
         <Table
-          data={filterData()}
+          data={filteredCarList}
           activeRow={activeCar}
           hideArchive={hideArchive}
         />
@@ -156,6 +157,7 @@ export const CarsData = () => {
         hideArchiveHandler={hideArchiveHandler}
         value={filterValue}
         onChange={filterValueHandler}
+        withArchive={true}
       />
       <TableTools>
         <FuncButton
