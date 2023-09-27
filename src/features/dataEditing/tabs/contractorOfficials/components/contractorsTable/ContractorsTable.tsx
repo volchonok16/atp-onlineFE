@@ -4,10 +4,10 @@ import css from './contractorsTableStyle.module.scss'
 
 import {
   selectedContractors,
-  getContractorsSubunitData,
-  getSubunitOfficialData,
   setActiveContractorIdAC,
   selectedActiveContractorId,
+  setActiveSubunitIdAC,
+  setOfficialsAC,
 } from '../../model/contractorOfficialReducer'
 
 import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
@@ -17,23 +17,25 @@ import { useAppSelector } from 'src/hooks/useAppSelector'
 
 export const ContractorsTable = () => {
   const dispatch = useAppDispatch()
+  const activeContractorId = useAppSelector(selectedActiveContractorId)
+
   const [filterValue, setFilterValue] = useState('')
   const filterValueHandler = (value: string) => setFilterValue(value)
+
+  const contractors = useAppSelector(selectedContractors)
+
   const filter = () =>
     !filterValue
       ? contractors
       : contractors.filter(({ LNAME }) =>
           LNAME.toUpperCase().includes(filterValue.toUpperCase()),
         )
-
-  const contractors = useAppSelector(selectedContractors)
   const filteredContractorList = useMemo(filter, [filterValue, contractors])
-  const activeContractorId = useAppSelector(selectedActiveContractorId)
 
   const chooseActiveRowHandler = (id: number) => {
     dispatch(setActiveContractorIdAC(id))
-    dispatch(getContractorsSubunitData(id))
-    dispatch(getSubunitOfficialData(id))
+    dispatch(setActiveSubunitIdAC(null))
+    dispatch(setOfficialsAC([]))
   }
 
   return (
@@ -45,7 +47,7 @@ export const ContractorsTable = () => {
               <th>Краткое название заказчика</th>
             </tr>
           </thead>
-          <tbody className={css.tBody}>
+          <tbody>
             {filteredContractorList.map((contractor) => {
               return (
                 <tr

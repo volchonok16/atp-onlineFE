@@ -1,9 +1,14 @@
+import { useEffect } from 'react'
+
 import css from './subunitTableStyle.module.scss'
 
 import {
   selectedSubunits,
   selectedActiveSubunitId,
   setActiveSubunitIdAC,
+  setActiveOfficialIdAC,
+  selectedActiveContractorId,
+  getSubunitListThunk,
 } from '../../model/contractorOfficialReducer'
 
 import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
@@ -14,10 +19,19 @@ export const SubunitsTable = () => {
   const dispatch = useAppDispatch()
   const subunits = useAppSelector(selectedSubunits)
   const activeSubunitId = useAppSelector(selectedActiveSubunitId)
+  const activeContractorId = useAppSelector(selectedActiveContractorId)
   const activeRowHandler = (id: number) => {
     dispatch(setActiveSubunitIdAC(id))
+    dispatch(setActiveOfficialIdAC(null))
   }
   const isSubunits = !!subunits.length
+
+  useEffect(() => {
+    if (activeContractorId) {
+      dispatch(getSubunitListThunk(activeContractorId))
+      dispatch(setActiveSubunitIdAC(null))
+    }
+  }, [activeContractorId])
 
   return (
     <div className={css.tableWrapper}>
@@ -28,7 +42,7 @@ export const SubunitsTable = () => {
               <th>Подразделение</th>
             </tr>
           </thead>
-          <tbody className={css.tBody}>
+          <tbody>
             {isSubunits ? (
               subunits.map((subunit) => {
                 return (

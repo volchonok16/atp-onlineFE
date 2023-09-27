@@ -1,4 +1,4 @@
-import { instance } from '../../../../../app/api/instance'
+import { instance } from 'src/app/api/instance'
 
 import type { CompanyListItemType } from '../../companies/api/api'
 

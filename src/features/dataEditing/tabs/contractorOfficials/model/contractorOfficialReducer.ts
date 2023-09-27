@@ -7,6 +7,7 @@ import {
 } from '../api/api'
 
 import { AppRootStateType, AppThunkType } from 'src/app/model/store'
+import { CreateOfficialFormData } from 'src/features/dataEditing/tabs/contractorOfficials/components/createOfficialForm/CreateOfficialForm'
 
 const initialState: InitialStateType = {
   isLoading: false,
@@ -69,13 +70,18 @@ export const contractorsReducer = (
         ...state,
         officials: state.officials.map((item) => item),
       }
+    case 'contractors/ADD-OFFICIAL':
+      return {
+        ...state,
+        officials: [action.payload.official, ...state.officials],
+      }
     default:
       return state
   }
 }
 
 //======THUNKS======
-export const getContractorsData = (): AppThunkType => async (dispatch) => {
+export const getContractorListThunk = (): AppThunkType => async (dispatch) => {
   dispatch(toggleIsLoadingAC(true))
   try {
     const res = await contractorOfficialsApi.fetchContractorList()
@@ -87,7 +93,7 @@ export const getContractorsData = (): AppThunkType => async (dispatch) => {
   }
 }
 
-export const getContractorsSubunitData =
+export const getSubunitListThunk =
   (id: number): AppThunkType =>
   async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
@@ -102,7 +108,7 @@ export const getContractorsSubunitData =
     }
   }
 
-export const getSubunitOfficialData =
+export const getOfficialLitsThunk =
   (id: number): AppThunkType =>
   async (dispatch) => {
     dispatch(toggleIsLoadingAC(true))
@@ -138,6 +144,28 @@ export const changeOfficialData =
     }
   }
 
+export const postNewOfficialThunk =
+  (data: CreateOfficialFormData): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      // Заменить на запрос
+      const officialId = Date.now()
+      const newOfficial: SubunitOfficialsType = {
+        FIO: data.FIO,
+        DOLGN: data.DOLGN,
+        DATA_FIO_KEY: officialId,
+        DATA_ID: 0,
+        DATA_PODR_ID: 0,
+      }
+      dispatch(addOfficialAC(newOfficial))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
 //======ACTIONS======
 export const toggleIsLoadingAC = (isLoading: boolean) =>
   ({
@@ -157,7 +185,7 @@ export const setContractorsAC = (contractors: ContractorType[]) =>
     payload: { contractors },
   }) as const
 
-export const setActiveContractorIdAC = (id: number) =>
+export const setActiveContractorIdAC = (id: number | null) =>
   ({
     type: 'contractors/SET-ACTIVE-CONTRACTOR-ID',
     payload: { id },
@@ -169,7 +197,7 @@ export const setSubunitsAC = (subunits: ContractorSubunitType[]) =>
     payload: { subunits },
   }) as const
 
-export const setActiveSubunitIdAC = (id: number) =>
+export const setActiveSubunitIdAC = (id: number | null) =>
   ({
     type: 'contractors/SET-ACTIVE-SUBUNIT-ID',
     payload: { id },
@@ -181,7 +209,7 @@ export const setOfficialsAC = (officials: SubunitOfficialsType[]) =>
     payload: { officials },
   }) as const
 
-export const setActiveOfficialIdAC = (id: number) =>
+export const setActiveOfficialIdAC = (id: number | null) =>
   ({
     type: 'contractors/SET-ACTIVE-OFFICIAL-ID',
     payload: { id },
@@ -190,6 +218,12 @@ export const setActiveOfficialIdAC = (id: number) =>
 export const changeActiveOfficialDataAC = (official: SubunitOfficialsType) =>
   ({
     type: 'contractors/CHANGE-ACTIVE-OFFICIAL-DATA',
+    payload: { official },
+  }) as const
+
+export const addOfficialAC = (official: SubunitOfficialsType) =>
+  ({
+    type: 'contractors/ADD-OFFICIAL',
     payload: { official },
   }) as const
 
@@ -239,3 +273,4 @@ export type ContractorsActionsType =
   | ReturnType<typeof setActiveSubunitIdAC>
   | ReturnType<typeof setActiveOfficialIdAC>
   | ReturnType<typeof changeActiveOfficialDataAC>
+  | ReturnType<typeof addOfficialAC>
