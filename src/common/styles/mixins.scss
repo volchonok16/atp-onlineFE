@@ -46,7 +46,7 @@
   @include text(calc(10px + 6 * ((100vw - 1024px) / 896)), calc(13px + 7 * (100vw - 1024px) / 896), 400, $button_text_color);
   padding: calc(6px - 1 * (100vw - 1024px) / 896) 13px;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 #7AA0C1;
   &:hover {
     transition: .3s ease-in-out all;
     background-color: $pressed_blue_button;
@@ -96,7 +96,7 @@
   padding: calc(6px - 1 * (100vw - 1024px) / 896) 13px;
   background-color: $bg-color;
   border-radius: 3px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 #52A092;
   &:hover {
     background-color: $active-bg-color;
     color: $button_text_color_hover;
@@ -106,4 +106,10 @@
     color: $button_text_color;
     box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
   }
+}
+
+@mixin tableActiveRow($bg-color){
+  td {
+        background-color: $bg-color;
+    }
 }

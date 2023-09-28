@@ -1,0 +1,20 @@
+@import 'src/common/styles/mixins.scss';
+@import 'src/common/styles/variables.scss';
+
+.form {
+    @include display(column, 0.5rem);
+    padding: 1rem;
+
+    .title {
+        text-align: center;
+    }
+
+    .field {
+        @include display(row, 0.5rem);
+        justify-content: space-between;
+        
+        input {
+            @include inputs();
+        }
+    }
+}

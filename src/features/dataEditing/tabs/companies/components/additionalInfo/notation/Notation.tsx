@@ -15,6 +15,7 @@ export const Notation = () => {
         onChange={() => {}}
         hideArchive={false}
         hideArchiveHandler={() => {}}
+        withArchive={true}
       />
       <TableTools>
         <FuncButton title={'Редактировать запись'} />
