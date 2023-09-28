@@ -1,0 +1,23 @@
+@import "src/common/styles/mixins";
+@import "src/common/styles/variables";
+ 
+.table {
+  @include table-style;
+  
+  .tableHeader {
+      height: 2rem;
+    }
+
+  .firstColumn {
+    text-align: start;
+  }
+
+  .activeRow {
+      @include tableActiveRow($table_active_row_bg_color);
+    }
+}
+
+.btnBlock {
+  @include display(row, 1rem);
+  margin-top: 1rem;
+}

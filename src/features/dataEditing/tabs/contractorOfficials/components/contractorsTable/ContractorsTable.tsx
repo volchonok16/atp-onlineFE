@@ -1,32 +1,43 @@
-import { FC } from 'react'
+import { useState, useMemo } from 'react'
 
 import css from './contractorsTableStyle.module.scss'
 
-import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { ContractorType } from '../../api/api'
 import {
-  activeContractor,
-  //getContractors,
-  getContractorsSubunitData,
-  getSubunitOfficialData,
-  setActiveContractorAC,
+  selectedContractors,
+  setActiveContractorIdAC,
+  selectedActiveContractorId,
+  setActiveSubunitIdAC,
+  setOfficialsAC,
 } from '../../model/contractorOfficialReducer'
-type PropsType = {
-  data: ContractorType[]
-}
-export const ContractorsTable: FC<PropsType> = ({ data }) => {
-  const dispatch = useAppDispatch()
-  //const contractors = useAppSelector(getContractors)
-  const activeContractorId = useAppSelector(activeContractor)
 
-  const chooseActiveRowHandler = (contractor: ContractorType) => {
-    dispatch(setActiveContractorAC(contractor))
-    dispatch(getContractorsSubunitData(contractor.DATA_KEY))
-    dispatch(getSubunitOfficialData(contractor.DATA_KEY))
+import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import { FilterTools } from 'src/common/ui/filterTools/FilterTools'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
+import { useAppSelector } from 'src/hooks/useAppSelector'
+
+export const ContractorsTable = () => {
+  const dispatch = useAppDispatch()
+  const activeContractorId = useAppSelector(selectedActiveContractorId)
+
+  const [filterValue, setFilterValue] = useState('')
+  const filterValueHandler = (value: string) => setFilterValue(value)
+
+  const contractors = useAppSelector(selectedContractors)
+
+  const filter = () =>
+    !filterValue
+      ? contractors
+      : contractors.filter(({ LNAME }) =>
+          LNAME.toUpperCase().includes(filterValue.toUpperCase()),
+        )
+  const filteredContractorList = useMemo(filter, [filterValue, contractors])
+
+  const chooseActiveRowHandler = (id: number) => {
+    dispatch(setActiveContractorIdAC(id))
+    dispatch(setActiveSubunitIdAC(null))
+    dispatch(setOfficialsAC([]))
   }
-  console.log('data', data)
+
   return (
     <div className={css.tableWrapper}>
       <ScrollableTableWrapper>
@@ -36,28 +47,32 @@ export const ContractorsTable: FC<PropsType> = ({ data }) => {
               <th>Краткое название заказчика</th>
             </tr>
           </thead>
-          <tbody className={css.tBody}>
-            {data.map((contractor) => {
+          <tbody>
+            {filteredContractorList.map((contractor) => {
               return (
                 <tr
                   key={contractor.DATA_KEY}
-                  onClick={() => chooseActiveRowHandler(contractor)}
+                  className={
+                    contractor.DATA_KEY === activeContractorId
+                      ? css.activeRow
+                      : ''
+                  }
+                  onClick={() => chooseActiveRowHandler(contractor.DATA_KEY)}
                 >
-                  <td
-                    className={
-                      activeContractorId === contractor
-                        ? `${css.firstColumn} ${css.activeRow}`
-                        : `${css.firstColumn} `
-                    }
-                  >
-                    {contractor.LNAME}
-                  </td>
+                  <td className={css.firstColumn}>{contractor.LNAME}</td>
                 </tr>
               )
             })}
           </tbody>
         </table>
       </ScrollableTableWrapper>
+      <FilterTools
+        withArchive={false}
+        value={filterValue}
+        onChange={filterValueHandler}
+        label={'Фильтр'}
+        helperText={'По названию'}
+      />
     </div>
   )
 }

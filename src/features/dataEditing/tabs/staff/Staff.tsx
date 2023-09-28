@@ -115,6 +115,7 @@ export const Staff = () => {
             hideArchiveHandler={hideArchiveHandler}
             value={filterValue}
             onChange={filterValueHandler}
+            withArchive={false}
           />
           <TableTools>
             <FuncButton
