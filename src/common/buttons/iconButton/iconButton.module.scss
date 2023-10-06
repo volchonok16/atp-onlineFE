@@ -7,7 +7,7 @@
   border-radius: 3px;
   @include display(row, 0px);
   align-items: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px $blue_button_color_shadow;
   padding: 8px;
 
   &:hover {
@@ -17,6 +17,6 @@
 
   &:active {
     background-color: $pressed_blue_button;
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
