@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
@@ -10,7 +12,10 @@ import {
   setActiveEquipmentAC,
 } from '../../model/objectAndEquipmentReducer'
 
-export const EquipmentsTable = () => {
+type PropsType = {
+  activeRow: ObjectAndEquipmentType
+}
+export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
   const dispatch = useAppDispatch()
   const equipments = useAppSelector(getObjectAndEquipments)
 
@@ -35,6 +40,12 @@ export const EquipmentsTable = () => {
               {equipments.map((equipment) => {
                 return (
                   <tr
+                    className={
+                      activeRow.SKLAD_OBJ_SPIS_KEY ===
+                      equipment.SKLAD_OBJ_SPIS_KEY
+                        ? css.activeRow
+                        : ''
+                    }
                     key={equipment.SKLAD_OBJ_SPIS_KEY}
                     onClick={() => getDocumentHandler(equipment)}
                   >

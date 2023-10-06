@@ -17,6 +17,9 @@
       .tableHeader {
         height: 40px;
       }
+      .activeRow {
+        @include tableActiveRow($table_active_row_bg_color);
+      }
 
       .tBody {
         background-color: $button_text_color;
