@@ -5,6 +5,8 @@ const initialState: InitialStateType = {
   isLoading: false,
   errorMessage: '',
   flights: [],
+  flight: {} as FlightsType,
+  activeFlightId: 0,
 }
 
 export const flightsReducer = (
@@ -26,6 +28,23 @@ export const flightsReducer = (
       return {
         ...state,
         flights: action.payload.flights,
+      }
+    case 'flights/DELETE-FLIGHTS-DATA':
+      return {
+        ...state,
+        flights: state.flights.filter(
+          (el) => el.PL_ROUTE_KEY !== action.payload.idFlight,
+        ),
+      }
+    case 'flights/SET-ACTIVE-FLIGHT':
+      return {
+        ...state,
+        flight: action.payload.flight,
+      }
+    case 'flights/SET-ACTIVE-FLIGHT-ID':
+      return {
+        ...state,
+        activeFlightId: action.payload.id,
       }
     default:
       return state
@@ -65,18 +84,42 @@ export const getFlightsDataAC = (flights: FlightsType[]) =>
     payload: { flights },
   }) as const
 
+export const deleteFlightDataAC = (idFlight: number) =>
+  ({
+    type: 'flights/DELETE-FLIGHTS-DATA',
+    payload: { idFlight },
+  }) as const
+
+export const setActiveFlightDataAC = (flight: FlightsType) =>
+  ({
+    type: 'flights/SET-ACTIVE-FLIGHT',
+    payload: { flight },
+  }) as const
+export const setActiveFlightIdAC = (id: number) =>
+  ({
+    type: 'flights/SET-ACTIVE-FLIGHT-ID',
+    payload: { id },
+  }) as const
 //======SELECTORS======
 
 export const getFlights = (state: AppRootStateType) => state.flights.flights
+export const activeFlight = (state: AppRootStateType) => state.flights.flight
+export const activeFlightId = (state: AppRootStateType) =>
+  state.flights.activeFlightId
 
 //======TYPES======
 type InitialStateType = {
   isLoading: boolean
   errorMessage: string
   flights: FlightsType[]
+  flight: FlightsType
+  activeFlightId: number
 }
 
 export type FlightsActionType =
   | ReturnType<typeof toggleIsLoadingAC>
   | ReturnType<typeof setErrorMessageAC>
   | ReturnType<typeof getFlightsDataAC>
+  | ReturnType<typeof deleteFlightDataAC>
+  | ReturnType<typeof setActiveFlightDataAC>
+  | ReturnType<typeof setActiveFlightIdAC>
