@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react'
 import { FlightRow } from './components/table/FlightRow'
 import css from './flightsStyle.module.scss'
 
-import { getFlights, getFlightsData } from './model/flightsReducer'
+import {
+  activeFlightId,
+  deleteFlightDataAC,
+  getFlights,
+  getFlightsData,
+} from './model/flightsReducer'
 
 import { EditButtonGroup } from '../../../../common/buttons/editButtonGroup/EditButtonGroup'
 import { FilterGroup } from '../../../../common/buttons/filterGroup/FilterGroup'
@@ -16,6 +21,7 @@ import { useAppSelector } from '../../../../hooks/useAppSelector'
 export const Flights = () => {
   const dispatch = useAppDispatch()
   const flights = useAppSelector(getFlights)
+  const activeFlightDataId = useAppSelector(activeFlightId)
 
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
 
@@ -25,7 +31,13 @@ export const Flights = () => {
   useEffect(() => {
     dispatch(getFlightsData())
   }, [])
-
+  const deleteFlight = (flightId: number) => {
+    dispatch(deleteFlightDataAC(flightId))
+  }
+  const deleteButtonHandler = () => {
+    deleteFlight(activeFlightDataId)
+    closeDeleteModal()
+  }
   return (
     <div className={css.container}>
       <div className={css.tableWrapper}>
@@ -50,8 +62,12 @@ export const Flights = () => {
               </tr>
             </thead>
             <tbody>
-              {flights.map((flight) => (
-                <FlightRow key={flight.DATA_ID} flight={flight} />
+              {flights.map((flight, index) => (
+                <FlightRow
+                  activeRowId={activeFlightDataId}
+                  key={`${flight.DATA_ID}-${index} `}
+                  flight={flight}
+                />
               ))}
             </tbody>
           </table>
@@ -63,7 +79,10 @@ export const Flights = () => {
       </div>
       {isShowDeleteModal && (
         <Modal>
-          <DeleteRowModal deleteRow={() => {}} closeModal={closeDeleteModal} />
+          <DeleteRowModal
+            deleteRow={deleteButtonHandler}
+            closeModal={closeDeleteModal}
+          />
         </Modal>
       )}
     </div>

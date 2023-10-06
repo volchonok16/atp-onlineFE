@@ -120,6 +120,7 @@ export const CarsData = () => {
   const activateAction = (car?: CarType | null | undefined) => {
     if (actionTitle === Actions.delete) {
       deleteCar(activeCar.OD_KEY)
+      closeModal()
     }
     if (actionTitle === Actions.update) {
       car && changeCar(car.OD_KEY, car)

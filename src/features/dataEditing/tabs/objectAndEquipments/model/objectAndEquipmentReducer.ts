@@ -44,6 +44,13 @@ export const equipmentsReducer = (
         ...state,
         documentsForEquipment: action.payload.documents,
       }
+    case 'equipments/DELETE-ACTIVE-EQUIPMENT':
+      return {
+        ...state,
+        objectAndEquipment: state.objectAndEquipment.filter(
+          (el) => el.SKLAD_OBJ_SPIS_KEY !== action.payload.id,
+        ),
+      }
     default:
       return state
   }
@@ -113,6 +120,11 @@ export const getDocumentsForEquipmentsAC = (
     payload: { documents },
   }) as const
 
+export const deleteActiveEquipmentAC = (id: number) =>
+  ({
+    type: 'equipments/DELETE-ACTIVE-EQUIPMENT',
+    payload: { id },
+  }) as const
 //======SELECTORS=====
 
 export const getObjectAndEquipments = (state: AppRootStateType) =>
@@ -126,7 +138,8 @@ export const getStartDate = (state: AppRootStateType) =>
 
 export const getDescription = (state: AppRootStateType) =>
   state.equipments.activeEquipments.DESCR
-
+export const activeEquipments = (state: AppRootStateType) =>
+  state.equipments.activeEquipments
 //======TYPES======
 type InitialStateType = {
   isLoading: boolean
@@ -142,3 +155,4 @@ export type ObjectAndEquipmentsActionsType =
   | ReturnType<typeof getObjectAndEquipmentsAC>
   | ReturnType<typeof getDocumentsForEquipmentsAC>
   | ReturnType<typeof setActiveEquipmentAC>
+  | ReturnType<typeof deleteActiveEquipmentAC>

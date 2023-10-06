@@ -10,6 +10,9 @@
 
     .table {
       @include table-style;
+      .activeRow {
+        @include tableActiveRow($table_active_row_bg_color);
+      }
     }
   }
 
