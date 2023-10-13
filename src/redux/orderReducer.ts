@@ -60,10 +60,10 @@ export const fetchPreparingData = (): AppThunkType => async (dispatch) => {
     dispatch(toggleIsLoadingAC(false))
   }
 }
-export const fetchOrderByOrder = (): AppThunkType => async (dispatch) => {
+export const fetchOrderBookingData = (): AppThunkType => async (dispatch) => {
   dispatch(toggleIsLoadingAC(true))
   try {
-    const res = await orderApi.fetchOrderByOrder('2022-08-10')
+    const res = await orderApi.fetchOrderBookingData('2022-08-10')
     dispatch(getOrderBookingAC(res.data))
   } catch (e) {
     dispatch(setErrorMessageAC((e as Error).message))

@@ -10,18 +10,18 @@ import { RatingButton } from '../../../../common/buttons/ratingButton/MyRatingBu
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 import {
-  fetchOrderByOrder,
+  fetchOrderBookingData,
   getOrderBookingAC,
   orderBooking,
-  orderInfo,
 } from '../../../../redux/orderReducer'
 import { OrderBookingType } from '../../orderApi'
 
 export const DataForShippingDocs = () => {
   const order = useAppSelector(orderBooking)
   const dispatch = useAppDispatch()
+
   useEffect(() => {
-    dispatch(fetchOrderByOrder())
+    dispatch(fetchOrderBookingData())
   }, [])
   useEffect(() => {
     if (order.length) {
@@ -30,24 +30,21 @@ export const DataForShippingDocs = () => {
   }, [order])
 
   const [data, setData] = useState<OrderBookingType[]>(order)
-  /*  const filterValueHandler = (value: string, name?: keyof OrderByOrderType) => {
+  const filterValueHandler = (value: string, name?: keyof OrderBookingType) => {
     const newData = order.filter((el) => {
       if (name) {
         return (
           el[name] !== null &&
-          el[name].toUpperCase().includes(value.toUpperCase())
+          el[name].toString().toUpperCase().includes(value.toUpperCase())
         )
       }
     })
     setData(newData)
-  }*/
-  // ф-ция заглушка для ф-ции р.33
-  const filterValueHandler = () => {
-    setData(data)
   }
+
   return (
     <section>
-      {orderInfo.length ? <Table data={data} /> : <h2>Данные отсутствуют</h2>}
+      {order.length ? <Table data={data} /> : <h2>Данные отсутствуют</h2>}
       <div className={css.orderTab__filters__arrowsGroup}>
         <RatingButton fromLarge={true} onClickRating={() => {}} />
         <RatingButton fromLarge={false} onClickRating={() => {}} />
@@ -56,22 +53,27 @@ export const DataForShippingDocs = () => {
         <label>Поиск</label>
         <div className={css.orderTab__filters__inputs}>
           <FilteredTools
+            name={'ZAK1'}
             helperText={'По заказчику'}
             onFilter={filterValueHandler}
           />
           <FilteredTools
+            name={'ORG_NAME'}
             helperText={'По собственнику ТС'}
             onFilter={filterValueHandler}
           />
           <FilteredTools
+            name={'FLIGHT'}
             onFilter={filterValueHandler}
             helperText={'По маршруту'}
           />
           <FilteredTools
+            name={'MAM'}
             onFilter={filterValueHandler}
             helperText={'По автомобилю'}
           />
           <FilteredTools
+            name={'FULL_FIO'}
             onFilter={filterValueHandler}
             helperText={'По водителю'}
           />

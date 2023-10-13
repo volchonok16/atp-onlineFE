@@ -10,10 +10,10 @@ export const orderApi = {
       params: { date, motorcadeName, filter },
     })
   },
-  fetchOrderByOrder(
+  fetchOrderBookingData(
     date: string,
     motorcadeName: number = 0,
-    filter?: OrderPurchasesType,
+    filter?: OrderBookingType,
   ) {
     return instance.get<OrderBookingType[]>('order/booking', {
       params: { date, motorcadeName, filter },
@@ -63,24 +63,24 @@ export type OrderPreparingDataType = {
 
 export type OrderBookingType = {
   RAZNAR2_KEY: number
-  RAZOV: boolean
-  PRIVL_TRANSPORT: object
+  PRIVL_TRANSPORT: boolean
   VR_V: string
   VR_Z: string
   VR_I: string
   SUMM_VREM: string
-  CENA: string
-  SUMM: string
-  CENA_PODR: string
+  CENA: number
+  SUMM: number
+  CENA_PODR: number
   VREM_I_PODR: string
-  SUMM_PODR: string
+  SUMM_PODR: number
   PROFIT_PODR: string
   COMMENTAR: string
-  DATA_ID: number
-  ORG_ID: number
-  FIO_ID: number
-  FIO2_ID: number
-  ROUTE_ID: number
-  RAZN_T_T_ID: number
-  RAZN_OD_ID: number
+  ZAK1: string
+  ORG_NAME: string
+  T_T: string
+  MAM: string
+  FULL_FIO: string
+  FULL_FIO2: string
+  FLIGHT: string
+  RAZOV: boolean
 }

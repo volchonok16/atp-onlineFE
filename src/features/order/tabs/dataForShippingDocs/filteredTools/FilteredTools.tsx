@@ -20,6 +20,7 @@ export const FilteredTools: FC<PropsType> = ({
     setInputValue(value)
     onFilter?.(value, name)
   }
+
   return (
     <TextInput
       placeholder={helperText}
