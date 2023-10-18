@@ -6,7 +6,7 @@ import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/
 export const FlightList = () => {
   return (
     <div className={css.flightList}>
-      <ScrollableTableWrapper height="7rem">
+      <ScrollableTableWrapper height="5rem">
         <table></table>
       </ScrollableTableWrapper>
       <div className={css.btnBlock}>

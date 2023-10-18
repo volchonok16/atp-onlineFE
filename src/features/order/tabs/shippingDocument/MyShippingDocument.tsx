@@ -10,6 +10,7 @@ import css from './shippingDocument.module.scss'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
 import { fetchCarsData } from 'src/features/dataEditing/tabs/carsData/model/carsReducer'
+import { AdditionalData } from 'src/features/order/tabs/shippingDocument/additionalData/AdditionalData'
 import { MainData } from 'src/features/order/tabs/shippingDocument/mainData/MainData'
 import { useAppDispatch } from 'src/hooks/useAppDispatch'
 
@@ -40,9 +41,9 @@ export const ShippingDocument = () => {
       <div className={css.mainData}>
         <MainData />
       </div>
-      <div className={css.additionalData}></div>
-      {/* <AddInfoBlock />
-      <AdditionalDataBlock /> */}
+      <div className={css.additionalData}>
+        <AdditionalData />
+      </div>
       <div className={css.btnBlock}>
         <FuncButton title="Печать ТН" />
         <FuncButton title="Печать ТТН" />
