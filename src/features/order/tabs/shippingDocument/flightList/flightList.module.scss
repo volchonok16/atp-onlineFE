@@ -1,0 +1,16 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.flightList {
+    @include display(column, 0.5rem);
+}
+
+.btnBlock {
+    @include display(row, 0.5rem);
+    justify-content: right;
+
+    button:first-child {
+        margin-right: auto;
+    }
+    
+}

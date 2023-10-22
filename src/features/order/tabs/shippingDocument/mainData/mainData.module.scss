@@ -1,0 +1,35 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.mainData {
+    @include display(row, 1rem);
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    label {
+        @include display(row, 0.5rem);
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    input {
+        @include inputs;
+    }
+
+    textarea {
+        @include inputs;
+        width: 100%;        
+    }
+}
+
+.document, .consignee, .shipper {
+    flex-basis: 30%;
+}
+
+.document, .consignee, .shipper, .additionalData {
+    @include display(column, 0.5rem);    
+}
+.additionalData {
+    flex-basis: 100%;
+}
+

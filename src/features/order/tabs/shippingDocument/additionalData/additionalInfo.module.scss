@@ -1,0 +1,27 @@
+@import 'src/common/styles/mixins';
+@import 'src/common/styles/variables';
+
+.rootElement {
+    height: 100%;
+}
+
+.tabList {
+    @include display(row, 0.1rem);
+    
+    button {
+        @include navButton($turquoise_button_color, $pressed_turquoise_button);
+        border: none;
+        border-radius: 5px 5px 0 0;
+        box-shadow: none;
+        &[data-state='active'] {
+            background-color: $pressed_turquoise_button;
+            color: $button_text_color;
+            box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+    }
+
+}
+
+.contentWrapper {
+    height: 100%;
+}
