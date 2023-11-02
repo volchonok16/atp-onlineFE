@@ -17,6 +17,8 @@ import { Modal } from '../../../../common/modals/Modal'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 
+import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+
 export const ObjectAndEquipments = () => {
   const dispatch = useAppDispatch()
   const activeEquipment = useAppSelector(activeEquipments)
@@ -37,16 +39,24 @@ export const ObjectAndEquipments = () => {
 
   return (
     <div className={css.mainContainer}>
-      <EquipmentsTable activeRow={activeEquipment} />
-      <div className={css.descriptionAndDocumentsContainer}>
-        <div className={css.descriptionContainer}>
+      <div className={css.tablesContainer}>
+        <EquipmentsTable activeRow={activeEquipment} />
+        <div className={css.descriptionAndDocumentsContainer}>
           <DescriptionBlock />
           <StartDate />
-        </div>
-        <div className={css.documentsContainer}>
           <DocumentsTable />
-          <EditButtonGroup deleteFunc={openDeleteModal} />
+
+          {/* <div className={css.descriptionContainer}>
+          </div>
+          <div className={css.documentsContainer}>
+          </div> */}
         </div>
+      </div>
+      <div className={css.editButtons}>
+        <EditButtonGroup deleteFunc={openDeleteModal} />
+      </div>
+      <div className={css.divisionButton}>
+        <FuncButton title={'Подразделение заказчика'} />
       </div>
       {isShowDeleteModal && (
         <Modal>

@@ -2,12 +2,23 @@
 @import "src/common/styles/variables";
 
 .mainContainer {
-  @include display(row, 22px);
+  @include display(column, 20px);
+  
+
+  // @include display(row, 22px);
+  .tablesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
 
 
   .descriptionAndDocumentsContainer {
-    margin-top: 50px;
-    @include display(column, 40px);
+    max-width: 915px;
+    min-width: 508px;
+    
+    @include display(column, 35px);
+    flex: 1;
 
     .descriptionContainer {
       @include display(column, 47px);
@@ -16,5 +27,14 @@
     .documentsContainer {
       @include display(column, 64px);
     }
+  }
+
+  .editButtons {
+    margin: 0 auto;
+  }
+
+  .divisionButton {
+    margin-right: 125px;
+    margin-left: auto;
   }
 }

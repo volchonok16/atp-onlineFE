@@ -28,7 +28,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
     <div className={css.container}>
       <span className={css.title}>Объекты и иная техника</span>
       <div className={css.tableWrapper}>
-        <ScrollableTableWrapper>
+        <ScrollableTableWrapper height={'498px'}>
           <table className={css.table}>
             <thead className={css.tableHeader}>
               <tr>
