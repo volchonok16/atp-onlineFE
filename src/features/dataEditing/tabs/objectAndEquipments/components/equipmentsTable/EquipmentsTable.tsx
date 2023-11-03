@@ -3,11 +3,15 @@ import { FC } from 'react'
 import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { EditableTableCell } from '../../../../../../common/ui/editableTableCell/EditableTableCell'
+import {
+  EditableTableCell,
+  TableCellData,
+} from '../../../../../../common/ui/editableTableCell/EditableTableCell'
 import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
 import {
+  changeObjectAndEquipmentDataThunk,
   getDocumentsForEquipmentsData,
   getObjectAndEquipments,
   setActiveEquipmentAC,
@@ -23,6 +27,11 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
   const getDocumentHandler = (equipment: ObjectAndEquipmentType) => {
     dispatch(setActiveEquipmentAC(equipment))
     dispatch(getDocumentsForEquipmentsData(equipment.SKLAD_OBJ_SPIS_KEY))
+  }
+
+  const changeObjectAndEquipmentData = (changes: TableCellData) => {
+    console.log(changes)
+    dispatch(changeObjectAndEquipmentDataThunk(changes))
   }
 
   return (
@@ -55,16 +64,14 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
                       itemId={equipment.SKLAD_OBJ_SPIS_KEY}
                       name="MAM"
                       value={equipment.MAM}
-                      onChangeData={() =>
-                        console.log('Редактирование наименования')
-                      }
+                      onChangeData={changeObjectAndEquipmentData}
                     />
                     {/*<td>{equipment.NOMER}</td>*/}
                     <EditableTableCell
-                      itemId={equipment.NOMER}
+                      itemId={equipment.SKLAD_OBJ_SPIS_KEY}
                       name="NOMER"
                       value={equipment.NOMER}
-                      onChangeData={() => console.log('Редактирование номера')}
+                      onChangeData={changeObjectAndEquipmentData}
                     />
                   </tr>
                 )

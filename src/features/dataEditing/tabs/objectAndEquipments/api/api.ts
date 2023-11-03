@@ -1,9 +1,20 @@
 import { instance } from '../../../../../app/api/instance'
+import { StaffKeys } from '../../staff/api/api'
 
 export const objectAndEquipmentsApi = {
   getObjectAndEquipmentsData() {
     return instance.get<ObjectAndEquipmentType[]>(
       'data-editing/other-equipment',
+    )
+  },
+  changeObjectAndEquipmentData(
+    id: number | string,
+    name: StaffKeys | ObjectAndEquipmentKeys, // нужны только 'MAM' и 'NOMER'
+    value?: string | null,
+  ) {
+    return instance.put<boolean>(
+      `data-editing/other-equipments/objects-equipments/${id}`,
+      { [name]: value },
     )
   },
   getDocumentsForEquipment(id: number) {

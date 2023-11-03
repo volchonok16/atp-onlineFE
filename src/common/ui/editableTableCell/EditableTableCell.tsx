@@ -14,13 +14,13 @@ import { useToggle } from 'src/hooks/useToggle'
 export type TableCellData = {
   name: StaffKeys | ObjectAndEquipmentKeys
   value?: string | null
-  itemId: number | string
+  itemId: number
   checked?: boolean
 }
 
 type Props = {
   value?: string | null
-  itemId: number | string
+  itemId: number
   name: StaffKeys | ObjectAndEquipmentKeys
   checked?: boolean
   type?: 'text' | 'number' | 'checkbox'

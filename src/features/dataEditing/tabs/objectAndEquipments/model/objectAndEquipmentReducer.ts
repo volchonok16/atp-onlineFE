@@ -1,5 +1,6 @@
 import { AppRootStateType, AppThunkType } from '../../../../../app/model/store'
 
+import { TableCellData } from '../../../../../common/ui/editableTableCell/EditableTableCell'
 import {
   type DocumentForEquipmentType,
   objectAndEquipmentsApi,
@@ -64,6 +65,23 @@ export const getObjectAndEquipmentsData =
     try {
       const res = await objectAndEquipmentsApi.getObjectAndEquipmentsData()
       dispatch(getObjectAndEquipmentsAC(res.data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const changeObjectAndEquipmentDataThunk =
+  (data: TableCellData): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      await objectAndEquipmentsApi.changeObjectAndEquipmentData(
+        data.itemId,
+        data.name,
+        data.value,
+      )
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
     } finally {
