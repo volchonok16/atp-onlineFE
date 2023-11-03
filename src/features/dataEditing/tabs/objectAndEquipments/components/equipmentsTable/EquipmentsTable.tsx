@@ -3,6 +3,7 @@ import { FC } from 'react'
 import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import { EditableTableCell } from '../../../../../../common/ui/editableTableCell/EditableTableCell'
 import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
@@ -49,8 +50,22 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
                     key={equipment.SKLAD_OBJ_SPIS_KEY}
                     onClick={() => getDocumentHandler(equipment)}
                   >
-                    <td className={css.firstColumn}>{equipment.FULL_NAME}</td>
-                    <td>{equipment.NOMER}</td>
+                    {/*<td className={css.firstColumn}>{equipment.FULL_NAME}</td>*/}
+                    <EditableTableCell
+                      itemId={equipment.SKLAD_OBJ_SPIS_KEY}
+                      name="MAM"
+                      value={equipment.MAM}
+                      onChangeData={() =>
+                        console.log('Редактирование наименования')
+                      }
+                    />
+                    {/*<td>{equipment.NOMER}</td>*/}
+                    <EditableTableCell
+                      itemId={equipment.NOMER}
+                      name="NOMER"
+                      value={equipment.NOMER}
+                      onChangeData={() => console.log('Редактирование номера')}
+                    />
                   </tr>
                 )
               })}

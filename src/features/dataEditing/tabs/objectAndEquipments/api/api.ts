@@ -38,3 +38,5 @@ export type DocumentForEquipmentType = {
   SETUP_ID: number
   IN_AKT: number
 }
+
+export type ObjectAndEquipmentKeys = keyof ObjectAndEquipmentType
