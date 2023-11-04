@@ -1,6 +1,8 @@
-@import "src/common/styles/variables";
-@import "src/common/styles/mixins";
+@import "src/common/styles";
 
+.carList {
+    @include display(column, 0.5rem, center);
+}
 .table {
     @include table-style;
 }

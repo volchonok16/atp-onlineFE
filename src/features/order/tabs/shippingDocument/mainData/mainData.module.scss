@@ -10,6 +10,10 @@
         @include display(row, 0.5rem);
         justify-content: space-between;
         flex-wrap: wrap;
+
+        @media screen and (max-width: 1575px) {
+            flex-direction: column;
+        }
     }
 
     input {
@@ -18,7 +22,7 @@
 
     textarea {
         @include inputs;
-        width: 100%;        
+        width: 100%;
     }
 }
 
