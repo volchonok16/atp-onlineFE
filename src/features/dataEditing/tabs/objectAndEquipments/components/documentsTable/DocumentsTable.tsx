@@ -17,7 +17,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 2,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -26,7 +26,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 3,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -35,7 +35,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 4,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -44,7 +44,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 5,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -53,7 +53,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 6,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -62,7 +62,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 7,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',
@@ -71,7 +71,7 @@ export const DocumentsTable = () => {
       D_PREDUPR: '1 month',
     },
     {
-      KEY_ID: 1,
+      KEY_ID: 8,
       NAIM: 'title',
       NOMER: '536363',
       KEM_VID: 'Ivanov',

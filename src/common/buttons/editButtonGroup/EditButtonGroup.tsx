@@ -4,15 +4,19 @@ import { FuncButton } from '../funcButton/MyFuncButton'
 
 type EditButtonGroupPropsType = {
   deleteFunc?: VoidFunction
+  saveFunc?: VoidFunction
 }
 
-export const EditButtonGroup = ({ deleteFunc }: EditButtonGroupPropsType) => {
+export const EditButtonGroup = ({
+  deleteFunc,
+  saveFunc,
+}: EditButtonGroupPropsType) => {
   return (
     <section className={css.editButtonContainer}>
       <FuncButton title={'Добавить'} />
       <FuncButton title={'Удалить'} onClickHandler={deleteFunc} />
       <FuncButton title={'Дополнить'} />
-      <FuncButton title={'Сохранить'} />
+      <FuncButton title={'Сохранить'} onClickHandler={saveFunc} />
     </section>
   )
 }

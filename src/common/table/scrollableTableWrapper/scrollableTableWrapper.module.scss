@@ -3,11 +3,11 @@
 
 .tableWrapper {
     @include scrollableTableWrapper(53vh);
-    thead {
+    thead {                         
         position: sticky;
         top: 0;
     }
-    &::-webkit-scrollbar {
-        height: 5px;
+    &::-webkit-scrollbar {  
+        height: 5px;            // нужно для стилизации горизонтального скролла
     }
 }

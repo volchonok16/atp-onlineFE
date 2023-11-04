@@ -18,14 +18,20 @@ import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
 
 import { FuncButton } from 'src/common/buttons/funcButton/MyFuncButton'
+import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
+import { Actions } from 'src/features/dataEditing/tabs/carsData/CarsData'
+import { useToggle } from 'src/hooks/useToggle'
 
 export const ObjectAndEquipments = () => {
   const dispatch = useAppDispatch()
   const activeEquipment = useAppSelector(activeEquipments)
+
+  const [isShowSaveModal, openSaveModal, closeSaveModal] = useToggle(false) // открытие-закрытие модалки для сохранения изменений
   const [isShowDeleteModal, setIsShowDeleteModal] = useState(false)
 
   const openDeleteModal = () => setIsShowDeleteModal(true)
   const closeDeleteModal = () => setIsShowDeleteModal(false)
+
   useEffect(() => {
     dispatch(getObjectAndEquipmentsData())
   }, [])
@@ -37,6 +43,11 @@ export const ObjectAndEquipments = () => {
     closeDeleteModal()
   }
 
+  const saveDocsEdition = () => {
+    console.log('saved')
+    closeSaveModal()
+  }
+
   return (
     <div className={css.mainContainer}>
       <div className={css.tablesContainer}>
@@ -45,15 +56,13 @@ export const ObjectAndEquipments = () => {
           <DescriptionBlock />
           <StartDate />
           <DocumentsTable />
-
-          {/* <div className={css.descriptionContainer}>
-          </div>
-          <div className={css.documentsContainer}>
-          </div> */}
         </div>
       </div>
       <div className={css.editButtons}>
-        <EditButtonGroup deleteFunc={openDeleteModal} />
+        <EditButtonGroup
+          deleteFunc={openDeleteModal}
+          saveFunc={openSaveModal}
+        />
       </div>
       <div className={css.divisionButton}>
         <FuncButton title={'Подразделение заказчика'} />
@@ -63,6 +72,16 @@ export const ObjectAndEquipments = () => {
           <DeleteRowModal
             deleteRow={deleteButtonHandler}
             closeModal={closeDeleteModal}
+          />
+        </Modal>
+      )}
+
+      {isShowSaveModal && (
+        <Modal>
+          <ConfirmAction
+            actionTitle={Actions.save}
+            onAction={saveDocsEdition}
+            onClose={closeSaveModal}
           />
         </Modal>
       )}
