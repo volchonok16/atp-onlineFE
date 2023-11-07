@@ -11,10 +11,10 @@ import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
 import {
-  changeObjectAndEquipmentDataThunk,
   getDocumentsForEquipmentsData,
   getObjectAndEquipments,
   setActiveEquipmentAC,
+  updateObjectAndEquipmentDataThunk,
 } from '../../model/objectAndEquipmentReducer'
 
 type PropsType = {
@@ -31,7 +31,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
 
   const changeObjectAndEquipmentData = (changes: TableCellData) => {
     console.log(changes)
-    dispatch(changeObjectAndEquipmentDataThunk(changes))
+    dispatch(updateObjectAndEquipmentDataThunk(changes))
   }
 
   return (

@@ -1,5 +1,4 @@
 import { instance } from '../../../../../app/api/instance'
-import { StaffKeys } from '../../staff/api/api'
 
 export const objectAndEquipmentsApi = {
   getObjectAndEquipmentsData() {
@@ -7,14 +6,13 @@ export const objectAndEquipmentsApi = {
       'data-editing/other-equipment',
     )
   },
-  changeObjectAndEquipmentData(
-    id: number | string,
-    name: StaffKeys | ObjectAndEquipmentKeys, // нужны только 'MAM' и 'NOMER'
-    value?: string | null,
+  updateObjectAndEquipmentData(
+    id: number,
+    objectAndEquipment: ObjectAndEquipmentType,
   ) {
     return instance.put<boolean>(
       `data-editing/other-equipments/objects-equipments/${id}`,
-      { [name]: value },
+      objectAndEquipment,
     )
   },
   getDocumentsForEquipment(id: number) {
@@ -32,7 +30,7 @@ export type ObjectAndEquipmentType = {
   SUTUP_ID: number
   DESCR: string
   PREDUPR: string
-  FULL_NAME: string
+  FULL_NAME?: string
   DATE_VVODA: string
 }
 
