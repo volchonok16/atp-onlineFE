@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { Provider } from 'react-redux'
+
 import { DescriptionBlock } from './components/descriptionBlock/DescriptionBlock'
 import { DocumentsTable } from './components/documentsTable/DocumentsTable'
 import { EquipmentsTable } from './components/equipmentsTable/EquipmentsTable'
@@ -16,6 +18,8 @@ import { DeleteRowModal } from '../../../../common/modals/deleteRow/DeleteRowMod
 import { Modal } from '../../../../common/modals/Modal'
 import { useAppDispatch } from '../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../hooks/useAppSelector'
+
+import { store } from 'src/app/model/rtkStore'
 
 export const ObjectAndEquipments = () => {
   const dispatch = useAppDispatch()
@@ -36,26 +40,28 @@ export const ObjectAndEquipments = () => {
   }
 
   return (
-    <div className={css.mainContainer}>
-      <EquipmentsTable activeRow={activeEquipment} />
-      <div className={css.descriptionAndDocumentsContainer}>
-        <div className={css.descriptionContainer}>
-          <DescriptionBlock />
-          <StartDate />
+    <Provider store={store}>
+      <div className={css.mainContainer}>
+        <EquipmentsTable activeRow={activeEquipment} />
+        <div className={css.descriptionAndDocumentsContainer}>
+          <div className={css.descriptionContainer}>
+            <DescriptionBlock />
+            <StartDate />
+          </div>
+          <div className={css.documentsContainer}>
+            <DocumentsTable />
+            <EditButtonGroup deleteFunc={openDeleteModal} />
+          </div>
         </div>
-        <div className={css.documentsContainer}>
-          <DocumentsTable />
-          <EditButtonGroup deleteFunc={openDeleteModal} />
-        </div>
+        {isShowDeleteModal && (
+          <Modal>
+            <DeleteRowModal
+              deleteRow={deleteButtonHandler}
+              closeModal={closeDeleteModal}
+            />
+          </Modal>
+        )}
       </div>
-      {isShowDeleteModal && (
-        <Modal>
-          <DeleteRowModal
-            deleteRow={deleteButtonHandler}
-            closeModal={closeDeleteModal}
-          />
-        </Modal>
-      )}
-    </div>
+    </Provider>
   )
 }

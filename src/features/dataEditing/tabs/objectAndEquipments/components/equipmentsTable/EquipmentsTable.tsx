@@ -4,20 +4,24 @@ import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
 import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
+// import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
 import {
   getDocumentsForEquipmentsData,
-  getObjectAndEquipments,
+  // getObjectAndEquipments,
   setActiveEquipmentAC,
 } from '../../model/objectAndEquipmentReducer'
+
+import { useGetObjectAndEquipmentsDataQuery } from 'src/features/dataEditing/tabs/objectAndEquipments/model/objectsAndEquipmentsApi'
 
 type PropsType = {
   activeRow: ObjectAndEquipmentType
 }
 export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
+  const { data: equipments } = useGetObjectAndEquipmentsDataQuery()
+
   const dispatch = useAppDispatch()
-  const equipments = useAppSelector(getObjectAndEquipments)
+  // const equipments = useAppSelector(getObjectAndEquipments)
 
   const getDocumentHandler = (equipment: ObjectAndEquipmentType) => {
     dispatch(setActiveEquipmentAC(equipment))
@@ -37,7 +41,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
               </tr>
             </thead>
             <tbody className={css.tBody}>
-              {equipments.map((equipment) => {
+              {equipments?.map((equipment) => {
                 return (
                   <tr
                     className={
