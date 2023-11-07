@@ -6,6 +6,7 @@ import { EquipmentsTable } from './components/equipmentsTable/EquipmentsTable'
 import { StartDate } from './components/startDate/StartDate'
 import {
   activeEquipments,
+  addDocumentForEquipment,
   deleteActiveEquipmentAC,
   getObjectAndEquipmentsData,
 } from './model/objectAndEquipmentReducer'
@@ -48,6 +49,19 @@ export const ObjectAndEquipments = () => {
     closeSaveModal()
   }
 
+  const addDoc = () => {
+    const body = {
+      MAS_SKLAD_OBJ_SPIS_KEY: 773,
+      NAIM: 'new doc2',
+      NOMER: '1122233',
+      KEM_VID: 'Ivanov',
+      DATE_OT: '8799-06-06',
+      DATE_DO: '2876-06-06',
+      D_PREDUPR: 30,
+    }
+    dispatch(addDocumentForEquipment(body))
+  }
+
   return (
     <div className={css.mainContainer}>
       <div className={css.tablesContainer}>
@@ -62,6 +76,7 @@ export const ObjectAndEquipments = () => {
         <EditButtonGroup
           deleteFunc={openDeleteModal}
           saveFunc={openSaveModal}
+          addFunc={addDoc}
         />
       </div>
       <div className={css.divisionButton}>

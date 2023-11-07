@@ -4,6 +4,7 @@ import {
   type DocumentForEquipmentType,
   objectAndEquipmentsApi,
   type ObjectAndEquipmentType,
+  type AddDocumentForEquipmentType,
 } from '../api/api'
 
 const initialState: InitialStateType = {
@@ -77,7 +78,23 @@ export const getDocumentsForEquipmentsData =
     dispatch(toggleIsLoadingAC(true))
     try {
       const res = await objectAndEquipmentsApi.getDocumentsForEquipment(id)
+      console.log(res)
       dispatch(getDocumentsForEquipmentsAC(res.data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const addDocumentForEquipment =
+  (body: AddDocumentForEquipmentType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await objectAndEquipmentsApi.addDocumentForEquipment(body)
+      res ? console.log(res) : console.log(res)
+      // : dispatch(setErrorMessageAC('Что-то пошло не так'))
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
     } finally {

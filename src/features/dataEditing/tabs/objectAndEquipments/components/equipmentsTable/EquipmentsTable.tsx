@@ -22,6 +22,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
   const getDocumentHandler = (equipment: ObjectAndEquipmentType) => {
     dispatch(setActiveEquipmentAC(equipment))
     dispatch(getDocumentsForEquipmentsData(equipment.SKLAD_OBJ_SPIS_KEY))
+    console.log(equipment.SKLAD_OBJ_SPIS_KEY)
   }
 
   return (

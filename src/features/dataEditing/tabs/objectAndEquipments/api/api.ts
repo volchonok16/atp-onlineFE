@@ -7,7 +7,18 @@ export const objectAndEquipmentsApi = {
     )
   },
   getDocumentsForEquipment(id: number) {
-    return instance.get(`data-editing/other-equipment/${id}`)
+    return instance.get<DocumentForEquipmentType[]>(
+      `data-editing/other-equipment/${id}`,
+    )
+  },
+  addDocumentForEquipment(body: AddDocumentForEquipmentType) {
+    return instance.post<boolean>(`data-editing/other-equipments/docs`, body)
+  },
+  updateDocumentForEquipment(body: AddDocumentForEquipmentType) {
+    return instance.put<boolean>(`data-editing/other-equipments/docs`, body)
+  },
+  deleteDocumentForEquipment(docId: number) {
+    return instance.delete<boolean>(`data-editing/other-equipment/${docId}`)
   },
 }
 
@@ -37,4 +48,14 @@ export type DocumentForEquipmentType = {
   KEY_ID: number
   SETUP_ID: number
   IN_AKT: number
+}
+
+export type AddDocumentForEquipmentType = {
+  MAS_SKLAD_OBJ_SPIS_KEY: number
+  NAIM: string
+  NOMER: string
+  KEM_VID: string
+  DATE_OT: string
+  DATE_DO: string
+  D_PREDUPR: number
 }
