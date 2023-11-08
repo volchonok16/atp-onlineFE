@@ -49,7 +49,7 @@ export const ObjectAndEquipments = () => {
     closeSaveModal()
   }
 
-  const addDoc = () => {
+  const addDocument = () => {
     const body = {
       MAS_SKLAD_OBJ_SPIS_KEY: 773,
       NAIM: 'new doc2',
@@ -76,7 +76,7 @@ export const ObjectAndEquipments = () => {
         <EditButtonGroup
           deleteFunc={openDeleteModal}
           saveFunc={openSaveModal}
-          addFunc={addDoc}
+          addFunc={addDocument}
         />
       </div>
       <div className={css.divisionButton}>

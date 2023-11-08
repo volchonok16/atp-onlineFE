@@ -14,7 +14,7 @@ export const objectAndEquipmentsApi = {
   addDocumentForEquipment(body: AddDocumentForEquipmentType) {
     return instance.post<boolean>(`data-editing/other-equipments/docs`, body)
   },
-  updateDocumentForEquipment(body: AddDocumentForEquipmentType) {
+  updateDocumentForEquipment(body: UpdateDocumentForEquipmentType) {
     return instance.put<boolean>(`data-editing/other-equipments/docs`, body)
   },
   deleteDocumentForEquipment(docId: number) {
@@ -58,4 +58,8 @@ export type AddDocumentForEquipmentType = {
   DATE_OT: string
   DATE_DO: string
   D_PREDUPR: number
+}
+
+export type UpdateDocumentForEquipmentType = AddDocumentForEquipmentType & {
+  RAZN_OD_DOCS_KEY: number
 }
