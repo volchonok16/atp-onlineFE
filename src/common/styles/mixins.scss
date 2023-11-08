@@ -62,22 +62,24 @@
 }
 
 @mixin inputs {
-  padding: 5px 10px;
+  padding: 0.2rem 0.4rem;
   border: 1px solid $dark_blue;
   background-color: #FFF;
+  font-size: 1rem;  
 }
 
 @mixin scrollableTableWrapper($height) {
   height: $height;
   position: relative;
-  overflow-y: auto;
+  overflow: auto;  
   border: 1px solid $dark_border_color;
   thead {
     position: sticky;
     top: 0;
   }
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 0.5rem;
+    height: 0.5rem;
   }
 
   &::-webkit-scrollbar-track {

@@ -1,10 +1,9 @@
-@import "src/common/styles/variables";
-@import "src/common/styles/mixins";
+@import "src/common/styles";
 
 .shippingDocument {
   display: grid;
-  grid-template-columns: 25rem 1fr;
-  grid-template-rows: auto auto auto 1fr auto;
+  grid-template-columns: minmax(22rem, 25%) minmax(75%, 1fr);
+  grid-template-rows: auto auto auto auto 1fr;
   gap: 0.5rem;  
 }
 

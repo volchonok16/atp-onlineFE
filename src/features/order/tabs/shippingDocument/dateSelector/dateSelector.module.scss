@@ -1,0 +1,8 @@
+@import 'src/common/styles';
+
+.dateSelector {
+    @include display(row, 0.5rem, normal, center);
+    input {
+        @include inputs;        
+    }
+}

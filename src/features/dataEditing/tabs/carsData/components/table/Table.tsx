@@ -4,10 +4,12 @@ import { Row } from './Row'
 
 import css from './table.module.scss'
 
-import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { CarType } from '../../api/api'
+
 import { setActiveCarAC } from '../../model/carsReducer'
+
+import { ScrollableTableWrapper } from 'src/common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import { useAppDispatch } from 'src/hooks/useAppDispatch'
 
 type PropsType = {
   data: CarType[]
