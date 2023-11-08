@@ -4,13 +4,15 @@ import css from './editableTableCell.module.scss'
 
 import { Actions } from '../../../features/dataEditing/tabs/carsData/CarsData'
 
+import { ObjectAndEquipmentKeys } from '../../../features/dataEditing/tabs/objectAndEquipments/api/api'
+
 import { ConfirmAction } from 'src/common/modals/confirmAction/ConfirmAction'
 import { Modal } from 'src/common/modals/Modal'
 import { StaffKeys } from 'src/features/dataEditing/tabs/staff/api/api'
 import { useToggle } from 'src/hooks/useToggle'
 
 export type TableCellData = {
-  name: StaffKeys
+  name: StaffKeys | ObjectAndEquipmentKeys
   value?: string | null
   itemId: number
   checked?: boolean
@@ -19,7 +21,7 @@ export type TableCellData = {
 type Props = {
   value?: string | null
   itemId: number
-  name: StaffKeys
+  name: StaffKeys | ObjectAndEquipmentKeys
   checked?: boolean
   type?: 'text' | 'number' | 'checkbox'
   onChangeData: (data: TableCellData) => void

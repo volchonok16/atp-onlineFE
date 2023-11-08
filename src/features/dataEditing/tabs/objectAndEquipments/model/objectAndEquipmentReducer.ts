@@ -1,5 +1,8 @@
+import moment from 'moment'
+
 import { AppRootStateType, AppThunkType } from '../../../../../app/model/store'
 
+import { TableCellData } from '../../../../../common/ui/editableTableCell/EditableTableCell'
 import {
   type DocumentForEquipmentType,
   objectAndEquipmentsApi,
@@ -64,6 +67,45 @@ export const getObjectAndEquipmentsData =
     try {
       const res = await objectAndEquipmentsApi.getObjectAndEquipmentsData()
       dispatch(getObjectAndEquipmentsAC(res.data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const updateObjectAndEquipmentDataThunk =
+  (data: TableCellData): AppThunkType =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const editableObjectAndEquipment =
+        getState().equipments.objectAndEquipment.find(
+          (objectAndEquipment) =>
+            objectAndEquipment.SKLAD_OBJ_SPIS_KEY === data.itemId,
+        )
+      if (editableObjectAndEquipment) {
+        // Преобразуем дату в формат, который прописан для тела запроса в API
+        const requestDateFormat = moment(editableObjectAndEquipment.DATE_VVODA)
+          .utc()
+          .format('YYYY-MM-DD')
+
+        // Добавить в updatedObjectAndEquipment свойство "DESCR", когда будет реализован функционал поля "Описание и дополнительная информация"
+        const updatedObjectAndEquipment = {
+          ...editableObjectAndEquipment,
+          [data.name]: data.value,
+          DATE_VVODA: requestDateFormat,
+        }
+
+        // С этим свойством в теле запрос не проходит
+        delete updatedObjectAndEquipment.FULL_NAME
+
+        await objectAndEquipmentsApi.updateObjectAndEquipmentData(
+          data.itemId,
+          updatedObjectAndEquipment,
+        )
+        dispatch(getObjectAndEquipmentsData())
+      }
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
     } finally {

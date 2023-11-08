@@ -24,7 +24,7 @@
       .tBody {
         background-color: $button_text_color;
 
-        .firstColumn {
+        td:first-child {
           text-align: start;
         }
       }
