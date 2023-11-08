@@ -2,7 +2,14 @@
 @import "src/common/styles/variables";
 
 .container {
+  margin-top: 50px;
+  margin-bottom: 10px;
+  // display: flex;
+  // gap: 50px;
   @include display(row, 50px);
+  flex-wrap: wrap;
+  column-gap: 50px;
+  row-gap: 20px;
 
   .text {
     @include text(16px, 18px, 600, $text_color)

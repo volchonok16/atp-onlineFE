@@ -7,6 +7,8 @@ import {
   type DocumentForEquipmentType,
   objectAndEquipmentsApi,
   type ObjectAndEquipmentType,
+  type AddDocumentForEquipmentType,
+  UpdateDocumentForEquipmentType,
 } from '../api/api'
 
 const initialState: InitialStateType = {
@@ -127,6 +129,40 @@ export const getDocumentsForEquipmentsData =
     }
   }
 
+export const addDocumentForEquipment =
+  (body: AddDocumentForEquipmentType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await objectAndEquipmentsApi.addDocumentForEquipment(body)
+      const equipmentId = body.MAS_SKLAD_OBJ_SPIS_KEY
+      res
+        ? dispatch(getDocumentsForEquipmentsData(equipmentId))
+        : dispatch(setErrorMessageAC('Что-то пошло не так'))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const updateDocumentForEquipment =
+  (body: UpdateDocumentForEquipmentType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await objectAndEquipmentsApi.updateDocumentForEquipment(body)
+      const equipmentId = body.MAS_SKLAD_OBJ_SPIS_KEY
+      res
+        ? dispatch(getDocumentsForEquipmentsData(equipmentId))
+        : dispatch(setErrorMessageAC('Что-то пошло не так'))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
 //======ACTIONS======
 export const toggleIsLoadingAC = (isLoading: boolean) =>
   ({
@@ -180,6 +216,7 @@ export const getStartDate = (state: AppRootStateType) =>
 
 export const getDescription = (state: AppRootStateType) =>
   state.equipments.activeEquipments.DESCR
+
 export const activeEquipments = (state: AppRootStateType) =>
   state.equipments.activeEquipments
 //======TYPES======

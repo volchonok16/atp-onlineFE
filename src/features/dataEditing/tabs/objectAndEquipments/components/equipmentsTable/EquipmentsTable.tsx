@@ -27,6 +27,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
   const getDocumentHandler = (equipment: ObjectAndEquipmentType) => {
     dispatch(setActiveEquipmentAC(equipment))
     dispatch(getDocumentsForEquipmentsData(equipment.SKLAD_OBJ_SPIS_KEY))
+    console.log(equipment.SKLAD_OBJ_SPIS_KEY)
   }
 
   const changeObjectAndEquipmentData = (changes: TableCellData) => {
@@ -37,7 +38,7 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
     <div className={css.container}>
       <span className={css.title}>Объекты и иная техника</span>
       <div className={css.tableWrapper}>
-        <ScrollableTableWrapper>
+        <ScrollableTableWrapper height={'498px'}>
           <table className={css.table}>
             <thead className={css.tableHeader}>
               <tr>
