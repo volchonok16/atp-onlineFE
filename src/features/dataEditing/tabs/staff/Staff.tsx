@@ -104,7 +104,7 @@ export const Staff = () => {
       {isOpen && <Modal>{modalChild}</Modal>}
 
       <div className={css.staff}>
-        <div>
+        <div className={css.tableAndFilter}>
           <div className={css.tableWrapper}>
             <Table list={filteredStaffList} />
           </div>

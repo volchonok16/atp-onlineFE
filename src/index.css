@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+html {
+  font-size: calc(14px + (0.01 * (100vw - 320px)) / (1280 - 320));
+}
+
 main, #root {
   height: 100%;
 }
 
+main, header, footer {
+  max-width: 2000px;
+  margin-inline: auto;
+}
+
 body {
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -13,6 +22,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #F5F5F5;
+  font-size: 1rem;  
 }
 
 code {

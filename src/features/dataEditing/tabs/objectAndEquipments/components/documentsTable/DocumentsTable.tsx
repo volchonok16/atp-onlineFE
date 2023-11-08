@@ -9,7 +9,7 @@ export const DocumentsTable = () => {
 
   return (
     <div className={css.tableWrapper}>
-      <ScrollableTableWrapper height={'380px'}>
+      <ScrollableTableWrapper height={'270px'}>
         <table className={css.table}>
           <thead className={css.tableHeader}>
             <tr>

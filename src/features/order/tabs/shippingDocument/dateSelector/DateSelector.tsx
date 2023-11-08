@@ -1,5 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 
+import css from './dateSelector.module.scss'
+
 type Props = {
   selectedDate: string
   onChangeDate: (date: string) => void
@@ -13,7 +15,7 @@ export const DateSelector: FC<Props> = ({ selectedDate, onChangeDate }) => {
 
   return (
     <div>
-      <label>
+      <label className={css.dateSelector}>
         <span>Подготовить таблицу на</span>
         <input type="date" value={selectedDate} onChange={dateHandler} />
       </label>

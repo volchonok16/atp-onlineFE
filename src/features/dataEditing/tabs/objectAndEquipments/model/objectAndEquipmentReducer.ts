@@ -1,9 +1,14 @@
+import moment from 'moment'
+
 import { AppRootStateType, AppThunkType } from '../../../../../app/model/store'
 
+import { TableCellData } from '../../../../../common/ui/editableTableCell/EditableTableCell'
 import {
   type DocumentForEquipmentType,
   objectAndEquipmentsApi,
   type ObjectAndEquipmentType,
+  type AddDocumentForEquipmentType,
+  UpdateDocumentForEquipmentType,
 } from '../api/api'
 
 const initialState: InitialStateType = {
@@ -71,6 +76,45 @@ export const getObjectAndEquipmentsData =
     }
   }
 
+export const updateObjectAndEquipmentDataThunk =
+  (data: TableCellData): AppThunkType =>
+  async (dispatch, getState: () => AppRootStateType) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const editableObjectAndEquipment =
+        getState().equipments.objectAndEquipment.find(
+          (objectAndEquipment) =>
+            objectAndEquipment.SKLAD_OBJ_SPIS_KEY === data.itemId,
+        )
+      if (editableObjectAndEquipment) {
+        // Преобразуем дату в формат, который прописан для тела запроса в API
+        const requestDateFormat = moment(editableObjectAndEquipment.DATE_VVODA)
+          .utc()
+          .format('YYYY-MM-DD')
+
+        // Добавить в updatedObjectAndEquipment свойство "DESCR", когда будет реализован функционал поля "Описание и дополнительная информация"
+        const updatedObjectAndEquipment = {
+          ...editableObjectAndEquipment,
+          [data.name]: data.value,
+          DATE_VVODA: requestDateFormat,
+        }
+
+        // С этим свойством в теле запрос не проходит
+        delete updatedObjectAndEquipment.FULL_NAME
+
+        await objectAndEquipmentsApi.updateObjectAndEquipmentData(
+          data.itemId,
+          updatedObjectAndEquipment,
+        )
+        dispatch(getObjectAndEquipmentsData())
+      }
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
 export const getDocumentsForEquipmentsData =
   (id: number): AppThunkType =>
   async (dispatch) => {
@@ -78,6 +122,40 @@ export const getDocumentsForEquipmentsData =
     try {
       const res = await objectAndEquipmentsApi.getDocumentsForEquipment(id)
       dispatch(getDocumentsForEquipmentsAC(res.data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const addDocumentForEquipment =
+  (body: AddDocumentForEquipmentType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await objectAndEquipmentsApi.addDocumentForEquipment(body)
+      const equipmentId = body.MAS_SKLAD_OBJ_SPIS_KEY
+      res
+        ? dispatch(getDocumentsForEquipmentsData(equipmentId))
+        : dispatch(setErrorMessageAC('Что-то пошло не так'))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
+  }
+
+export const updateDocumentForEquipment =
+  (body: UpdateDocumentForEquipmentType): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await objectAndEquipmentsApi.updateDocumentForEquipment(body)
+      const equipmentId = body.MAS_SKLAD_OBJ_SPIS_KEY
+      res
+        ? dispatch(getDocumentsForEquipmentsData(equipmentId))
+        : dispatch(setErrorMessageAC('Что-то пошло не так'))
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
     } finally {
@@ -138,6 +216,7 @@ export const getStartDate = (state: AppRootStateType) =>
 
 export const getDescription = (state: AppRootStateType) =>
   state.equipments.activeEquipments.DESCR
+
 export const activeEquipments = (state: AppRootStateType) =>
   state.equipments.activeEquipments
 //======TYPES======
