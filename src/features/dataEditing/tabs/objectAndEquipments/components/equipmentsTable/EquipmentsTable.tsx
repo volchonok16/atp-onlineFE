@@ -3,6 +3,10 @@ import { FC } from 'react'
 import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
+import {
+  EditableTableCell,
+  TableCellData,
+} from '../../../../../../common/ui/editableTableCell/EditableTableCell'
 import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
 import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
@@ -10,6 +14,7 @@ import {
   getDocumentsForEquipmentsData,
   getObjectAndEquipments,
   setActiveEquipmentAC,
+  updateObjectAndEquipmentDataThunk,
 } from '../../model/objectAndEquipmentReducer'
 
 type PropsType = {
@@ -23,6 +28,10 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
     dispatch(setActiveEquipmentAC(equipment))
     dispatch(getDocumentsForEquipmentsData(equipment.SKLAD_OBJ_SPIS_KEY))
     console.log(equipment.SKLAD_OBJ_SPIS_KEY)
+  }
+
+  const changeObjectAndEquipmentData = (changes: TableCellData) => {
+    dispatch(updateObjectAndEquipmentDataThunk(changes))
   }
 
   return (
@@ -50,8 +59,18 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
                     key={equipment.SKLAD_OBJ_SPIS_KEY}
                     onClick={() => getDocumentHandler(equipment)}
                   >
-                    <td className={css.firstColumn}>{equipment.FULL_NAME}</td>
-                    <td>{equipment.NOMER}</td>
+                    <EditableTableCell
+                      itemId={equipment.SKLAD_OBJ_SPIS_KEY}
+                      name="MAM"
+                      value={equipment.MAM}
+                      onChangeData={changeObjectAndEquipmentData}
+                    />
+                    <EditableTableCell
+                      itemId={equipment.SKLAD_OBJ_SPIS_KEY}
+                      name="NOMER"
+                      value={equipment.NOMER}
+                      onChangeData={changeObjectAndEquipmentData}
+                    />
                   </tr>
                 )
               })}

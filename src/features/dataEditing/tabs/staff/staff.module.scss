@@ -2,9 +2,21 @@
 @import "src/common/styles/mixins";
 
 .staff {
-    display: grid;
-    grid-template-columns: 1fr auto;    
+    max-width: 1920px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;  
 }
+
+.tableAndFilter {
+    max-width: 1170px;
+    min-width: 900px;
+    @media screen and (max-width: 900px) {
+            min-width: 650px;
+        }
+    flex: 1
+}
+
 .table {
     @include table-style;        
 }

@@ -6,6 +6,15 @@ export const objectAndEquipmentsApi = {
       'data-editing/other-equipment',
     )
   },
+  updateObjectAndEquipmentData(
+    id: number,
+    objectAndEquipment: ObjectAndEquipmentType,
+  ) {
+    return instance.put<boolean>(
+      `data-editing/other-equipments/objects-equipments/${id}`,
+      objectAndEquipment,
+    )
+  },
   getDocumentsForEquipment(id: number) {
     return instance.get<DocumentForEquipmentType[]>(
       `data-editing/other-equipment/${id}`,
@@ -32,7 +41,7 @@ export type ObjectAndEquipmentType = {
   SUTUP_ID: number
   DESCR: string
   PREDUPR: string
-  FULL_NAME: string
+  FULL_NAME?: string
   DATE_VVODA: string
 }
 
@@ -63,3 +72,4 @@ export type AddDocumentForEquipmentType = {
 export type UpdateDocumentForEquipmentType = AddDocumentForEquipmentType & {
   RAZN_OD_DOCS_KEY: number
 }
+export type ObjectAndEquipmentKeys = keyof ObjectAndEquipmentType
