@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { ObjectAndEquipmentType } from 'src/features/dataEditing/tabs/objectAndEquipments/model/apiTypes'
-// import { getItem } from 'common/hooks/useLocalStorage'
-
-// import {
-
-// } from './apiTypes'
+import {
+  DocsType,
+  DocumentForEquipmentType,
+  ObjectAndEquipmentType,
+  addEquipmentResType,
+  addEquipmentType,
+  updateEquipmentType,
+} from 'src/features/dataEditing/tabs/objectAndEquipments/model/apiTypes'
 
 export const objectsAndEquipmentsApi = createApi({
   reducerPath: 'objectsAndEquipmentsApi',
@@ -13,51 +15,10 @@ export const objectsAndEquipmentsApi = createApi({
     baseUrl: 'http://adjnatec.ru:4001/api',
     credentials: 'include',
   }),
+  tagTypes: ['getObjects', 'getDocuments'],
+
   endpoints: (builder) => ({
-    // registration: builder.mutation<unknown, RegistrationType>({
-    //   query: (body) => ({
-    //     url: 'auth/registration',
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
-    // login: builder.mutation<LoginResponseType, LoginType>({
-    //   query: (body) => ({
-    //     url: 'auth/login',
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
-    // loginWithGoogle: builder.mutation<LoginResponseType, { code: string }>({
-    //   query: (body) => ({
-    //     url: 'auth/google',
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
-    // loginWithGithub: builder.mutation<LoginResponseType, { code: string }>({
-    //   query: (body) => ({
-    //     url: 'auth/github',
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
-    // sendRecoveryLink: builder.mutation<unknown, SendLinkType>({
-    //   query: (body) => ({
-    //     method: 'POST',
-    //     url: `/auth/password-recovery`,
-    //     body,
-    //   }),
-    // }),
-    // newPassword: builder.mutation<NewPasswordResType, NewPasswordType>({
-    //   query: (body) => {
-    //     return {
-    //       method: 'POST',
-    //       url: `/auth/new-password`,
-    //       body,
-    //     }
-    //   },
-    // }),
+    // получить список оборудования
     getObjectAndEquipmentsData: builder.query<ObjectAndEquipmentType[], void>({
       query: () => {
         return {
@@ -65,33 +26,91 @@ export const objectsAndEquipmentsApi = createApi({
           url: 'data-editing/other-equipment',
         }
       },
+      providesTags: ['getObjects'],
     }),
-    // refreshLink: builder.mutation<unknown, RefreshLinkType>({
-    //   query: (body) => {
-    //     return {
-    //       method: 'POST',
-    //       url: `/auth/refresh-link`,
-    //       body,
-    //     }
-    //   },
-    // }),
-    // me: builder.query<MeType, void>({
-    //   query: () => {
-    //     return {
-    //       method: 'GET',
-    //       url: `/auth/me`,
-    //     }
-    //   },
-    // }),
-    // logout: builder.mutation<void, void>({
-    //   query: () => {
-    //     return {
-    //       method: 'POST',
-    //       url: `/auth/logout`,
-    //     }
-    //   },
-    // }),
+    // получить список документов для оборудования
+    getDocumentsForEquipment: builder.query<DocumentForEquipmentType[], number>(
+      {
+        query: (id: number) => {
+          return {
+            method: 'GET',
+            url: `data-editing/other-equipment/${id}`,
+          }
+        },
+        providesTags: ['getDocuments'],
+      },
+    ),
+    // добавить в список документ
+    addDocument: builder.mutation<boolean, DocsType>({
+      query: (body) => {
+        return {
+          method: 'POST',
+          url: `data-editing/other-equipments/docs`,
+          body,
+        }
+      },
+      invalidatesTags: ['getDocuments'],
+    }),
+    // изменить имеющийся в списке документ
+    updateDocument: builder.mutation<boolean, DocsType>({
+      query: (body) => {
+        return {
+          method: 'PUT',
+          url: `data-editing/other-equipments/docs`,
+          body,
+        }
+      },
+      invalidatesTags: ['getDocuments'],
+    }),
+    //удалить из списка документ
+    deleteDocument: builder.mutation<boolean, number>({
+      query: (OLD_RAZN_OD_DOCS_KEY: number) => {
+        return {
+          method: 'DELETE',
+          url: `data-editing/other-equipments/docs/${OLD_RAZN_OD_DOCS_KEY}`,
+        }
+      },
+      invalidatesTags: ['getDocuments'],
+    }),
+    // добавить в список новое оборудование
+    addEquipment: builder.mutation<addEquipmentResType, addEquipmentType>({
+      query: (body) => {
+        return {
+          method: 'POST',
+          url: `data-editing/other-equipments/objects-equipments`,
+          body,
+        }
+      },
+      invalidatesTags: ['getObjects'],
+    }),
+    // изменить имеющиееся в списке оборудование
+    updateEquipment: builder.mutation<boolean, updateEquipmentType>({
+      query: ({ SKLAD_OBJ_SPIS_KEY, body }) => {
+        return {
+          method: 'PUT',
+          url: `data-editing/other-equipments/objects-equipments/${SKLAD_OBJ_SPIS_KEY}`,
+          body,
+        }
+      },
+      invalidatesTags: ['getObjects'],
+    }),
+    // удалить из списка документ
+    deleteEquipment: builder.mutation<boolean, number>({
+      query: (SKLAD_OBJ_SPIS_KEY: number) => {
+        return {
+          method: 'DELETE',
+          url: `data-editing/other-equipments/objects-equipments/${SKLAD_OBJ_SPIS_KEY}`,
+        }
+      },
+      invalidatesTags: ['getObjects'],
+    }),
   }),
 })
 
-export const { useGetObjectAndEquipmentsDataQuery } = objectsAndEquipmentsApi
+export const {
+  useGetObjectAndEquipmentsDataQuery,
+  useGetDocumentsForEquipmentQuery,
+  useAddDocumentMutation,
+  useUpdateDocumentMutation,
+  useDeleteEquipmentMutation,
+} = objectsAndEquipmentsApi

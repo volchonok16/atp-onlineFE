@@ -3,29 +3,23 @@ import { FC } from 'react'
 import css from './equipmentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppDispatch } from '../../../../../../hooks/useAppDispatch'
-// import { useAppSelector } from '../../../../../../hooks/useAppSelector'
 import { ObjectAndEquipmentType } from '../../api/api'
-import {
-  getDocumentsForEquipmentsData,
-  // getObjectAndEquipments,
-  setActiveEquipmentAC,
-} from '../../model/objectAndEquipmentReducer'
 
 import { useGetObjectAndEquipmentsDataQuery } from 'src/features/dataEditing/tabs/objectAndEquipments/model/objectsAndEquipmentsApi'
 
 type PropsType = {
-  activeRow: ObjectAndEquipmentType
+  activeRow: ObjectAndEquipmentType | undefined
+  setActiveEquipment: (activeEquipment: ObjectAndEquipmentType) => void
 }
-export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
+export const EquipmentsTable: FC<PropsType> = ({
+  activeRow,
+  setActiveEquipment,
+}) => {
   const { data: equipments } = useGetObjectAndEquipmentsDataQuery()
 
-  const dispatch = useAppDispatch()
-  // const equipments = useAppSelector(getObjectAndEquipments)
-
-  const getDocumentHandler = (equipment: ObjectAndEquipmentType) => {
-    dispatch(setActiveEquipmentAC(equipment))
-    dispatch(getDocumentsForEquipmentsData(equipment.SKLAD_OBJ_SPIS_KEY))
+  const isActiveHandler = (equipment: ObjectAndEquipmentType) => {
+    console.log(equipment)
+    setActiveEquipment(equipment)
   }
 
   return (
@@ -45,15 +39,15 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
                 return (
                   <tr
                     className={
-                      activeRow.SKLAD_OBJ_SPIS_KEY ===
+                      activeRow?.SKLAD_OBJ_SPIS_KEY ===
                       equipment.SKLAD_OBJ_SPIS_KEY
                         ? css.activeRow
                         : ''
                     }
                     key={equipment.SKLAD_OBJ_SPIS_KEY}
-                    onClick={() => getDocumentHandler(equipment)}
+                    onClick={() => isActiveHandler(equipment)}
                   >
-                    <td className={css.firstColumn}>{equipment.FULL_NAME}</td>
+                    <td className={css.firstColumn}>{equipment.MAM}</td>
                     <td>{equipment.NOMER}</td>
                   </tr>
                 )

@@ -1,11 +1,25 @@
 import css from './documentsTableStyle.module.scss'
 
 import { ScrollableTableWrapper } from '../../../../../../common/table/scrollableTableWrapper/ScrollableTableWrapper'
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { getDocuments } from '../../model/objectAndEquipmentReducer'
 
-export const DocumentsTable = () => {
-  const documents = useAppSelector(getDocuments)
+import { useGetDocumentsForEquipmentQuery } from 'src/features/dataEditing/tabs/objectAndEquipments/model/objectsAndEquipmentsApi'
+
+type PropsType = {
+  id: number | undefined
+}
+export const DocumentsTable = ({ id }: PropsType) => {
+  const skip = !id
+  console.log(id, skip)
+
+  // (id ?? 0) нужно, чтобы TS не ругался, так как id может прийти undefined,
+  // а мы должны передать number. Но в этом случае происходит skip запроса
+  const { data: documents } = useGetDocumentsForEquipmentQuery(id ?? 0, {
+    skip,
+  })
+
+  if (documents) {
+    console.log(documents)
+  }
 
   return (
     <div className={css.tableWrapper}>
@@ -22,7 +36,7 @@ export const DocumentsTable = () => {
             </tr>
           </thead>
           <tbody>
-            {documents.map((document) => {
+            {documents?.map((document) => {
               return (
                 <tr key={document.KEY_ID}>
                   <td>{document.NAIM}</td>

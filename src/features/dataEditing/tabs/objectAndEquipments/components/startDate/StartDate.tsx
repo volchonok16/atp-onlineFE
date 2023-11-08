@@ -1,10 +1,15 @@
 import css from './startDateStyle.module.scss'
 
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { getStartDate } from '../../model/objectAndEquipmentReducer'
+// import { useAppSelector } from '../../../../../../hooks/useAppSelector'
+// import { getStartDate } from '../../model/objectAndEquipmentReducer'
 
-export const StartDate = () => {
-  const startDate = useAppSelector(getStartDate)
+import { ObjectAndEquipmentType } from 'src/features/dataEditing/tabs/objectAndEquipments/model/apiTypes'
+
+type PropsType = {
+  activeEquipment: ObjectAndEquipmentType | undefined
+}
+export const StartDate = ({ activeEquipment }: PropsType) => {
+  const startDate = activeEquipment?.DATE_VVODA ?? ''
 
   return (
     <div className={css.container}>

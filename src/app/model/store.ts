@@ -28,10 +28,10 @@ import {
   FlightsActionType,
   flightsReducer,
 } from '../../features/dataEditing/tabs/flights/model/flightsReducer'
-import {
-  ObjectAndEquipmentsActionsType,
-  equipmentsReducer,
-} from '../../features/dataEditing/tabs/objectAndEquipments/model/objectAndEquipmentReducer'
+// import {
+//   ObjectAndEquipmentsActionsType,
+//   equipmentsReducer,
+// } from '../../features/dataEditing/tabs/objectAndEquipments/model/objectAndEquipmentReducer'
 import {
   StaffActionsType,
   staffReducer,
@@ -55,7 +55,7 @@ const RootReducer = combineReducers({
   cars: carsReducer,
   staff: staffReducer,
   flights: flightsReducer,
-  equipments: equipmentsReducer,
+  // equipments: equipmentsReducer,
   contractors: contractorsReducer,
   listOfEquipments: listOfEquipmentsInfoReducer,
   companies: companiesReducer,
@@ -77,7 +77,7 @@ export type ActionsType =
   | StaffActionsType
   | CompaniesActionsType
   | FlightsActionType
-  | ObjectAndEquipmentsActionsType
+  // | ObjectAndEquipmentsActionsType
   | ContractorsActionsType
   | ListOfEquipmentsInfoActionsType
   | ExtendedInfoActionType

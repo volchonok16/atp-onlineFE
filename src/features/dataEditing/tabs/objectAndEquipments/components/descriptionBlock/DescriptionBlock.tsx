@@ -1,10 +1,15 @@
 import css from './descriptionBlockStyle.module.scss'
 
-import { useAppSelector } from '../../../../../../hooks/useAppSelector'
-import { getDescription } from '../../model/objectAndEquipmentReducer'
+// import { useAppSelector } from '../../../../../../hooks/useAppSelector'
+// import { getDescription } from '../../model/objectAndEquipmentReducer'
 
-export const DescriptionBlock = () => {
-  const description = useAppSelector(getDescription)
+import { ObjectAndEquipmentType } from 'src/features/dataEditing/tabs/objectAndEquipments/model/apiTypes'
+
+type PropsType = {
+  activeEquipment: ObjectAndEquipmentType | undefined
+}
+export const DescriptionBlock = ({ activeEquipment }: PropsType) => {
+  const description = activeEquipment?.DESCR
 
   return (
     <div className={css.container}>
