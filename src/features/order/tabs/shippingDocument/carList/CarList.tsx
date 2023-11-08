@@ -41,7 +41,7 @@ export const CarList: FC<Props> = ({ carList }) => {
   const emptyTable = <p>Данные отсутствуют</p>
 
   return (
-    <div>
+    <div className={css.carList}>
       <ScrollableTableWrapper height="70vh">
         {!carList ? (
           emptyTable

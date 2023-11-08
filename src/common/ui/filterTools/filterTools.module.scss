@@ -2,12 +2,12 @@
 @import "src/common/styles/mixins";
 
 .filter {
-    @include display(row, 1rem);
+    @include display(row, 0.5rem);
     position: relative;    
     align-items: center;
-    @include text(16px, 19px, 400, $text_color);
+    color: $text_color;
     label {
-        @include display(row, 1rem);
+        @include display(row, 0.5rem);
         align-items: center;
         input {        
             @include inputs;
@@ -16,7 +16,7 @@
     
 }
 .filterTools {
-    @include display(row, 30px);
+    @include display(row, 0.5rem);
     align-items: center;
     margin-top: 1rem;
 }
@@ -24,6 +24,6 @@
 .showArchive {
     justify-self: center;    
     & input {
-        margin-right: 10px;
+        margin-right: 0.5rem;
     }
 }
