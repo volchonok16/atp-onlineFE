@@ -30,7 +30,6 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
   }
 
   const changeObjectAndEquipmentData = (changes: TableCellData) => {
-    console.log(changes)
     dispatch(updateObjectAndEquipmentDataThunk(changes))
   }
 
@@ -59,14 +58,12 @@ export const EquipmentsTable: FC<PropsType> = ({ activeRow }) => {
                     key={equipment.SKLAD_OBJ_SPIS_KEY}
                     onClick={() => getDocumentHandler(equipment)}
                   >
-                    {/*<td className={css.firstColumn}>{equipment.FULL_NAME}</td>*/}
                     <EditableTableCell
                       itemId={equipment.SKLAD_OBJ_SPIS_KEY}
                       name="MAM"
                       value={equipment.MAM}
                       onChangeData={changeObjectAndEquipmentData}
                     />
-                    {/*<td>{equipment.NOMER}</td>*/}
                     <EditableTableCell
                       itemId={equipment.SKLAD_OBJ_SPIS_KEY}
                       name="NOMER"

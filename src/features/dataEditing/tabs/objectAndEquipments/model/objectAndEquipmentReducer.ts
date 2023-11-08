@@ -79,11 +79,12 @@ export const updateObjectAndEquipmentDataThunk =
   async (dispatch, getState: () => AppRootStateType) => {
     dispatch(toggleIsLoadingAC(true))
     try {
-      const editableObjectAndEquipment = getState().equipments.activeEquipments
-      if (
-        editableObjectAndEquipment &&
-        editableObjectAndEquipment.SKLAD_OBJ_SPIS_KEY === data.itemId
-      ) {
+      const editableObjectAndEquipment =
+        getState().equipments.objectAndEquipment.find(
+          (objectAndEquipment) =>
+            objectAndEquipment.SKLAD_OBJ_SPIS_KEY === data.itemId,
+        )
+      if (editableObjectAndEquipment) {
         // Преобразуем дату в формат, который прописан для тела запроса в API
         const requestDateFormat = moment(editableObjectAndEquipment.DATE_VVODA)
           .utc()
@@ -103,6 +104,7 @@ export const updateObjectAndEquipmentDataThunk =
           data.itemId,
           updatedObjectAndEquipment,
         )
+        dispatch(getObjectAndEquipmentsData())
       }
     } catch (e) {
       dispatch(setErrorMessageAC((e as Error).message))
