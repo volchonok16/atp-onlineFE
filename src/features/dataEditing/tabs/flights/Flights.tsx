@@ -1,3 +1,4 @@
+import debounce from 'lodash-es/debounce'
 import { useEffect, useState } from 'react'
 
 import { FlightRow } from './components/table/FlightRow'
@@ -29,7 +30,7 @@ export const Flights = () => {
   const closeDeleteModal = () => setIsShowDeleteModal(false)
 
   useEffect(() => {
-    dispatch(getFlightsData())
+    dispatch(getFlightsData(''))
   }, [])
   const deleteFlight = (flightId: number) => {
     dispatch(deleteFlightDataAC(flightId))
@@ -38,6 +39,9 @@ export const Flights = () => {
     deleteFlight(activeFlightDataId)
     closeDeleteModal()
   }
+  const handleChange = debounce((value: string) => {
+    dispatch(getFlightsData(value))
+  }, 1000)
   return (
     <div className={css.container}>
       <div className={css.tableWrapper}>
@@ -74,7 +78,7 @@ export const Flights = () => {
         </ScrollableTableWrapper>
       </div>
       <div className={css.logicWrapper}>
-        <FilterGroup title={'по рейсу'} />
+        <FilterGroup title={'по рейсу'} handleChange={handleChange} />
         <EditButtonGroup deleteFunc={openDeleteModal} />
       </div>
       {isShowDeleteModal && (

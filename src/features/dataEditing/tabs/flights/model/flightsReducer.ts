@@ -53,17 +53,19 @@ export const flightsReducer = (
 
 //======THUNKS======
 
-export const getFlightsData = (): AppThunkType => async (dispatch) => {
-  dispatch(toggleIsLoadingAC(true))
-  try {
-    const res = await flightsApi.getFlightsData()
-    dispatch(getFlightsDataAC(res.data))
-  } catch (e) {
-    dispatch(setErrorMessageAC((e as Error).message))
-  } finally {
-    dispatch(toggleIsLoadingAC(false))
+export const getFlightsData =
+  (name: string): AppThunkType =>
+  async (dispatch) => {
+    dispatch(toggleIsLoadingAC(true))
+    try {
+      const res = await flightsApi.getFlightsData(name)
+      dispatch(getFlightsDataAC(res.data))
+    } catch (e) {
+      dispatch(setErrorMessageAC((e as Error).message))
+    } finally {
+      dispatch(toggleIsLoadingAC(false))
+    }
   }
-}
 
 //======ACTIONS======
 export const toggleIsLoadingAC = (isLoading: boolean) =>
