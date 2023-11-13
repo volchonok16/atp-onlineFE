@@ -1,8 +1,10 @@
 import { instance } from '../../../../../app/api/instance'
 
 export const flightsApi = {
-  getFlightsData() {
-    return instance.get<FlightsType[]>('data-editing/flights')
+  getFlightsData(name: string) {
+    return instance.get<FlightsType[]>(
+      `data-editing/flights${name ? `?name=${name}` : ''}`,
+    )
   },
 }
 
